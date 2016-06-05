@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Salón Machala</string>
+    <string name="mail">salonmachala@gmail.com</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="permiso_camara">Se necesita hacer uso de la cámara para esta función y se le ha negado el permiso. Deséa activarlo manualmente?</string>
+    <string name="ver_artista_obra_">Ver información de:</string>
+    <string name="autor_str">AUTOR</string>
+    <string name="obra_str">OBRA</string>
+
+    <string name="obra_info">INFORMACIÓN DE LA OBRA</string>
+    <string name="titulo_str_">TÍTULO:</string>
+    <string name="autor_str_">AUTOR:</string>
+    <string name="fecha_str_">FECHA:</string>
+    <string name="tecnica_str_">TÉCNICA:</string>
+    <string name="dimensiones_str_">DIMENSIONES:</string>
+    <string name="descripcion_str">DESCRIPCIÓN</string>
+
+    <string name="artista_info">INFORMACIÓN DEL ARTISTA</string>
+    <string name="nombre_str_">NOMBRE:</string>
+    <string name="nacionalidad_str_">NACIONALIDAD:</string>
+    <string name="edad_str_">EDAD:</string>
+    <string name="bibliografia_str">BIBLIOGRAFÍA</string>
+
+    <string name="title_activity_abrir_imagen">abrirImagen</string>
+
+    <string name="inicio_nav">Inicio</string>
+    <string name="antecedentes_nav">Antecedentes</string>
+    <string name="proyeccion_nav">Proyección</string>
+
+    <string name="premio_nav">Premio Musa Paradisiaca</string>
+    <string name="artistas_nav">Artistas</string>
+    <string name="obras_nav">Obras</string>
+
+    <string name="opciones_nav">Funciones Adicionales</string>
+    <string name="escanear_qr">Escanear QR</string>
+    <string name="idioma_nav">Español &lt;--&gt; English </string>
+    <string name="cambiar_idioma">Seguro que desea cambiar el idioma a Inglés?\nLa aplicacion se reinicará.</string>
+
+    <string name="argumento">Argumento</string>
+
+</resources>

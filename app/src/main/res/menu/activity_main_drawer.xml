@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_inicio"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/inicio_nav" />
+        <item
+            android:id="@+id/nav_antecedentes"
+            android:icon="@drawable/ic_antecedentes_24dp"
+            android:title="@string/antecedentes_nav" />
+        <item
+            android:id="@+id/nav_proyeccion"
+            android:icon="@drawable/ic_proyeccion_24dp"
+            android:title="@string/proyeccion_nav" />
+    </group>
+
+
+
+
+    <item android:title="@string/premio_nav">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_artista"
+                    android:icon="@drawable/ic_person_24dp"
+                    android:title="@string/artistas_nav" />
+                <item
+                    android:id="@+id/nav_obras"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="@string/obras_nav" />
+            </group>
+        </menu>
+    </item>
+
+
+
+
+    <item android:title="@string/opciones_nav">
+        <menu>
+            <item
+                android:id="@+id/nav_qr"
+                android:icon="@drawable/qr_code"
+                android:title="@string/escanear_qr" />
+            <item
+                android:id="@+id/nav_idioma"
+                android:icon="@drawable/ic_public_black_24dp"
+                android:title="@string/idioma_nav" />
+        </menu>
+    </item>
+
+</menu>
