@@ -1,6 +1,9 @@
 package layout;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import adapters.MyAdapter;
+import database.DBParticipante;
 import salonmachala.org.salonmachala.R;
 
 /**
@@ -126,20 +130,26 @@ public class ArtistasFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), nColumnas));
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        DBParticipante db_participantes = null;
+        ArrayList<Pair<String, Bitmap>> myDataset = new ArrayList<>();
+        try {
 
-        ArrayList<Pair<String,String>> myDataset = new ArrayList<>();
-        myDataset.add(new Pair<String, String>("nombre1","foto2"));
-        myDataset.add(new Pair<String, String>("nombre2","foto3"));
-        myDataset.add(new Pair<String, String>("aqui vamos a probar un nombre un poco mas largo aun","foto4"));
-        myDataset.add(new Pair<String, String>("nombre4","foto5"));
-        myDataset.add(new Pair<String, String>("nombre5","foto6"));
-        myDataset.add(new Pair<String, String>("nombre6","foto7"));
-        myDataset.add(new Pair<String, String>("nombre7","foto8"));
-        myDataset.add(new Pair<String, String>("nombre8","foto9"));
-        myDataset.add(new Pair<String, String>("nombre9","foto0"));
-        myDataset.add(new Pair<String, String>("nombre0","foto1"));
+            db_participantes = new DBParticipante(getActivity());
+            Cursor c = db_participantes.consultarArtistas(null);
+            if(c.moveToFirst()) {
+                do {
+                    byte[] byteArray = c.getBlob(3);
+                    Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
 
+                    myDataset.add(new Pair<String, Bitmap>(c.getString(1), bm));
+                } while (c.moveToNext());
+            }
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            db_participantes.close();
+        }
         MyAdapter mAdapter = new MyAdapter(myDataset,nColumnas);
         recyclerView.setAdapter(mAdapter);
 

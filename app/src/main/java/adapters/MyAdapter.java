@@ -2,6 +2,7 @@ package adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
@@ -27,7 +28,7 @@ import salonmachala.org.salonmachala.R;
  */
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private ArrayList<Pair<String,String>> mDataset;
+    private ArrayList<Pair<String,Bitmap>> mDataset;
     private int nColumnas;
 
     String nombre_obra;
@@ -69,7 +70,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 */
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<Pair<String,String>> myDataset, int nColumnas) {
+    public MyAdapter(ArrayList<Pair<String,Bitmap>> myDataset, int nColumnas) {
         mDataset = myDataset;
         this.nColumnas = nColumnas;
     }
@@ -92,8 +93,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final Pair<String,String> data = mDataset.get(position);
-        holder.nombre.setText(mDataset.get(position).first);
+        final Pair<String,Bitmap> data = mDataset.get(position);
+
+        holder.nombre.setText(data.first);
+        holder.foto.setImageBitmap(data.second);
+
         holder.linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,8 +148,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         //holder.foto.setMaxHeight(holder.foto.getWidth());
 
 
-        if(mDataset.get(position).second.equalsIgnoreCase("foto4"))
-            holder.foto.setImageResource(R.drawable.gioconda);
+
 
     }
 

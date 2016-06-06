@@ -17,7 +17,8 @@ public class RequestJsonHttp {
 
 
     private static String charset = "UTF-8";
-    private static String url = "http://192.168.1.6:8888/json/index.php";//"http://localhost:8888/json/index.php";
+    //private static String url = "http://192.168.1.6:8888/json/index.php";//"http://localhost:8888/json/index.php";
+    private static String url = "http://192.168.0.4:8888/json/index.php";//"http://localhost:8888/json/index.php";
 
     public static String executeGet(final String method,final Param<String,String>... params) {
         String ret = "";

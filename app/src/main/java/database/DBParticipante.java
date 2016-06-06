@@ -1,0 +1,181 @@
+package database;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+
+import java.io.ByteArrayOutputStream;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import gson.Participante;
+
+
+public class DBParticipante {
+
+    public static final String NOMBRE_TABLA = "participante";
+    public static final String ID = "_id"+"_"+ NOMBRE_TABLA;
+    public static final String NOMBRE = "nombre"+"_"+ NOMBRE_TABLA;
+    public static final String PSEUDONIMO = "pseudonimo"+"_"+ NOMBRE_TABLA;
+    public static final String NACIMIENTO = "fecha_nacimiento"+"_"+ NOMBRE_TABLA;
+    public static final String NACIONALIDAD = "nacionalidad"+"_"+ NOMBRE_TABLA;
+    public static final String BIBLIO = "biblio"+"_"+ NOMBRE_TABLA;
+    public static final String FOTO = "foto"+"_"+"participante";
+    public static final String ACTUALIZACION = "actualizacion"+"_"+ NOMBRE_TABLA;
+    public static final String ACTUALIZACION_FOTO = "actualizacion_foto"+"_"+ NOMBRE_TABLA;
+    public Context ctx;
+
+
+    private DbHelper helper;
+    private SQLiteDatabase db;
+
+    public static final String CREATE_TABLE = "create table "+ NOMBRE_TABLA +" ("
+            + ID + " integer primary key,"
+            + NOMBRE + " text not null,"
+            + PSEUDONIMO + " text,"
+            + NACIMIENTO + " text not null,"
+            + NACIONALIDAD + " text not null,"
+            + BIBLIO + " text,"
+            + FOTO + " blob,"
+            + ACTUALIZACION + " TIMESTAMP,"
+            + ACTUALIZACION_FOTO + " TIMESTAMP"
+            +");";
+
+    public DBParticipante(Context contexto) {
+        this.ctx=contexto;
+        helper = new DbHelper(contexto);
+        db = helper.getWritableDatabase();
+    }
+
+    public ContentValues generarContentValues(Integer id,String nombre,String pseudonimo,String nacimiento,String nacionalidad,String biblio,byte[] foto,Date actualizacion,Date actualizacion_foto){
+        ContentValues valores = new ContentValues();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+
+        if(id!=null)
+            valores.put(ID,id);
+        if(nombre!=null)
+            valores.put(NOMBRE,nombre);
+        if(pseudonimo!=null)
+            valores.put(PSEUDONIMO,pseudonimo);
+        if(nacimiento!=null)
+            valores.put(NACIMIENTO, nacimiento);
+        if(nacionalidad!=null)
+            valores.put(NACIONALIDAD,nacionalidad);
+        if(biblio!=null)
+            valores.put(BIBLIO,biblio);
+        if(foto!=null)
+            valores.put(FOTO, foto);
+        if(actualizacion!=null)
+            valores.put(ACTUALIZACION,dateFormat.format(actualizacion));
+        if(actualizacion_foto!=null)
+            valores.put(ACTUALIZACION_FOTO,dateFormat.format(actualizacion_foto));
+        return valores;
+    }
+
+    public void insertar(Integer id,String nombre,String pseudonimo,String nacimiento,String nacionalidad,String biblio,Bitmap foto,Date actualizacion,Date actualizacion_foto)
+    {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        foto.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        byte[] image = stream.toByteArray();
+        db.insert(NOMBRE_TABLA, null, generarContentValues(id, nombre, pseudonimo, nacimiento, nacionalidad, biblio, image, actualizacion, actualizacion_foto));
+    }
+
+    public void insertar(Participante participante)
+    {
+        insertar(participante.getIdp(), participante.getNop(), participante.getPsp(), participante.getFnp(), participante.getNap(), participante.getBcp(), participante.getBitmap(), participante.getAcp(), participante.getAfp());
+    }
+
+    public void insertar(ArrayList<Participante> participantes)
+    {
+        for (Participante participante:participantes)
+            insertar(participante);
+    }
+
+
+    public boolean insertaroActualizar(Integer id,String nombre,String pseudonimo,String nacimiento,String nacionalidad,String biblio,Bitmap foto,Date actualizacion,Date actualizacion_foto)
+    {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        foto.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        byte[] image = stream.toByteArray();
+        Cursor c = consultar(id);
+        if(c.moveToFirst())
+        {
+
+            if(!actualizacion.after(Timestamp.valueOf(c.getString(7))))
+                return false;
+            //if(!actualizacion_foto.after(Timestamp.valueOf(c.getString(8))))
+            //    image=null;//foto=null;
+
+            String[] args = new String[] {id+""};
+            db.update(NOMBRE_TABLA, generarContentValues(id, nombre, pseudonimo, nacimiento,nacionalidad,biblio,image,actualizacion,actualizacion_foto), ID + "=?", args);
+            return true;
+        }else
+            db.insert(NOMBRE_TABLA, null, generarContentValues(id, nombre, pseudonimo, nacimiento, nacionalidad, biblio, image, actualizacion, actualizacion_foto));
+        return false;
+    }
+
+    public boolean insertaroActualizar(Participante participante)
+    {
+        return insertaroActualizar(participante.getIdp(), participante.getNop(), participante.getPsp(), participante.getFnp(), participante.getNap(), participante.getBcp(), participante.getBitmap(), participante.getAcp(), participante.getAfp());
+    }
+
+    public void insertaroActualizar(ArrayList<Participante> participantes)
+    {
+        for(Participante participante:participantes)
+            insertaroActualizar(participante.getIdp(), participante.getNop(), participante.getPsp(), participante.getFnp(), participante.getNap(), participante.getBcp(), participante.getBitmap(), participante.getAcp(), participante.getAfp());
+    }
+
+
+
+    public Cursor consultar(Integer id){
+
+        String[] campos = new String[] {ID,NOMBRE,PSEUDONIMO,NACIMIENTO,NACIONALIDAD,BIBLIO,FOTO,ACTUALIZACION,ACTUALIZACION_FOTO};
+        //Cursor c = db.query(NOMBRE_TABLA, campos, "usuario=?(where)", args(para el where), group by, having, order by, num);
+
+        String[] args = new String[] {id+""};
+
+        if(id==null)return db.query(NOMBRE_TABLA, campos, null, null, null, null,null);
+        return db.query(NOMBRE_TABLA, campos, ID+"=?", args, null, null, null);
+    }
+
+
+    public Cursor consultarArtistas(Integer id){
+
+        String[] campos = new String[] {ID,NOMBRE,PSEUDONIMO,FOTO};
+        //Cursor c = db.query(NOMBRE_TABLA, campos, "usuario=?(where)", args(para el where), group by, having, order by, num);
+
+        String[] args = new String[] {id+""};
+
+        if(id==null)return db.query(NOMBRE_TABLA, campos, null, null, null, null,null);
+        return db.query(NOMBRE_TABLA, campos, ID+"=?", args, null, null, null);
+    }
+
+
+    public void vaciar(){
+        db.delete(NOMBRE_TABLA,null,null);
+    }
+
+    public void close(){
+        try {
+            if(helper!=null){
+                helper.close();
+                helper=null;
+            }
+
+            if(db!=null){
+                db.close();
+                db=null;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+}
