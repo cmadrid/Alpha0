@@ -16,5 +16,5 @@
         android:id="@+id/foto_full"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/gioconda" />
+        android:src="@drawable/black" />
 </RelativeLayout>

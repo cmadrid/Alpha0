@@ -1,7 +1,9 @@
 package salonmachala.org.salonmachala;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -13,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import database.DBObra;
+import gson.LoadInformation;
 import widget.JustifiedTextView;
 
 public class ObraActivity extends AppCompatActivity {
@@ -28,13 +32,9 @@ public class ObraActivity extends AppCompatActivity {
     TextView tv_dimensiones;
     ImageView iv_foto;
 
+    Integer id;
+
     String nombre_obra;
-    String nombre_autor;
-    String tecnica;
-    String dimensiones;
-    String fecha;
-    String descripcion;
-    int foto_obra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +44,8 @@ public class ObraActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
 
         if(b != null) {
-            nombre_obra = b.getString("nombre_obra");
-            nombre_autor = b.getString("nombre_artista");
-            fecha = b.getString("creada_obra");
-            descripcion = b.getString("descripcion_obra");
-            tecnica = b.getString("tecnica_obra");
-            dimensiones = b.getString("dimensiones_obra");
-            foto_obra = b.getInt("foto_obra");
+            if(b.containsKey("id"))
+                id = b.getInt("id");
         }
 
 
@@ -108,19 +103,42 @@ public class ObraActivity extends AppCompatActivity {
 
 
     public void llenaInformacion(){
-        tv_titulo.setText(nombre_obra);
-        tv_autor.setText(nombre_autor);
-        tv_fecha.setText(fecha);
+        DBObra db_obra = null;
+        try {
+            db_obra = new DBObra(getApplicationContext());
+            Cursor c = null;
+            if(id!=null)
+                c = db_obra.consultar(id);
 
-        tv_tecnica.setText(tecnica);
-        tv_dimensiones.setText(dimensiones);
 
-        iv_foto.setImageResource(foto_obra);
+            if(c==null)
+                return;
 
-        wv_descripcion.setText(descripcion);
-        wv_descripcion.setTextColor(Color.BLACK);
-        wv_descripcion.setTextSize(17);
-        //tv_descripcion.setText(descripcion);
+            if(c.moveToFirst()) {
+                tv_titulo.setText(c.getString(1));
+                tv_autor.setText(c.getString(11));
+                tv_fecha.setText(c.getString(3));
+
+                tv_tecnica.setText(c.getString(4));
+                tv_dimensiones.setText(c.getString(8));
+
+                byte[] byteArray = c.getBlob(5);
+                Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+
+                iv_foto.setImageBitmap(bm);
+
+                wv_descripcion.setText(c.getString(2));
+                wv_descripcion.setTextColor(Color.BLACK);
+                wv_descripcion.setTextSize(17);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            db_obra.close();
+        }
+
     }
 
 }

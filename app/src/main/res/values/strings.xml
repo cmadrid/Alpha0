@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Salón Machala</string>
     <string name="mail">salonmachala@gmail.com</string>
+    <string name="web">http://salonmachala.org/</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -41,5 +42,6 @@
     <string name="cambiar_idioma">Seguro que desea cambiar el idioma a Inglés?\nLa aplicacion se reinicará.</string>
 
     <string name="argumento">Argumento</string>
+    <string name="anios">años</string>
 
 </resources>

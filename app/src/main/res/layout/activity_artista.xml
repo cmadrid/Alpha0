@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:id="@+id/iv_foto"
-            android:src="@drawable/abc_btn_check_to_on_mtrl_015"
+            android:src="@drawable/black"
             android:layout_weight="0.4" />
 
         <ScrollView

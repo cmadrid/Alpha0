@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import gson.Obra;
+import gson.Participante;
 
 
 public class DBObra {
@@ -149,13 +150,30 @@ public class DBObra {
 
     public Cursor consultar(Integer id){
 
-        String[] campos = new String[] {ID,TITULO,DESCRIPCION,FECHA,TECNICA,FOTO,PARTICIPANTE,QR,DIMENSIONES,ACTUALIZACION,ACTUALIZACION_FOTO};
+        String QB= TABLE_NAME +
+                " JOIN " + DBParticipante.NOMBRE_TABLA + " ON " +
+                PARTICIPANTE + " = " + DBParticipante.ID;
+
+        String[] campos = new String[] {ID,TITULO,DESCRIPCION,FECHA,TECNICA,FOTO,PARTICIPANTE,QR,DIMENSIONES,ACTUALIZACION,ACTUALIZACION_FOTO,DBParticipante.NOMBRE};
         //Cursor c = db.query(NOMBRE_TABLA, campos, "usuario=?(where)", args(para el where), group by, having, order by, num);
 
         String[] args = new String[] {id+""};
 
-        if(id==null)return db.query(TABLE_NAME, campos, null, null, null, null,null);
-        return db.query(TABLE_NAME, campos, ID+"=?", args, null, null, null);
+        if(id==null)return db.query(QB, campos, null, null, null, null,null);
+        return db.query(QB, campos, ID+"=?", args, null, null, null);
+    }
+
+    public Cursor consultarQr(String qr){
+
+        String QB= TABLE_NAME +
+                " JOIN " + DBParticipante.NOMBRE_TABLA + " ON " +
+                PARTICIPANTE + " = " + DBParticipante.ID;
+
+        String[] campos = new String[] {ID,TITULO,FOTO,PARTICIPANTE,DBParticipante.NOMBRE,DBParticipante.FOTO};
+        String[] args = new String[] {qr+""};
+
+        if(qr==null)return db.query(QB, campos, null, null, null, null,null);
+        return db.query(QB, campos, QR+"=?", args, null, null, null);
     }
 
     public Cursor consultarObras(Integer id){

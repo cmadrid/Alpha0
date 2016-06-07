@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import adapters.DataPassObject;
 import adapters.MyAdapter;
 import database.DBParticipante;
 import salonmachala.org.salonmachala.R;
@@ -131,7 +132,7 @@ public class ArtistasFragment extends Fragment {
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         DBParticipante db_participantes = null;
-        ArrayList<Pair<String, Bitmap>> myDataset = new ArrayList<>();
+        ArrayList<DataPassObject> myDataset = new ArrayList<>();
         try {
 
             db_participantes = new DBParticipante(getActivity());
@@ -141,7 +142,7 @@ public class ArtistasFragment extends Fragment {
                     byte[] byteArray = c.getBlob(3);
                     Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
 
-                    myDataset.add(new Pair<String, Bitmap>(c.getString(1), bm));
+                    myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), bm, DataPassObject.PARTICIPANTE));
                 } while (c.moveToNext());
             }
 

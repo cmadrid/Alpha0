@@ -8,6 +8,10 @@ import android.support.annotation.MainThread;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -65,10 +69,6 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         }
         */
 
-
-        Bitmap icon = BitmapFactory.decodeResource(MainActivity.mainActivity.getResources(),
-                R.drawable.da_vinci);
-
         String jsonp = RequestJsonHttp.executePost("informacion_participantes");
         InformacionParticipantes ip = gson.fromJson(jsonp, InformacionParticipantes.class);
 
@@ -81,10 +81,8 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         ArrayList<Participante> participantes = ip.getData();
         ArrayList<Obra> obras = io.getData();
 
-        for(Participante p : participantes)
-            p.setBitmap(icon);
-        for(Obra o : obras)
-            o.setBitmap(icon);
+        getImagesParticipantes(participantes);
+        getImagesObras(obras);
 
         System.out.println(jsonp);
         System.out.println("--------------------------------------*-*-*-*-*-*--------------------------------------------");
@@ -124,6 +122,35 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         }
 
         return null;
+    }
+
+    private void getImagesObras(ArrayList<Obra> datos){
+        for(Obra obra : datos) {
+            String foto = obra.getFoo();
+            if(foto!=null && !foto.equalsIgnoreCase(""))
+                obra.setBitmap(getBitmapFromURL(foto));
+        }
+    }
+    private void getImagesParticipantes(ArrayList<Participante> datos){
+        for(Participante participante:datos) {
+            String foto = participante.getFop();
+            if(foto!=null && !foto.equalsIgnoreCase(""))
+                participante.setBitmap(getBitmapFromURL(foto));
+        }
+    }
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src.replace("localhost",RequestJsonHttp.host));
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            // Log exception
+            return null;
+        }
     }
 
     @Override

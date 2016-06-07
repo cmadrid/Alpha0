@@ -12,7 +12,7 @@ public class Participante{
     int idp;
     String nop;
     String psp;
-    String fnp;
+    Date fnp;
     String nap;
     String bcp;
     String fop;
@@ -40,11 +40,11 @@ public class Participante{
         this.bcp = bcp;
     }
 
-    public String getFnp() {
+    public Date getFnp() {
         return fnp;
     }
 
-    public void setFnp(String fnp) {
+    public void setFnp(Date fnp) {
         this.fnp = fnp;
     }
 

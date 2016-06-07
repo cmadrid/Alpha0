@@ -1,7 +1,9 @@
 package salonmachala.org.salonmachala;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -12,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+
+import database.DBParticipante;
 import widget.JustifiedTextView;
 
 public class ArtistaActivity extends AppCompatActivity {
@@ -25,11 +32,10 @@ public class ArtistaActivity extends AppCompatActivity {
     TextView tv_nacionalidad;
     ImageView iv_foto;
 
+
+    Integer id;
+
     String nombre_artista;
-    String nacionalidad_artista;
-    String edad_artista;
-    String bibliografia_artista;
-    int foto_artista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +45,8 @@ public class ArtistaActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
 
         if(b != null) {
-            nombre_artista = b.getString("nombre_artista");
-            nacionalidad_artista = b.getString("nacionalidad_artista");
-            edad_artista = b.getString("edad_artista");
-            bibliografia_artista = b.getString("bibliografia_artista");
-            foto_artista = b.getInt("foto_artista");
+            if(b.containsKey("id"))
+                id = b.getInt("id");
         }
 
 
@@ -102,17 +105,51 @@ public class ArtistaActivity extends AppCompatActivity {
 
 
     public void llenaInformacion(){
-        tv_nombre.setText(nombre_artista);
-        tv_nacionalidad.setText(nacionalidad_artista);
-        tv_edad.setText(edad_artista);
-        iv_foto.setImageResource(foto_artista);
+        DBParticipante db_participante = null;
+        try {
+            db_participante = new DBParticipante(getApplicationContext());
+            Cursor c = null;
+            if(id!=null)
+                c = db_participante.consultar(id);
 
-        wv_bibliografia.setText(bibliografia_artista);
-        wv_bibliografia.setTextColor(Color.BLACK);
-        wv_bibliografia.setTextSize(17);
 
-        //tv_bibliografia.getDocumentLayoutParams().setTextAlignment(TextAlignment.JUSTIFIED);
-        //tv_bibliografia.setText(bibliografia_artista);
+            if(c==null)
+                return;
+
+            if(c.moveToFirst()) {
+
+
+                tv_nombre.setText(c.getString(1));
+                tv_nacionalidad.setText(c.getString(4));
+
+                tv_edad.setText(calculateAge(Timestamp.valueOf(c.getString(3)))+" "+getResources().getString(R.string.anios));
+
+                byte[] byteArray = c.getBlob(6);
+                Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                iv_foto.setImageBitmap(bm);
+
+                wv_bibliografia.setText(c.getString(5));
+                wv_bibliografia.setTextColor(Color.BLACK);
+                wv_bibliografia.setTextSize(17);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            db_participante.close();
+        }
+
+    }
+
+    public int calculateAge(Date nacimiento){
+        Calendar dob = Calendar.getInstance();
+        dob.setTime(nacimiento);
+        Calendar today = Calendar.getInstance();
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if (today.get(Calendar.DAY_OF_YEAR) <= dob.get(Calendar.DAY_OF_YEAR))
+            age--;
+        return age;
     }
 
 }

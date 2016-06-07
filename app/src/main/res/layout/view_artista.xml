@@ -42,7 +42,7 @@
                     android:scaleType="centerCrop"
                     android:id="@+id/iv_foto_autor"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ultima_cena" />
+                    android:src="@drawable/black" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>

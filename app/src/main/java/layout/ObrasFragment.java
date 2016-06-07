@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import adapters.DataPassObject;
 import adapters.MyAdapter;
 import database.DBObra;
 import database.DBParticipante;
@@ -131,7 +132,7 @@ public class ObrasFragment extends Fragment {
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         DBObra db_obras = null;
-        ArrayList<Pair<String, Bitmap>> myDataset = new ArrayList<>();
+        ArrayList<DataPassObject> myDataset = new ArrayList<>();
         try {
 
             db_obras = new DBObra(getActivity());
@@ -141,7 +142,7 @@ public class ObrasFragment extends Fragment {
                     byte[] byteArray = c.getBlob(2);
                     Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
 
-                    myDataset.add(new Pair<String, Bitmap>(c.getString(1), bm));
+                    myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), bm,DataPassObject.OBRA));
                 } while (c.moveToNext());
             }
 

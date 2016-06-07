@@ -38,7 +38,7 @@ public class DBParticipante {
             + ID + " integer primary key,"
             + NOMBRE + " text not null,"
             + PSEUDONIMO + " text,"
-            + NACIMIENTO + " text not null,"
+            + NACIMIENTO + " timestamp not null,"
             + NACIONALIDAD + " text not null,"
             + BIBLIO + " text,"
             + FOTO + " blob,"
@@ -52,7 +52,7 @@ public class DBParticipante {
         db = helper.getWritableDatabase();
     }
 
-    public ContentValues generarContentValues(Integer id,String nombre,String pseudonimo,String nacimiento,String nacionalidad,String biblio,byte[] foto,Date actualizacion,Date actualizacion_foto){
+    public ContentValues generarContentValues(Integer id,String nombre,String pseudonimo,Date nacimiento,String nacionalidad,String biblio,byte[] foto,Date actualizacion,Date actualizacion_foto){
         ContentValues valores = new ContentValues();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -64,7 +64,7 @@ public class DBParticipante {
         if(pseudonimo!=null)
             valores.put(PSEUDONIMO,pseudonimo);
         if(nacimiento!=null)
-            valores.put(NACIMIENTO, nacimiento);
+            valores.put(NACIMIENTO, dateFormat.format(nacimiento));
         if(nacionalidad!=null)
             valores.put(NACIONALIDAD,nacionalidad);
         if(biblio!=null)
@@ -78,7 +78,7 @@ public class DBParticipante {
         return valores;
     }
 
-    public void insertar(Integer id,String nombre,String pseudonimo,String nacimiento,String nacionalidad,String biblio,Bitmap foto,Date actualizacion,Date actualizacion_foto)
+    public void insertar(Integer id,String nombre,String pseudonimo,Date nacimiento,String nacionalidad,String biblio,Bitmap foto,Date actualizacion,Date actualizacion_foto)
     {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         foto.compress(Bitmap.CompressFormat.PNG, 0, stream);
@@ -98,7 +98,7 @@ public class DBParticipante {
     }
 
 
-    public boolean insertaroActualizar(Integer id,String nombre,String pseudonimo,String nacimiento,String nacionalidad,String biblio,Bitmap foto,Date actualizacion,Date actualizacion_foto)
+    public boolean insertaroActualizar(Integer id,String nombre,String pseudonimo,Date nacimiento,String nacionalidad,String biblio,Bitmap foto,Date actualizacion,Date actualizacion_foto)
     {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         foto.compress(Bitmap.CompressFormat.PNG, 0, stream);
