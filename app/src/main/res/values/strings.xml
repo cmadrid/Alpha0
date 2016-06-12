@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Salón Machala</string>
     <string name="mail">salonmachala@gmail.com</string>
-    <string name="web">http://salonmachala.org/</string>
+    <string name="web"><a href="http://salonmachala.org/">http://salonmachala.org/</a></string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -11,6 +11,8 @@
     <string name="ver_artista_obra_">Ver información de:</string>
     <string name="autor_str">AUTOR</string>
     <string name="obra_str">OBRA</string>
+
+    <string name="no_qr">Obra no registrada</string>
 
     <string name="obra_info">INFORMACIÓN DE LA OBRA</string>
     <string name="titulo_str_">TÍTULO:</string>
@@ -38,7 +40,7 @@
 
     <string name="opciones_nav">Funciones Adicionales</string>
     <string name="escanear_qr">Escanear QR</string>
-    <string name="idioma_nav">Español &lt;--&gt; English </string>
+    <string name="idioma_nav"><![CDATA[Español <—> English ]]></string>
     <string name="cambiar_idioma">Seguro que desea cambiar el idioma a Inglés?\nLa aplicacion se reinicará.</string>
 
     <string name="argumento">Argumento</string>

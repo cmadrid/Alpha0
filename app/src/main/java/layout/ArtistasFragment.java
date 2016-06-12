@@ -5,20 +5,22 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 import adapters.DataPassObject;
 import adapters.MyAdapter;
 import database.DBParticipante;
+import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
 
 /**
@@ -35,6 +37,8 @@ public class ArtistasFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private int nColumnas = 2;
+    RecyclerView recyclerView;
+    ProgressBar progressWheel;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -124,37 +128,71 @@ public class ArtistasFragment extends Fragment {
     }
 
     private void init(View view){
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_artistas);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_artistas);
         //recyclerView.addItemDecoration(new MarginDecoration(this));
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), nColumnas));
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        DBParticipante db_participantes = null;
-        ArrayList<DataPassObject> myDataset = new ArrayList<>();
-        try {
 
-            db_participantes = new DBParticipante(getActivity());
-            Cursor c = db_participantes.consultarArtistas(null);
-            if(c.moveToFirst()) {
-                do {
-                    byte[] byteArray = c.getBlob(3);
-                    Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+        new GetDataParticipantes().execute();
 
-                    myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), bm, DataPassObject.PARTICIPANTE));
-                } while (c.moveToNext());
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            db_participantes.close();
-        }
-        MyAdapter mAdapter = new MyAdapter(myDataset,nColumnas);
-        recyclerView.setAdapter(mAdapter);
-
-        //recyclerView.setAdapter(new NumberedAdapter(30));
     }
 
+    private class GetDataParticipantes extends AsyncTask<String,String,String>{
+
+        ArrayList<DataPassObject> myDataset = new ArrayList<>();
+        MyAdapter adapter = new MyAdapter(myDataset,nColumnas);
+        @Override
+        protected String doInBackground(String... params) {
+            DBParticipante db_participantes = null;
+            try {
+
+                db_participantes = new DBParticipante(getActivity());
+                Cursor c = db_participantes.consultarArtistas(null);
+                if(c.moveToFirst()) {
+                    do {
+                        byte[] byteArray = c.getBlob(3);
+                        Bitmap bm = null;
+                        if(byteArray!=null)
+                            bm=BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+
+                        myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), bm, DataPassObject.PARTICIPANTE));
+
+                        publishProgress();
+                    } while (c.moveToNext());
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                db_participantes.close();
+            }
+
+            //recyclerView.setAdapter(new NumberedAdapter(30));
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            MainActivity.progressWheel.setVisibility(View.VISIBLE);
+            recyclerView.setAdapter(adapter);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            adapter.notifyDataSetChanged();
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            MainActivity.progressWheel.setVisibility(View.GONE);
+            //recyclerView.setAdapter(adapter);
+            super.onPostExecute(s);
+        }
+    }
 }

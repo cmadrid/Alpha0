@@ -1,6 +1,10 @@
 package adapters;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by ces_m on 6/6/2016.
@@ -50,5 +54,12 @@ public class DataPassObject {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+
+    public Bitmap getThumbnail(){
+
+        final int THUMBNAIL_SIZE = 64;
+        Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(foto, THUMBNAIL_SIZE, THUMBNAIL_SIZE);
+        return ThumbImage;
     }
 }

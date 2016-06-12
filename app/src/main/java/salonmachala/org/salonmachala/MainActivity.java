@@ -1,11 +1,15 @@
 package salonmachala.org.salonmachala;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -14,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -24,6 +29,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.Locale;
 
@@ -44,6 +53,7 @@ public class MainActivity extends AppCompatActivity
 
     final int MY_PERMISSIONS_REQUEST_CAMERA = 159;
     public static AppCompatActivity mainActivity;
+    public static ProgressBar progressWheel;
 
     NavigationView navigationView;
 
@@ -54,9 +64,16 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         mainActivity = this;
+        progressWheel = (ProgressBar) findViewById(R.id.progressWheel);
+
+
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        ((TextView)navigationView.getHeaderView(0).findViewById(R.id.urlHeader)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView)navigationView.getHeaderView(0).findViewById(R.id.urlHeader)).setLinkTextColor(Color.WHITE);
+
         navigationView.getMenu().getItem(0).setChecked(true);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content,InicioFragment.newInstance(null,null))
@@ -76,6 +93,7 @@ public class MainActivity extends AppCompatActivity
 
 
         new gson.LoadInformation().execute();
+
 
     }
 

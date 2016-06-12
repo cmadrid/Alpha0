@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
@@ -21,6 +22,7 @@ import adapters.DataPassObject;
 import adapters.MyAdapter;
 import database.DBObra;
 import database.DBParticipante;
+import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
 
 /**
@@ -37,6 +39,7 @@ public class ObrasFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private int nColumnas = 2;
+    RecyclerView recyclerView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -124,39 +127,71 @@ public class ObrasFragment extends Fragment {
     }
 
     private void init(View view){
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_obras);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_obras);
         //recyclerView.addItemDecoration(new MarginDecoration(this));
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), nColumnas));
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        DBObra db_obras = null;
+        new GetDataObras().execute();
+    }
+
+
+    private class GetDataObras extends AsyncTask<String,String,String> {
+
         ArrayList<DataPassObject> myDataset = new ArrayList<>();
-        try {
+        MyAdapter adapter = new MyAdapter(myDataset,nColumnas);
+        @Override
+        protected String doInBackground(String... params) {
 
-            db_obras = new DBObra(getActivity());
-            Cursor c = db_obras.consultarObras(null);
-            if(c.moveToFirst()) {
-                do {
-                    byte[] byteArray = c.getBlob(2);
-                    Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+            DBObra db_obras = null;
+            try {
 
-                    myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), bm,DataPassObject.OBRA));
-                } while (c.moveToNext());
+                db_obras = new DBObra(getActivity());
+                Cursor c = db_obras.consultarObras(null);
+                if(c.moveToFirst()) {
+                    do {
+                        byte[] byteArray = c.getBlob(2);
+                        Bitmap bm = null;
+                        if(byteArray!=null)
+                            bm=BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+
+                        myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), bm,DataPassObject.OBRA));
+                        publishProgress();
+                    } while (c.moveToNext());
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                db_obras.close();
             }
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            db_obras.close();
+            //recyclerView.setAdapter(new NumberedAdapter(30));
+
+            return null;
         }
 
+        @Override
+        protected void onPreExecute() {
+            MainActivity.progressWheel.setVisibility(View.VISIBLE);
+            recyclerView.setAdapter(adapter);
+            super.onPreExecute();
+        }
 
+        @Override
+        protected void onProgressUpdate(String... values) {
+            adapter.notifyDataSetChanged();
+            super.onProgressUpdate(values);
+        }
 
-        MyAdapter mAdapter = new MyAdapter(myDataset,nColumnas);
-        recyclerView.setAdapter(mAdapter);
-
-        //recyclerView.setAdapter(new NumberedAdapter(30));
+        @Override
+        protected void onPostExecute(String s) {
+            //recyclerView.setAdapter(adapter);
+            MainActivity.progressWheel.setVisibility(View.GONE);
+            super.onPostExecute(s);
+        }
     }
+
 }

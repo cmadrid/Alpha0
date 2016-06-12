@@ -10,6 +10,7 @@ public class InformacionObras {
     int code;
     String tipo_request;
     String message;
+    String actualizacion;
     ArrayList<Obra> data;
 
     public int getCode() {
@@ -21,7 +22,7 @@ public class InformacionObras {
     }
 
 
-
-
-
+    public String getActualizacion() {
+        return actualizacion;
+    }
 }

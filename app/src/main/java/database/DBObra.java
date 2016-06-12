@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import gson.LoadInformation;
 import gson.Obra;
 import gson.Participante;
 
@@ -112,39 +113,41 @@ public class DBObra {
             insertar(obra);
     }
 
-    public boolean insertaroActualizar(Integer id,String titulo,String descripcion,String fecha,String tecnica,Bitmap foto,Integer participante,String qr,String dimensiones,Date actualizacion,Date actualizacion_foto)
+    public boolean insertaroActualizar(Integer id,String titulo,String descripcion,String fecha,String tecnica,String foto,Integer participante,String qr,String dimensiones,Date actualizacion,Date actualizacion_foto)
     {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        foto.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        byte[] image = stream.toByteArray();
+        byte[] image = null;
         Cursor c = consultar(id);
         if(c.moveToFirst())
         {
 
             if(!actualizacion.after(Timestamp.valueOf(c.getString(9))))
                 return false;
-            //if(!actualizacion_foto.after(Timestamp.valueOf(c.getString(10))))
-            //    image=null;//foto=null;
 
+            if(actualizacion_foto.after(Timestamp.valueOf(c.getString(10)))) {
+                image = LoadInformation.getImage(foto);
+            }
             String[] args = new String[] {id+""};
             db.update(TABLE_NAME, generarContentValues(id, titulo, descripcion, fecha, tecnica, image, participante, qr, dimensiones, actualizacion, actualizacion_foto), ID + "=?", args);
             return true;
-        }else
-            db.insert(TABLE_NAME,null,generarContentValues(id, titulo, descripcion, fecha, tecnica, image, participante, qr, dimensiones, actualizacion, actualizacion_foto));
+        }else {
+            image = LoadInformation.getImage(foto);
+
+            db.insert(TABLE_NAME, null, generarContentValues(id, titulo, descripcion, fecha, tecnica, image, participante, qr, dimensiones, actualizacion, actualizacion_foto));
+        }
         return false;
     }
 
 
     public boolean insertaroActualizar(Obra obra)
     {
-        return insertaroActualizar(obra.getIdo(), obra.getTio(), obra.getDeo(), obra.getFeo(), obra.getTeo(), obra.getBitmap(), obra.getIdp(), obra.getQro(), obra.getDio(), obra.getAco(), obra.getAfo());
+        return insertaroActualizar(obra.getIdo(), obra.getTio(), obra.getDeo(), obra.getFeo(), obra.getTeo(), obra.getFoo(), obra.getIdp(), obra.getQro(), obra.getDio(), obra.getAco(), obra.getAfo());
     }
 
 
     public void insertaroActualizar(ArrayList<Obra> obras)
     {
         for(Obra obra:obras)
-            insertaroActualizar(obra.getIdo(), obra.getTio(), obra.getDeo(), obra.getFeo(), obra.getTeo(), obra.getBitmap(), obra.getIdp(), obra.getQro(), obra.getDio(), obra.getAco(), obra.getAfo());
+            insertaroActualizar(obra.getIdo(), obra.getTio(), obra.getDeo(), obra.getFeo(), obra.getTeo(), obra.getFoo(), obra.getIdp(), obra.getQro(), obra.getDio(), obra.getAco(), obra.getAfo());
     }
 
 

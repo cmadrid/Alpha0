@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import gson.LoadInformation;
 import gson.Participante;
 
 
@@ -98,37 +99,44 @@ public class DBParticipante {
     }
 
 
-    public boolean insertaroActualizar(Integer id,String nombre,String pseudonimo,Date nacimiento,String nacionalidad,String biblio,Bitmap foto,Date actualizacion,Date actualizacion_foto)
+    public boolean insertaroActualizar(Integer id,String nombre,String pseudonimo,Date nacimiento,String nacionalidad,String biblio,String foto,Date actualizacion,Date actualizacion_foto)
     {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        foto.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        byte[] image = stream.toByteArray();
+
+
+        byte[] image = null;
+
         Cursor c = consultar(id);
         if(c.moveToFirst())
         {
 
             if(!actualizacion.after(Timestamp.valueOf(c.getString(7))))
                 return false;
-            //if(!actualizacion_foto.after(Timestamp.valueOf(c.getString(8))))
-            //    image=null;//foto=null;
+            //
+
+            if(actualizacion_foto.after(Timestamp.valueOf(c.getString(8)))) {
+                image = LoadInformation.getImage(foto);
+            }
 
             String[] args = new String[] {id+""};
             db.update(NOMBRE_TABLA, generarContentValues(id, nombre, pseudonimo, nacimiento,nacionalidad,biblio,image,actualizacion,actualizacion_foto), ID + "=?", args);
             return true;
-        }else
+        }else {
+            image = LoadInformation.getImage(foto);
+
             db.insert(NOMBRE_TABLA, null, generarContentValues(id, nombre, pseudonimo, nacimiento, nacionalidad, biblio, image, actualizacion, actualizacion_foto));
+        }
         return false;
     }
 
     public boolean insertaroActualizar(Participante participante)
     {
-        return insertaroActualizar(participante.getIdp(), participante.getNop(), participante.getPsp(), participante.getFnp(), participante.getNap(), participante.getBcp(), participante.getBitmap(), participante.getAcp(), participante.getAfp());
+        return insertaroActualizar(participante.getIdp(), participante.getNop(), participante.getPsp(), participante.getFnp(), participante.getNap(), participante.getBcp(), participante.getFop(), participante.getAcp(), participante.getAfp());
     }
 
     public void insertaroActualizar(ArrayList<Participante> participantes)
     {
         for(Participante participante:participantes)
-            insertaroActualizar(participante.getIdp(), participante.getNop(), participante.getPsp(), participante.getFnp(), participante.getNap(), participante.getBcp(), participante.getBitmap(), participante.getAcp(), participante.getAfp());
+            insertaroActualizar(participante.getIdp(), participante.getNop(), participante.getPsp(), participante.getFnp(), participante.getNap(), participante.getBcp(), participante.getFop(), participante.getAcp(), participante.getAfp());
     }
 
 

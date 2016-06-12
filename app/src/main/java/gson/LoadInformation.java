@@ -1,5 +1,7 @@
 package gson;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -8,6 +10,7 @@ import android.support.annotation.MainThread;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -19,12 +22,17 @@ import database.DBObra;
 import database.DBParticipante;
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
+import salonmachala.org.salonmachala.SalonMachala;
 
 /**
  * Created by ces_m on 6/4/2016.
  */
 public class LoadInformation extends AsyncTask<String, String, String> {
 
+
+    static SharedPreferences sharedpreferences = MainActivity.mainActivity.getSharedPreferences(SalonMachala.Pref.MyPREFERENCES, Context.MODE_PRIVATE);
+    String actualizacion_participantes;
+    String actualizacion_obras;
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -69,20 +77,35 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         }
         */
 
-        String jsonp = RequestJsonHttp.executePost("informacion_participantes");
+
+
+        actualizacion_participantes = sharedpreferences.getString(SalonMachala.Pref.Actualizacion_Participantes, null);
+        actualizacion_obras = sharedpreferences.getString(SalonMachala.Pref.Actualizacion_Obras, null);
+
+
+        String jsonp = RequestJsonHttp.executePost("informacion_participantes",new Param<String, String>("actualizacion", actualizacion_participantes));
         InformacionParticipantes ip = gson.fromJson(jsonp, InformacionParticipantes.class);
 
 
-        String jsono = RequestJsonHttp.executePost("informacion_obras");
+        String jsono = RequestJsonHttp.executePost("informacion_obras",new Param<String, String>("actualizacion", actualizacion_obras));
         InformacionObras io = gson.fromJson(jsono, InformacionObras.class);
+
+
+        System.out.println("actualizacion participantes("+actualizacion_participantes+"): "+ip.getActualizacion());
+        System.out.println("actualizacion obras("+actualizacion_obras+"): "+io.getActualizacion());
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString(SalonMachala.Pref.Actualizacion_Participantes, ip.getActualizacion());
+        editor.putString(SalonMachala.Pref.Actualizacion_Obras, io.getActualizacion());
+        editor.apply();
 
         System.out.println("fin");
 
         ArrayList<Participante> participantes = ip.getData();
         ArrayList<Obra> obras = io.getData();
 
-        getImagesParticipantes(participantes);
-        getImagesObras(obras);
+        //getImagesParticipantes(participantes);
+        //getImagesObras(obras);
 
         System.out.println(jsonp);
         System.out.println("--------------------------------------*-*-*-*-*-*--------------------------------------------");
@@ -122,6 +145,16 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         }
 
         return null;
+    }
+
+    public static byte[] getImage(String foto){
+        byte[] array = null;
+        if(foto!=null && !foto.equalsIgnoreCase("")) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            getBitmapFromURL(foto).compress(Bitmap.CompressFormat.PNG, 0, stream);
+            array = stream.toByteArray();
+        }
+        return array;
     }
 
     private void getImagesObras(ArrayList<Obra> datos){

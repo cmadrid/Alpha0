@@ -10,6 +10,7 @@ public class InformacionParticipantes {
     int code;
     String tipo_request;
     String message;
+    String actualizacion;
     ArrayList<Participante> data;
 
     public int getCode() {
@@ -21,7 +22,7 @@ public class InformacionParticipantes {
     }
 
 
-
-
-
+    public String getActualizacion() {
+        return actualizacion;
+    }
 }

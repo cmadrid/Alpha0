@@ -6,10 +6,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import database.DBObra;
-import database.DBParticipante;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /**
@@ -74,8 +74,8 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
 
         // If you would like to resume scanning, call this method below:
         //mScannerView.resumeCameraPreview(this);
-        System.out.println("raw: "+rawResult.getText());
-        System.out.println("bc: "+rawResult.getBarcodeFormat().toString());
+        //System.out.println("raw: "+rawResult.getText());
+        //System.out.println("bc: "+rawResult.getBarcodeFormat().toString());
 
         DBObra db_obra = new DBObra(getApplicationContext());
         Cursor c = db_obra.consultarQr(rawResult.getText().toLowerCase());
@@ -93,6 +93,10 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             foto_artista = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
 
+        }else{
+            Toast.makeText(MainActivity.mainActivity,R.string.no_qr,Toast.LENGTH_SHORT).show();
+            finish();
+            return;
         }
 
 
@@ -104,12 +108,13 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
     private void openDialog(){
         LayoutInflater inflater = MainActivity.mainActivity.getLayoutInflater();
         //View view = inflater.inflate(R.layout.dialog_autor_obra, null);
-        View view = inflater.inflate(R.layout.dialog_autor_obra2, null);
-        ImageButton ib_autor = (ImageButton) view.findViewById(R.id.ib_autor);
-        ImageButton ib_obra = (ImageButton) view.findViewById(R.id.ib_obra);
+        View view = inflater.inflate(R.layout.dialog_autor_obra, null);
+        ImageView ib_autor = (ImageView) view.findViewById(R.id.ib_autor);
+        ImageView ib_obra = (ImageView) view.findViewById(R.id.ib_obra);
         TextView tv_autor = (TextView) view.findViewById(R.id.tv_nombre_autor);
         TextView tv_obra = (TextView) view.findViewById(R.id.tv_nombre_obra);
         TextView tv_titulo = (TextView) view.findViewById(R.id.titulo_dialogo);
+
 
         //tv_obra.setText(nombre_obra);
         tv_obra.setText(R.string.argumento);
@@ -118,6 +123,11 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         tv_autor.setText(nombre_artista);
         ib_autor.setImageBitmap(foto_artista);
         ib_obra.setImageBitmap(foto_obra);
+
+        ib_autor.setBackgroundColor(Color.YELLOW);
+        ib_obra.setBackgroundColor(Color.YELLOW);
+        ib_autor.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        ib_obra.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
         ib_autor.setOnClickListener(new View.OnClickListener() {

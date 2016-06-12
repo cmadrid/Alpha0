@@ -1,25 +1,21 @@
 package adapters;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import gson.Participante;
 import salonmachala.org.salonmachala.ArtistaActivity;
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.ObraActivity;
@@ -33,6 +29,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<DataPassObject> mDataset;
     private int nColumnas;
 
+    // Allows to remember the last item shown on screen
+    private int lastPosition = -1;
 
 
     // Provide a reference to the views for each data item
@@ -72,7 +70,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_artista, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_card, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -112,11 +110,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        int height = size.y;
+        //int height = size.y;
 
-        System.out.println(width);
-        System.out.println(height);
+        //System.out.println(width);
+        //System.out.println(height);
         ViewGroup.LayoutParams params = holder.linear.getLayoutParams();
+
+
 // Changes the height and width to the specified *pixels*
         params.height = (width/(nColumnas+1))+(width/5);
         params.width = (width/nColumnas);
@@ -133,10 +133,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         //holder.foto.setMaxHeight(width/3);
         //holder.foto.setMinimumHeight(width/3);
-
         //holder.foto.setMaxHeight(holder.foto.getWidth());
 
 
+        //setAnimation(holder.linear, position);
 
 
     }
@@ -145,5 +145,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(MainActivity.mainActivity, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 }
