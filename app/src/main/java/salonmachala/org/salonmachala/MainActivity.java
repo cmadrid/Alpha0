@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity
     final int MY_PERMISSIONS_REQUEST_CAMERA = 159;
     public static AppCompatActivity mainActivity;
     public static ProgressBar progressWheel;
+    Fragment fragment = null;
 
     NavigationView navigationView;
 
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        new gson.LoadInformation().execute();
+        //new gson.LoadInformation(this).execute();
 
 
     }
@@ -107,7 +108,21 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }else if(!navigationView.getMenu().getItem(0).isChecked()){
+
+
+            if(fragment!=null && fragment instanceof ObrasFragment)
+                ((ObrasFragment)fragment).detener();
+            if(fragment!=null && fragment instanceof ArtistasFragment)
+                ((ArtistasFragment)fragment).detener();
+
+            navigationView.getMenu().getItem(0).setChecked(true);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content,InicioFragment.newInstance(null,null))
+                    .commit();
+            getSupportActionBar().setTitle(R.string.app_name);
+        }
+        else {
             super.onBackPressed();
         }
     }
@@ -154,8 +169,12 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment = null;
         boolean fragmentTransaction = false;
+
+        if(fragment!=null && fragment instanceof ObrasFragment)
+            ((ObrasFragment)fragment).detener();
+        if(fragment!=null && fragment instanceof ArtistasFragment)
+            ((ArtistasFragment)fragment).detener();
 
         if (id == R.id.nav_inicio) {
             //selectItem("inicio");

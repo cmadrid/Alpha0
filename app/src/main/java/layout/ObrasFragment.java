@@ -40,6 +40,7 @@ public class ObrasFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private int nColumnas = 2;
     RecyclerView recyclerView;
+    boolean seguir = true;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -137,11 +138,19 @@ public class ObrasFragment extends Fragment {
         new GetDataObras().execute();
     }
 
+    public void detener(){
+        seguir = false;
+    }
 
     private class GetDataObras extends AsyncTask<String,String,String> {
 
         ArrayList<DataPassObject> myDataset = new ArrayList<>();
         MyAdapter adapter = new MyAdapter(myDataset,nColumnas);
+
+        public GetDataObras(){
+            seguir=true;
+        }
+
         @Override
         protected String doInBackground(String... params) {
 
@@ -159,7 +168,7 @@ public class ObrasFragment extends Fragment {
 
                         myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), bm,DataPassObject.OBRA));
                         publishProgress();
-                    } while (c.moveToNext());
+                    } while (c.moveToNext() && seguir);
                 }
 
             }catch (Exception e){

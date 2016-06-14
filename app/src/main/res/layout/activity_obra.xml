@@ -31,13 +31,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:id="@+id/scrollView"
-            android:layout_weight="0.6"
-            android:layout_gravity="center_vertical">
+            android:layout_weight="0.6">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:paddingTop="5dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp">
@@ -46,6 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12dp"
                     android:text="@string/titulo_str_"
                     android:id="@+id/textView2"
                     android:textStyle="bold" />
@@ -54,6 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12dp"
                     android:text="Nombre del titulo"
                     android:id="@+id/titulo"
                     android:layout_marginLeft="20dp" />
@@ -62,6 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12dp"
                     android:text="@string/autor_str_"
                     android:id="@+id/textView4"
                     android:textStyle="bold" />
@@ -70,6 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12dp"
                     android:text="Nombre del autor"
                     android:id="@+id/autor"
                     android:layout_marginLeft="20dp" />
@@ -78,6 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12dp"
                     android:text="@string/tecnica_str_"
                     android:id="@+id/textView6"
                     android:textStyle="bold" />
@@ -86,6 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12dp"
                     android:text="tecnica"
                     android:id="@+id/tecnica"
                     android:layout_marginLeft="20dp" />
@@ -94,6 +100,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12dp"
                     android:text="@string/dimensiones_str_"
                     android:id="@+id/textView3"
                     android:textStyle="bold" />
@@ -102,6 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12dp"
                     android:text="dimensiones"
                     android:id="@+id/dimensiones"
                     android:layout_marginLeft="20dp" />
@@ -110,7 +118,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/fecha_str_"
+                    android:textSize="12dp"
+                    android:text="@string/anio_str_"
                     android:id="@+id/textView10"
                     android:textStyle="bold" />
 
@@ -118,6 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12dp"
                     android:text="Fecha"
                     android:id="@+id/fecha"
                     android:layout_marginLeft="20dp" />

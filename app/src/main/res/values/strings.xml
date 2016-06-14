@@ -13,11 +13,13 @@
     <string name="obra_str">OBRA</string>
 
     <string name="no_qr">Obra no registrada</string>
+    <string name="cargando_splash">Cargando Informacion del evento</string>
 
     <string name="obra_info">INFORMACIÓN DE LA OBRA</string>
     <string name="titulo_str_">TÍTULO:</string>
     <string name="autor_str_">AUTOR:</string>
     <string name="fecha_str_">FECHA:</string>
+    <string name="anio_str_">AÑO:</string>
     <string name="tecnica_str_">TÉCNICA:</string>
     <string name="dimensiones_str_">DIMENSIONES:</string>
     <string name="descripcion_str">DESCRIPCIÓN</string>
@@ -26,7 +28,7 @@
     <string name="nombre_str_">NOMBRE:</string>
     <string name="nacionalidad_str_">NACIONALIDAD:</string>
     <string name="edad_str_">EDAD:</string>
-    <string name="bibliografia_str">BIBLIOGRAFÍA</string>
+    <string name="biografia_str">BIOGRAFÍA</string>
 
     <string name="title_activity_abrir_imagen">abrirImagen</string>
 
@@ -45,5 +47,9 @@
 
     <string name="argumento">Argumento</string>
     <string name="anios">años</string>
+
+    <string name="title_activity_splash">Splash</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

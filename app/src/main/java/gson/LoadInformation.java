@@ -15,14 +15,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Date;
 
 import database.DBObra;
 import database.DBParticipante;
-import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
 import salonmachala.org.salonmachala.SalonMachala;
+import salonmachala.org.salonmachala.Splash;
 
 /**
  * Created by ces_m on 6/4/2016.
@@ -30,15 +31,17 @@ import salonmachala.org.salonmachala.SalonMachala;
 public class LoadInformation extends AsyncTask<String, String, String> {
 
 
-    static SharedPreferences sharedpreferences = MainActivity.mainActivity.getSharedPreferences(SalonMachala.Pref.MyPREFERENCES, Context.MODE_PRIVATE);
+    Context c;
+    static SharedPreferences sharedpreferences;
     String actualizacion_participantes;
     String actualizacion_obras;
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
-    public LoadInformation() {
-
+    public LoadInformation(Context c) {
+        this.c = c;
+        sharedpreferences = c.getSharedPreferences(SalonMachala.Pref.MyPREFERENCES, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -49,35 +52,6 @@ public class LoadInformation extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         System.out.println("inicio");
-        /*
-        String json = RequestJsonHttp.executePost("informacion_qr", new Param<String, String>("qr", "gioconda"));
-        InformacionQr iq = gson.fromJson(json, InformacionQr.class);
-
-        System.out.println("fin");
-        if (iq.getCode() == 0) {
-            System.out.println(iq.getData().getTeo());
-            System.out.println(iq.getData().getFoo());
-            System.out.println(iq.getData().getDio());
-            System.out.println(iq.getData().getAco());
-        }
-        System.out.println(json);
-
-        DBParticipante db_participante = null;
-        try {
-
-            db_participante=new DBParticipante(MainActivity.mainActivity);
-            Bitmap icon = BitmapFactory.decodeResource(MainActivity.mainActivity.getResources(),
-                    R.drawable.da_vinci);
-            db_participante.insertar(0,"name","pse","nac","nacio","biblio",icon,new Date(),new Date());
-            System.out.println("correcto");
-
-        }catch (Exception e){}
-        finally {
-            db_participante.close();
-        }
-        */
-
-
 
         actualizacion_participantes = sharedpreferences.getString(SalonMachala.Pref.Actualizacion_Participantes, null);
         actualizacion_obras = sharedpreferences.getString(SalonMachala.Pref.Actualizacion_Obras, null);
@@ -104,6 +78,11 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         ArrayList<Participante> participantes = ip.getData();
         ArrayList<Obra> obras = io.getData();
 
+        //75
+        //110
+        //78
+        //133
+
         //getImagesParticipantes(participantes);
         //getImagesObras(obras);
 
@@ -114,7 +93,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         DBParticipante db_participante = null;
         try {
 
-            db_participante=new DBParticipante(MainActivity.mainActivity);
+            db_participante=new DBParticipante(c);
 
             db_participante.insertaroActualizar(participantes);
 
@@ -131,7 +110,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         DBObra db_obra = null;
         try {
 
-            db_obra=new DBObra(MainActivity.mainActivity);
+            db_obra=new DBObra(c);
 
             db_obra.insertaroActualizar(obras);
 
@@ -147,7 +126,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         return null;
     }
 
-    public static byte[] getImage(String foto){
+    public static byte[] getImage(String foto){//46 //137   //290   //289   //
         byte[] array = null;
         if(foto!=null && !foto.equalsIgnoreCase("")) {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -173,21 +152,42 @@ public class LoadInformation extends AsyncTask<String, String, String> {
     }
     public static Bitmap getBitmapFromURL(String src) {
         try {
-            URL url = new URL(src.replace("localhost",RequestJsonHttp.host));
+            URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
             return myBitmap;
-        } catch (IOException e) {
+        } catch (Exception e) {
             // Log exception
             return null;
         }
+
+
+
+
+
+
+
+
+
+
+/*
+        try {
+            URL url = new URL(src);
+            URLConnection conn = url.openConnection();
+            return BitmapFactory.decodeStream(conn.getInputStream());
+        } catch (Exception ex) {
+        }
+        return null;*/
+
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        if(c instanceof Splash)
+            ((Splash) c).toMain();
     }
 }

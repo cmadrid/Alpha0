@@ -38,7 +38,7 @@ public class ArtistasFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private int nColumnas = 2;
     RecyclerView recyclerView;
-    ProgressBar progressWheel;
+    boolean seguir = true;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -140,6 +140,10 @@ public class ArtistasFragment extends Fragment {
 
     }
 
+    public void detener(){
+        seguir = false;
+    }
+
     private class GetDataParticipantes extends AsyncTask<String,String,String>{
 
         ArrayList<DataPassObject> myDataset = new ArrayList<>();
@@ -161,7 +165,7 @@ public class ArtistasFragment extends Fragment {
                         myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), bm, DataPassObject.PARTICIPANTE));
 
                         publishProgress();
-                    } while (c.moveToNext());
+                    } while (c.moveToNext() && seguir);
                 }
 
             }catch (Exception e){
