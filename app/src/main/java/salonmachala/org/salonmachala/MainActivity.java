@@ -9,10 +9,14 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -29,6 +33,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -56,10 +61,14 @@ public class MainActivity extends AppCompatActivity
         CreditosFragment.OnFragmentInteractionListener,View.OnClickListener{
 
     final int MY_PERMISSIONS_REQUEST_CAMERA = 159;
-    public static AppCompatActivity mainActivity;
+    public static MainActivity mainActivity;
     public static ProgressBar progressWheel;
     Fragment fragment = null;
 
+    public CollapsingToolbarLayout collapsingToolbar;
+    public AppBarLayout appBarLayout;
+    public ImageView header;
+    public Toolbar toolbar;
 
     NavigationView navigationView;
 
@@ -67,8 +76,21 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(toolbar);
+
+
+
+
+        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        header = (ImageView) findViewById(R.id.header);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        header.setBackgroundColor(android.R.color.transparent);
+        //header.setImageDrawable(null);
+
+        collapsingToolbar.setTitle(getResources().getString(R.string.app_name));
+
+
 
         Global.activity = this;
         mainActivity = this;
@@ -123,7 +145,9 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content,InicioFragment.newInstance(null,null))
                     .commit();
-            getSupportActionBar().setTitle(R.string.app_name);
+
+            collapsingToolbar.setTitle(getResources().getString(R.string.app_name));
+            //getSupportActionBar().setTitle(R.string.app_name);
         }
         else {
             super.onBackPressed();
@@ -174,6 +198,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         boolean fragmentTransaction = false;
 
+        appBarLayout.setExpanded(true);
+        header.setImageResource(android.R.color.transparent);
+        header.setImageDrawable(null);
 
         if(fragment!=null && fragment instanceof ObrasFragment)
             ((ObrasFragment)fragment).detener();
@@ -209,18 +236,21 @@ public class MainActivity extends AppCompatActivity
             Global.permiso_escritura();
             fragment = PremiosFragment.newInstance(null,null);
             fragmentTransaction = true;
+            appBarLayout.setExpanded(false);
 
         } else if (id == R.id.nav_artista) {
 
             Global.permiso_escritura();
             fragment = ArtistasFragment.newInstance(null,null);
             fragmentTransaction = true;
+            appBarLayout.setExpanded(false);
 
         } else if (id == R.id.nav_obras) {
 
             Global.permiso_escritura();
             fragment = ObrasFragment.newInstance(null,null);
             fragmentTransaction = true;
+            appBarLayout.setExpanded(false);
 
         } else if (id == R.id.nav_qr) {
             abrir_qr();
@@ -240,9 +270,9 @@ public class MainActivity extends AppCompatActivity
                     .commit();
             item.setChecked(true);
             if(item.getTitle().toString().equalsIgnoreCase("inicio"))
-                getSupportActionBar().setTitle(R.string.app_name);
+                collapsingToolbar.setTitle(getResources().getString(R.string.app_name));//getSupportActionBar().setTitle(R.string.app_name);
             else
-                getSupportActionBar().setTitle(item.getTitle());
+                collapsingToolbar.setTitle(item.getTitle());//getSupportActionBar().setTitle(item.getTitle());
         }
 
 
@@ -375,6 +405,7 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
+
 
 
 }

@@ -19,6 +19,7 @@ public class AbrirImagen extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         Bitmap bmp = extras.getParcelable("imagebitmap");
+        int resource = extras.getInt("imageResource",0);
         String title = extras.getString("title");
 
         ActionBar actionBar = getSupportActionBar();
@@ -26,7 +27,10 @@ public class AbrirImagen extends AppCompatActivity {
         actionBar.setTitle(title);
 
         ImageView image = (ImageView) findViewById(R.id.foto_full);
-        image.setImageBitmap(bmp );
+        if(bmp!=null)
+            image.setImageBitmap(bmp );
+        else if(resource!=0)
+            image.setImageResource(resource);
 
         mAttacher = new PhotoViewAttacher(image);
         mAttacher.update();
