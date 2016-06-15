@@ -22,6 +22,7 @@ import adapters.DataPassObject;
 import adapters.MyAdapter;
 import database.DBObra;
 import database.DBParticipante;
+import lazyLoad.ImageLoader;
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
 
@@ -161,12 +162,12 @@ public class ObrasFragment extends Fragment {
                 Cursor c = db_obras.consultarObras(null);
                 if(c.moveToFirst()) {
                     do {
-                        byte[] byteArray = c.getBlob(2);
+                        /*byte[] byteArray = c.getBlob(2);
                         Bitmap bm = null;
                         if(byteArray!=null)
                             bm=BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
-
-                        myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), bm,DataPassObject.OBRA));
+*/
+                        myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), c.getString(3),DataPassObject.OBRA));
                         publishProgress();
                     } while (c.moveToNext() && seguir);
                 }

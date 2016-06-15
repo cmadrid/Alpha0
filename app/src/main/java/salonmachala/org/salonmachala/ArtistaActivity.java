@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import database.DBParticipante;
+import lazyLoad.ImageLoader;
 import widget.JustifiedTextView;
 
 public class ArtistaActivity extends AppCompatActivity {
@@ -32,10 +33,10 @@ public class ArtistaActivity extends AppCompatActivity {
     TextView tv_nacionalidad;
     ImageView iv_foto;
 
+    public ImageLoader imageLoader;
 
     Integer id;
 
-    String nombre_artista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class ArtistaActivity extends AppCompatActivity {
         }
 
 
+        imageLoader = new ImageLoader(MainActivity.mainActivity.getApplicationContext(),true);
         initComponents();
         llenaInformacion();
     }
@@ -94,7 +96,7 @@ public class ArtistaActivity extends AppCompatActivity {
                 Intent intent = new Intent(artista,AbrirImagen.class);
                 Bundle extras = new Bundle();
                 extras.putParcelable("imagebitmap", image);
-                extras.putString("title", nombre_artista);
+                extras.putString("title", tv_nombre.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
 
@@ -123,10 +125,12 @@ public class ArtistaActivity extends AppCompatActivity {
                 tv_nacionalidad.setText(c.getString(4));
 
                 tv_edad.setText(calculateAge(Timestamp.valueOf(c.getString(3)))+" "+getResources().getString(R.string.anios));
-
+/*
                 byte[] byteArray = c.getBlob(6);
                 Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                 iv_foto.setImageBitmap(bm);
+*/
+                imageLoader.DisplayImage(c.getString(9),iv_foto);
 
                 wv_bibliografia.setText(c.getString(5));
                 wv_bibliografia.setTextColor(Color.BLACK);

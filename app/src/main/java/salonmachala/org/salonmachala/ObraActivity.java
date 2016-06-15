@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import database.DBObra;
 import gson.LoadInformation;
+import lazyLoad.ImageLoader;
 import widget.JustifiedTextView;
 
 public class ObraActivity extends AppCompatActivity {
@@ -32,9 +33,9 @@ public class ObraActivity extends AppCompatActivity {
     TextView tv_dimensiones;
     ImageView iv_foto;
 
+    public ImageLoader imageLoader;
     Integer id;
 
-    String nombre_obra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class ObraActivity extends AppCompatActivity {
         }
 
 
+        imageLoader = new ImageLoader(MainActivity.mainActivity.getApplicationContext(),true);
         initComponents();
         llenaInformacion();
     }
@@ -92,7 +94,7 @@ public class ObraActivity extends AppCompatActivity {
                 Intent intent = new Intent(obra,AbrirImagen.class);
                 Bundle extras = new Bundle();
                 extras.putParcelable("imagebitmap", image);
-                extras.putString("title", nombre_obra);
+                extras.putString("title", tv_titulo.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
 
@@ -121,11 +123,13 @@ public class ObraActivity extends AppCompatActivity {
 
                 tv_tecnica.setText(c.getString(4));
                 tv_dimensiones.setText(c.getString(8));
-
+/*
                 byte[] byteArray = c.getBlob(5);
                 Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
                 iv_foto.setImageBitmap(bm);
+                */
+                imageLoader.DisplayImage(c.getString(12),iv_foto);
 
                 wv_descripcion.setText(c.getString(2));
                 wv_descripcion.setTextColor(Color.BLACK);
@@ -141,4 +145,9 @@ public class ObraActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("destroy");
+    }
 }

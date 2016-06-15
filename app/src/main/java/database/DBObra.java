@@ -31,6 +31,7 @@ public class DBObra {
     public static final String DESCRIPCION = "descripcion"+"_"+TABLE_NAME;
     public static final String FECHA = "fecha"+"_"+TABLE_NAME;
     public static final String TECNICA = "tecnica"+"_"+TABLE_NAME;
+    public static final String FOTO_URL = "foto_url"+"_"+TABLE_NAME;
     public static final String FOTO = "foto"+"_"+TABLE_NAME;
     public static final String PARTICIPANTE = "id"+"_"+ TABLA_FK;
     public static final String QR = "qr_text"+"_"+TABLE_NAME;
@@ -49,6 +50,7 @@ public class DBObra {
             + DESCRIPCION + " text not null,"
             + FECHA + " text not null,"
             + TECNICA + " text not null,"
+            + FOTO_URL + " text,"
             + FOTO + " blob,"
             + PARTICIPANTE + " integer not null,"
             + QR + " text,"
@@ -63,7 +65,7 @@ public class DBObra {
         db = helper.getWritableDatabase();
     }
 
-    public ContentValues generarContentValues(Integer id,String titulo,String descripcion,String fecha,String tecnica,byte[] foto,Integer participante,String qr,String dimensiones,Date actualizacion,Date actualizacion_foto){
+    public ContentValues generarContentValues(Integer id,String titulo,String descripcion,String fecha,String tecnica,String foto_url,byte[] foto,Integer participante,String qr,String dimensiones,Date actualizacion,Date actualizacion_foto){
         ContentValues valores = new ContentValues();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -78,6 +80,8 @@ public class DBObra {
             valores.put(FECHA, fecha);
         if(tecnica!=null)
             valores.put(TECNICA,tecnica);
+        if(foto_url!=null)
+            valores.put(FOTO_URL,foto_url);
         if(foto!=null)
             valores.put(FOTO,foto);
         if(participante!=null)
@@ -92,19 +96,19 @@ public class DBObra {
             valores.put(ACTUALIZACION_FOTO, dateFormat.format(actualizacion_foto));
         return valores;
     }
-
-    public void insertar(Integer id,String titulo,String descripcion,String fecha,String tecnica,Bitmap foto,Integer participante,String qr,String dimensiones,Date actualizacion,Date actualizacion_foto)
+/*
+    public void insertar(Integer id,String titulo,String descripcion,String fecha,String tecnica,String foto_url,Bitmap foto,Integer participante,String qr,String dimensiones,Date actualizacion,Date actualizacion_foto)
     {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         foto.compress(Bitmap.CompressFormat.PNG, 0, stream);
         byte[] image = stream.toByteArray();
-        db.insert(TABLE_NAME, null, generarContentValues(id, titulo, descripcion, fecha, tecnica, image, participante, qr, dimensiones, actualizacion, actualizacion_foto));
+        db.insert(TABLE_NAME, null, generarContentValues(id, titulo, descripcion, fecha, tecnica,foto_url, image, participante, qr, dimensiones, actualizacion, actualizacion_foto));
     }
 
 
     public void insertar(Obra obra)
     {
-        insertar(obra.getIdo(), obra.getTio(), obra.getDeo(), obra.getFeo(), obra.getTeo(), obra.getBitmap(), obra.getIdp(), obra.getQro(), obra.getDio(), obra.getAco(), obra.getAfo());
+        insertar(obra.getIdo(), obra.getTio(), obra.getDeo(), obra.getFeo(), obra.getTeo(),obra.getFoo(), obra.getBitmap(), obra.getIdp(), obra.getQro(), obra.getDio(), obra.getAco(), obra.getAfo());
     }
 
     public void insertar(ArrayList<Obra> obras)
@@ -112,7 +116,7 @@ public class DBObra {
         for(Obra obra:obras)
             insertar(obra);
     }
-
+*/
     public boolean insertaroActualizar(Integer id,String titulo,String descripcion,String fecha,String tecnica,String foto,Integer participante,String qr,String dimensiones,Date actualizacion,Date actualizacion_foto)
     {
         byte[] image = null;
@@ -124,25 +128,25 @@ public class DBObra {
                 return false;
 
             if(actualizacion_foto.after(Timestamp.valueOf(c.getString(10)))) {
-                image = LoadInformation.getImage(foto);
+                //image = LoadInformation.getImage(foto);
             }
             String[] args = new String[] {id+""};
-            db.update(TABLE_NAME, generarContentValues(id, titulo, descripcion, fecha, tecnica, image, participante, qr, dimensiones, actualizacion, actualizacion_foto), ID + "=?", args);
+            db.update(TABLE_NAME, generarContentValues(id, titulo, descripcion, fecha, tecnica,foto, image, participante, qr, dimensiones, actualizacion, actualizacion_foto), ID + "=?", args);
             return true;
         }else {
-            image = LoadInformation.getImage(foto);
+            //image = LoadInformation.getImage(foto);
 
-            db.insert(TABLE_NAME, null, generarContentValues(id, titulo, descripcion, fecha, tecnica, image, participante, qr, dimensiones, actualizacion, actualizacion_foto));
+            db.insert(TABLE_NAME, null, generarContentValues(id, titulo, descripcion, fecha, tecnica,foto, image, participante, qr, dimensiones, actualizacion, actualizacion_foto));
         }
         return false;
     }
-
+/*
 
     public boolean insertaroActualizar(Obra obra)
     {
         return insertaroActualizar(obra.getIdo(), obra.getTio(), obra.getDeo(), obra.getFeo(), obra.getTeo(), obra.getFoo(), obra.getIdp(), obra.getQro(), obra.getDio(), obra.getAco(), obra.getAfo());
     }
-
+*/
 
     public void insertaroActualizar(ArrayList<Obra> obras)
     {
@@ -157,7 +161,7 @@ public class DBObra {
                 " JOIN " + DBParticipante.NOMBRE_TABLA + " ON " +
                 PARTICIPANTE + " = " + DBParticipante.ID;
 
-        String[] campos = new String[] {ID,TITULO,DESCRIPCION,FECHA,TECNICA,FOTO,PARTICIPANTE,QR,DIMENSIONES,ACTUALIZACION,ACTUALIZACION_FOTO,DBParticipante.NOMBRE};
+        String[] campos = new String[] {ID,TITULO,DESCRIPCION,FECHA,TECNICA,FOTO,PARTICIPANTE,QR,DIMENSIONES,ACTUALIZACION,ACTUALIZACION_FOTO,DBParticipante.NOMBRE,FOTO_URL};
         //Cursor c = db.query(NOMBRE_TABLA, campos, "usuario=?(where)", args(para el where), group by, having, order by, num);
 
         String[] args = new String[] {id+""};
@@ -181,7 +185,7 @@ public class DBObra {
 
     public Cursor consultarObras(Integer id){
 
-        String[] campos = new String[] {ID,TITULO,FOTO};
+        String[] campos = new String[] {ID,TITULO,FOTO,FOTO_URL};
         //Cursor c = db.query(NOMBRE_TABLA, campos, "usuario=?(where)", args(para el where), group by, having, order by, num);
 
         String[] args = new String[] {id+""};

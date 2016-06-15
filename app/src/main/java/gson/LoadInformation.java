@@ -5,23 +5,19 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.annotation.MainThread;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Date;
 
 import database.DBObra;
 import database.DBParticipante;
-import salonmachala.org.salonmachala.R;
+import lazyLoad.FileCache;
 import salonmachala.org.salonmachala.SalonMachala;
 import salonmachala.org.salonmachala.Splash;
 
@@ -36,12 +32,15 @@ public class LoadInformation extends AsyncTask<String, String, String> {
     String actualizacion_participantes;
     String actualizacion_obras;
 
+    FileCache fileCache;
+
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
     public LoadInformation(Context c) {
         this.c = c;
         sharedpreferences = c.getSharedPreferences(SalonMachala.Pref.MyPREFERENCES, Context.MODE_PRIVATE);
+        fileCache = new FileCache(c);
     }
 
     @Override
@@ -69,20 +68,15 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         System.out.println("actualizacion obras("+actualizacion_obras+"): "+io.getActualizacion());
 
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString(SalonMachala.Pref.Actualizacion_Participantes, ip.getActualizacion());
-        editor.putString(SalonMachala.Pref.Actualizacion_Obras, io.getActualizacion());
-        editor.apply();
 
         System.out.println("fin");
 
         ArrayList<Participante> participantes = ip.getData();
         ArrayList<Obra> obras = io.getData();
 
-        //75
-        //110
-        //78
-        //133
 
+        if(actualizacion_participantes==null || actualizacion_obras==null)
+            fileCache.clear();
         //getImagesParticipantes(participantes);
         //getImagesObras(obras);
 
@@ -99,6 +93,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
 
             System.out.println("correcto P");
 
+            editor.putString(SalonMachala.Pref.Actualizacion_Participantes, ip.getActualizacion()).apply();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -116,6 +111,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
 
             System.out.println("correcto O");
 
+            editor.putString(SalonMachala.Pref.Actualizacion_Obras, io.getActualizacion()).apply();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -123,10 +119,12 @@ public class LoadInformation extends AsyncTask<String, String, String> {
             db_participante.close();
         }
 
+        editor.putBoolean(SalonMachala.Pref.Ejecutado,true).apply();
+
         return null;
     }
 
-    public static byte[] getImage(String foto){//46 //137   //290   //289   //
+    public static byte[] getImage(String foto){
         byte[] array = null;
         if(foto!=null && !foto.equalsIgnoreCase("")) {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -164,23 +162,6 @@ public class LoadInformation extends AsyncTask<String, String, String> {
             return null;
         }
 
-
-
-
-
-
-
-
-
-
-/*
-        try {
-            URL url = new URL(src);
-            URLConnection conn = url.openConnection();
-            return BitmapFactory.decodeStream(conn.getInputStream());
-        } catch (Exception ex) {
-        }
-        return null;*/
 
     }
 

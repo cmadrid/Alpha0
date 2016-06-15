@@ -1,7 +1,6 @@
 package layout;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,17 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import salonmachala.org.salonmachala.R;
-import widget.JustifiedTextView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link InicioFragment.OnFragmentInteractionListener} interface
+ * {@link CreditosFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link InicioFragment#newInstance} factory method to
+ * Use the {@link CreditosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InicioFragment extends Fragment {
+public class CreditosFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +30,7 @@ public class InicioFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public InicioFragment() {
+    public CreditosFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +40,11 @@ public class InicioFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment InicioFragment.
+     * @return A new instance of fragment Creditos.
      */
     // TODO: Rename and change types and number of parameters
-    public static InicioFragment newInstance(String param1, String param2) {
-        InicioFragment fragment = new InicioFragment();
+    public static CreditosFragment newInstance(String param1, String param2) {
+        CreditosFragment fragment = new CreditosFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,10 +65,7 @@ public class InicioFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_inicio, container, false);
-
-        init(view);
-        return view;
+        return inflater.inflate(R.layout.fragment_creditos, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -111,9 +106,4 @@ public class InicioFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-    private View init(View view){
-        return view;
-    }
-
 }

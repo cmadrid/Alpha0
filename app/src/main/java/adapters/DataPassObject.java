@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
  */
 public class DataPassObject {
     String Nombre;
+    String foto_url;
     Bitmap foto;
     int id;
     int tipo; //1 participante //2 obra
@@ -22,6 +23,20 @@ public class DataPassObject {
         this.foto = foto;
         this.id = id;
         this.tipo = tipo;
+    }
+    public DataPassObject(int id, String nombre, String foto_url, int tipo) {
+        Nombre = nombre;
+        this.foto_url = foto_url;
+        this.id = id;
+        this.tipo = tipo;
+    }
+
+    public String getFoto_url() {
+        return foto_url;
+    }
+
+    public void setFoto_url(String foto_url) {
+        this.foto_url = foto_url;
     }
 
     public String getNombre() {

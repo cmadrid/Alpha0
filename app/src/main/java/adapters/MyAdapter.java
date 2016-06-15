@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import lazyLoad.ImageLoader;
 import salonmachala.org.salonmachala.ArtistaActivity;
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.ObraActivity;
@@ -29,6 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<DataPassObject> mDataset;
     private int nColumnas;
 
+    public ImageLoader imageLoader;
     // Allows to remember the last item shown on screen
     private int lastPosition = -1;
 
@@ -63,6 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public MyAdapter(ArrayList<DataPassObject> myDataset, int nColumnas) {
         mDataset = myDataset;
         this.nColumnas = nColumnas;
+        imageLoader = new ImageLoader(MainActivity.mainActivity.getApplicationContext(),false);
     }
 
     // Create new views (invoked by the layout manager)
@@ -86,7 +89,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         final DataPassObject data = mDataset.get(position);
 
         holder.nombre.setText(data.getNombre());
-        holder.foto.setImageBitmap(data.getFoto());
+        if(data.getFoto()!=null)
+            holder.foto.setImageBitmap(data.getFoto());
+        else
+            imageLoader.DisplayImage(data.getFoto_url(),holder.foto);
 
         final int tipo = data.getTipo();
         final int id = data.getId();

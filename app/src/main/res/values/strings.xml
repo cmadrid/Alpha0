@@ -8,12 +8,16 @@
 
     <string name="action_settings">Settings</string>
     <string name="permiso_camara">Se necesita hacer uso de la cámara para esta función y se le ha negado el permiso. Deséa activarlo manualmente?</string>
+    <string name="permiso_write">Se necesita hacer uso del almacenamiento del dispositivo para guardar la información y se le ha negado el permiso. Deséa activarlo manualmente?</string>
     <string name="ver_artista_obra_">Ver información de:</string>
     <string name="autor_str">AUTOR</string>
     <string name="obra_str">OBRA</string>
 
     <string name="no_qr">Obra no registrada</string>
     <string name="cargando_splash">Cargando Informacion del evento</string>
+
+    <string name="conexion">Conexión a internet necesaria</string>
+    <string name="conexion_requiere">Es necesaria la conexión a datos durante la primera ejecución para obtener datos iniciales del evento.</string>
 
     <string name="obra_info">INFORMACIÓN DE LA OBRA</string>
     <string name="titulo_str_">TÍTULO:</string>
@@ -39,6 +43,9 @@
     <string name="premio_nav">Premio Musa Paradisiaca</string>
     <string name="artistas_nav">Artistas</string>
     <string name="obras_nav">Obras</string>
+    <string name="premios">Premios</string>
+    <string name="creditos">Créditos</string>
+    <string name="permiso_requerido">El permiso es requerido para la ejecucion.</string>
 
     <string name="opciones_nav">Funciones Adicionales</string>
     <string name="escanear_qr">Escanear QR</string>
@@ -51,5 +58,8 @@
     <string name="title_activity_splash">Splash</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

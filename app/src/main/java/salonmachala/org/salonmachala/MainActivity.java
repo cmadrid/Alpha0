@@ -39,8 +39,10 @@ import java.util.Locale;
 import gson.LoadInformation;
 import layout.AntecedentesFragment;
 import layout.ArtistasFragment;
+import layout.CreditosFragment;
 import layout.InicioFragment;
 import layout.ObrasFragment;
+import layout.PremiosFragment;
 import layout.ProyeccionFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -49,12 +51,15 @@ public class MainActivity extends AppCompatActivity
         AntecedentesFragment.OnFragmentInteractionListener,
         ObrasFragment.OnFragmentInteractionListener,
         ProyeccionFragment.OnFragmentInteractionListener,
-        ArtistasFragment.OnFragmentInteractionListener,View.OnClickListener{
+        ArtistasFragment.OnFragmentInteractionListener,
+        PremiosFragment.OnFragmentInteractionListener,
+        CreditosFragment.OnFragmentInteractionListener,View.OnClickListener{
 
     final int MY_PERMISSIONS_REQUEST_CAMERA = 159;
     public static AppCompatActivity mainActivity;
     public static ProgressBar progressWheel;
     Fragment fragment = null;
+
 
     NavigationView navigationView;
 
@@ -65,11 +70,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        Global.activity = this;
         mainActivity = this;
         progressWheel = (ProgressBar) findViewById(R.id.progressWheel);
-
-
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         ((TextView)navigationView.getHeaderView(0).findViewById(R.id.urlHeader)).setMovementMethod(LinkMovementMethod.getInstance());
@@ -171,6 +174,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         boolean fragmentTransaction = false;
 
+
         if(fragment!=null && fragment instanceof ObrasFragment)
             ((ObrasFragment)fragment).detener();
         if(fragment!=null && fragment instanceof ArtistasFragment)
@@ -178,26 +182,43 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_inicio) {
             //selectItem("inicio");
+            Global.permiso_escritura();
             fragment = InicioFragment.newInstance(null,null);
             fragmentTransaction = true;
         }
         if (id == R.id.nav_antecedentes) {
 
+            Global.permiso_escritura();
             fragment = AntecedentesFragment.newInstance(null,null);
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_proyeccion) {
 
+            Global.permiso_escritura();
             fragment = ProyeccionFragment.newInstance(null,null);
+            fragmentTransaction = true;
+
+        } else if (id == R.id.nav_creditos) {
+
+            Global.permiso_escritura();
+            fragment = CreditosFragment.newInstance(null,null);
+            fragmentTransaction = true;
+
+        } else if (id == R.id.nav_premiados) {
+
+            Global.permiso_escritura();
+            fragment = PremiosFragment.newInstance(null,null);
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_artista) {
 
+            Global.permiso_escritura();
             fragment = ArtistasFragment.newInstance(null,null);
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_obras) {
 
+            Global.permiso_escritura();
             fragment = ObrasFragment.newInstance(null,null);
             fragmentTransaction = true;
 
@@ -253,22 +274,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
-    private void showMessageOKCancel(int message, DialogInterface.OnClickListener okListener) {
-        new AlertDialog.Builder(MainActivity.this)
-                .setMessage(message)
-                .setPositiveButton(android.R.string.yes, okListener)
-                .setNegativeButton(android.R.string.no, null)
-                .create()
-                .show();
-    }
-
-
-
-
-
-
     public void setLocale(String lang) {
         Locale myLocale = new Locale(lang);
         Resources res = getResources();
@@ -319,7 +324,7 @@ public class MainActivity extends AppCompatActivity
                 } else {
 
                     if (!ActivityCompat.shouldShowRequestPermissionRationale(mainActivity, Manifest.permission.CAMERA)) {
-                        showMessageOKCancel(R.string.permiso_camara,
+                        Global.showMessageOKCancel(null,R.string.permiso_camara,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -329,10 +334,22 @@ public class MainActivity extends AppCompatActivity
                                         startActivityForResult(intent, 122);
 
                                     }
-                                });
+                                },null);
                         return;
                     }
 
+                }
+                return;
+            }case Global.MY_PERMISSIONS_REQUEST_WRITE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    if (!ActivityCompat.shouldShowRequestPermissionRationale(Global.activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        Global.premiso_write_denegado(Global.activity);
+                        return;
+                    }
                 }
                 return;
             }
