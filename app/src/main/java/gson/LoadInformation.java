@@ -31,6 +31,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
     static SharedPreferences sharedpreferences;
     String actualizacion_participantes;
     String actualizacion_obras;
+    String actualizacion_informacion;
 
     FileCache fileCache;
 
@@ -54,6 +55,12 @@ public class LoadInformation extends AsyncTask<String, String, String> {
 
         actualizacion_participantes = sharedpreferences.getString(SalonMachala.Pref.Actualizacion_Participantes, null);
         actualizacion_obras = sharedpreferences.getString(SalonMachala.Pref.Actualizacion_Obras, null);
+        actualizacion_informacion = sharedpreferences.getString(SalonMachala.Pref.Actualizacion_Informacion, null);
+
+        String jsoni = RequestJsonHttp.executePost("informacion_informacion",new Param<String, String>("actualizacion", actualizacion_informacion));
+        InformacionInformacion ii = gson.fromJson(jsoni, InformacionInformacion.class);
+        //System.out.println(jsoni);
+        //System.out.println("prueba: "+ii.getData().get(0).getC1i());
 
 
         String jsonp = RequestJsonHttp.executePost("informacion_participantes",new Param<String, String>("actualizacion", actualizacion_participantes));
@@ -80,9 +87,9 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         //getImagesParticipantes(participantes);
         //getImagesObras(obras);
 
-        System.out.println(jsonp);
+        //System.out.println(jsonp);
         System.out.println("--------------------------------------*-*-*-*-*-*--------------------------------------------");
-        System.out.println(jsono);
+        //System.out.println(jsono);
 
         DBParticipante db_participante = null;
         try {

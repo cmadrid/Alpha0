@@ -85,23 +85,7 @@ public class ArtistaActivity extends AppCompatActivity {
         tv_nacionalidad = (TextView) findViewById(R.id.tv_nacionalidad);
         iv_foto = (ImageView) findViewById(R.id.iv_foto);
 
-
-        iv_foto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                iv_foto.buildDrawingCache();
-                Bitmap image= iv_foto.getDrawingCache();
-
-                Intent intent = new Intent(artista,AbrirImagen.class);
-                Bundle extras = new Bundle();
-                extras.putParcelable("imagebitmap", image);
-                extras.putString("title", tv_nombre.getText().toString());
-                intent.putExtras(extras);
-                startActivity(intent);
-
-            }
-        });
+        Global.openImageView(iv_foto,tv_nombre,null);
 
     }
 
@@ -125,11 +109,6 @@ public class ArtistaActivity extends AppCompatActivity {
                 tv_nacionalidad.setText(c.getString(4));
 
                 tv_edad.setText(calculateAge(Timestamp.valueOf(c.getString(3)))+" "+getResources().getString(R.string.anios));
-/*
-                byte[] byteArray = c.getBlob(6);
-                Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                iv_foto.setImageBitmap(bm);
-*/
                 imageLoader.DisplayImage(c.getString(9),iv_foto);
 
                 wv_bibliografia.setText(c.getString(5));

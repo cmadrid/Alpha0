@@ -1,22 +1,17 @@
 package salonmachala.org.salonmachala;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -37,11 +32,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.Locale;
 
-import gson.LoadInformation;
 import layout.AntecedentesFragment;
 import layout.ArtistasFragment;
 import layout.CreditosFragment;
@@ -85,10 +77,10 @@ public class MainActivity extends AppCompatActivity
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         header = (ImageView) findViewById(R.id.header);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-        header.setBackgroundColor(android.R.color.transparent);
-        //header.setImageDrawable(null);
+
 
         collapsingToolbar.setTitle(getResources().getString(R.string.app_name));
+//        header.setOnClickListener();
 
 
 
@@ -146,6 +138,7 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.content,InicioFragment.newInstance(null,null))
                     .commit();
 
+            reestableceToolBar();
             collapsingToolbar.setTitle(getResources().getString(R.string.app_name));
             //getSupportActionBar().setTitle(R.string.app_name);
         }
@@ -198,9 +191,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         boolean fragmentTransaction = false;
 
-        appBarLayout.setExpanded(true);
-        header.setImageResource(android.R.color.transparent);
-        header.setImageDrawable(null);
+        reestableceToolBar();
 
         if(fragment!=null && fragment instanceof ObrasFragment)
             ((ObrasFragment)fragment).detener();
@@ -208,7 +199,6 @@ public class MainActivity extends AppCompatActivity
             ((ArtistasFragment)fragment).detener();
 
         if (id == R.id.nav_inicio) {
-            //selectItem("inicio");
             Global.permiso_escritura();
             fragment = InicioFragment.newInstance(null,null);
             fragmentTransaction = true;
@@ -404,6 +394,15 @@ public class MainActivity extends AppCompatActivity
                 abrir_qr();
                 break;
         }
+    }
+
+
+    public void reestableceToolBar(){
+        header.setBackgroundColor(android.R.color.transparent);
+        header.setImageDrawable(null);
+        header.setOnClickListener(null);
+        appBarLayout.setExpanded(true);
+
     }
 
 

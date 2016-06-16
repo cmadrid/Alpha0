@@ -24,7 +24,9 @@ public class JustifiedTextView extends WebView {
         super(context, attrs);
         this.setWebChromeClient(new WebChromeClient(){});
     }
-
+    public JustifiedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
     public void setText(String s){
         this.text = s.replace("\n","<br>");
         reloadData();

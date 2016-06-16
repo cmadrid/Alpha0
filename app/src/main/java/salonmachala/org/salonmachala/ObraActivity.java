@@ -84,22 +84,8 @@ public class ObraActivity extends AppCompatActivity {
         tv_dimensiones = (TextView) findViewById(R.id.dimensiones);
         iv_foto = (ImageView) findViewById(R.id.foto);
 
-        iv_foto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                iv_foto.buildDrawingCache();
-                Bitmap image= iv_foto.getDrawingCache();
-
-                Intent intent = new Intent(obra,AbrirImagen.class);
-                Bundle extras = new Bundle();
-                extras.putParcelable("imagebitmap", image);
-                extras.putString("title", tv_titulo.getText().toString());
-                intent.putExtras(extras);
-                startActivity(intent);
-
-            }
-        });
+        Global.openImageView(iv_foto,tv_titulo,null);
 
     }
 

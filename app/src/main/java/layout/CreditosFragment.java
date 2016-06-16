@@ -3,6 +3,7 @@ package layout;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,8 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import lazyLoad.ImageLoader;
 import salonmachala.org.salonmachala.AbrirImagen;
+import salonmachala.org.salonmachala.Global;
 import salonmachala.org.salonmachala.MainActivity;
+import salonmachala.org.salonmachala.NestedWebView;
 import salonmachala.org.salonmachala.R;
 import widget.JustifiedTextView;
 
@@ -33,7 +37,7 @@ public class CreditosFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    JustifiedTextView wv_creditos;
+    NestedWebView wv_creditos;
 
     private OnFragmentInteractionListener mListener;
 
@@ -117,7 +121,9 @@ public class CreditosFragment extends Fragment {
     }
 
     private void init(View view){
-        wv_creditos = (JustifiedTextView) view.findViewById(R.id.wv_creditos);
+        wv_creditos = (NestedWebView) view.findViewById(R.id.wv_creditos);
+        wv_creditos.setTextColor(Color.BLACK);
+        wv_creditos.setTextSize(17);
 
         wv_creditos.setText("<strong>Director</strong>\n" +
                 "\n" +
@@ -136,26 +142,13 @@ public class CreditosFragment extends Fragment {
                 "Fue jurado calificador en varios concursos locales de dibujo y pintura organizados por instituciones públicas y educativas. \n" +
                 "\n" +
                 "En 2015, estuvo vinculada en un proyecto internacional de residencia artística, sobre el impacto de la minería en Portovelo y Zaruma.\n");
-        wv_creditos.setTextColor(Color.BLACK);
-        wv_creditos.setTextSize(17);
+
+
+        //ImageLoader imageLoader = new ImageLoader(MainActivity.mainActivity,true);
+        //imageLoader.DisplayImage("http://puntoec.org/json/recursos/creditos/enrique_stefany.jpg",MainActivity.mainActivity.header);
+
+
         MainActivity.mainActivity.header.setImageResource(R.drawable.enrique_stefany);
-        MainActivity.mainActivity.header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                MainActivity.mainActivity.header.buildDrawingCache();
-                Bitmap image= MainActivity.mainActivity.header.getDrawingCache();
-
-                Intent intent = new Intent(MainActivity.mainActivity,AbrirImagen.class);
-                Bundle extras = new Bundle();
-                //extras.putParcelable("imagebitmap", image);
-                extras.putInt("imageResource", R.drawable.enrique_stefany);
-                extras.putString("title", "");
-                intent.putExtras(extras);
-                startActivity(intent);
-
-            }
-        });
+        Global.openImageView(MainActivity.mainActivity.header,null,R.drawable.enrique_stefany);
     }
 }
