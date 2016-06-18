@@ -1,6 +1,7 @@
 package layout;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.sql.Timestamp;
+
+import database.DBInformacion;
+import database.DBParticipante;
+import lazyLoad.ImageLoader;
+import salonmachala.org.salonmachala.Global;
+import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.NestedWebView;
 import salonmachala.org.salonmachala.R;
 
@@ -119,13 +127,16 @@ public class AntecedentesFragment extends Fragment {
         wv_antecedentes.setTextColor(Color.BLACK);
         wv_antecedentes.setTextSize(17);
 
-        wv_antecedentes.setText("<strong>Antecedentes</strong>\n" +
+        Global.llenaInformacion("cdg_antecedentes",wv_antecedentes);
+        /*wv_antecedentes.setText("<strong>Antecedentes</strong>\n" +
                 "\n" +
                 "Dentro del proceso de crecimiento y renovación de nuestro Salón Internacional de Artes, cuyo nombre inicial, Salón de Junio Machala, surgió hace algunos años con la idea de resaltar el mes en que se celebran las fiestas patronales de Machala, pasamos a celebrar nuestra ciudad llamando a este importante evento SALÓN MACHALA, que desde esta séptima edición 2016, acorta su nombre para ganar en solidez, eficacia y con el anhelo de que sea un espacio ganado para las artes no solo en sus fiestas de cantonización, si no a lo largo de todo el año; para que sea un generoso continuum de arte llamado por su nombre propio: Salón Machala, un encuentro internacional de artes visuales de alta calidad que desde el extremo sur del Ecuador, abre sus ventanas  al mundo para recibir la brisa fresca que nos traen las artes de las diversas culturas del planeta y para visibilizar lo que somos y cómo decimos el arte desde esta diversa tierra fértil, de abundantes orillas salitrosas y montañas preñadas de oro. El Salón Machala es una nueva manera de nombrar el arte en el sur del Ecuador.\n" +
                 "\n" +
                 "La edición 2015 del salón trajo consigo a nuestra ciudad nociones de alta calidad artística dentro de un contexto verdaderamente internacional en el arte de nuestros días. La comunidad de artistas del país y el público en general siguieron con interés y admiración todos los eventos que conformaron nuestra propuesta del Salón Machala, y saludaron con entusiasmo la presencia en la capital bananera del mundo, de importantes artistas y personajes de la cultura artística de diversas latitudes. \n" +
                 "\n" +
                 "La rigurosidad de la selección y premiación de los artistas participantes, procurada por un equipo profesional de reconocida trayectoria internacional, en combinación con una curaduría de primera línea y una puesta en escena limpia y funcional, nos colocaron, sin ninguna duda, a la par de importantes eventos culturales organizados en diversas partes del mundo.");
+                */
     }
+
 
 }

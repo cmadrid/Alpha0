@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,8 +14,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import database.DBInformacion;
+import lazyLoad.ImageLoader;
 
 /**
  * Created by ces_m on 6/14/2016.
@@ -92,6 +97,37 @@ public class Global {
 
             }
         });
+    }
+
+
+    public static void llenaInformacion(String cod, NestedWebView wv){
+
+        DBInformacion db_informacion = null;
+        try {
+            db_informacion = new DBInformacion(MainActivity.mainActivity);
+            Cursor c = null;
+            if(cod!=null)
+                c = db_informacion.consultar(cod);
+
+            if(c==null)
+                return;
+
+            if(c.moveToFirst()) {
+
+                wv.setText(c.getString(5));
+                if(c.getString(3)!=null && !c.getString(3).equalsIgnoreCase("")) {
+                    new ImageLoader(MainActivity.mainActivity, true).DisplayImage(c.getString(3), MainActivity.mainActivity.header);
+                    //Global.openImageView(MainActivity.mainActivity.header,null,null);
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            db_informacion.close();
+        }
+
     }
 
 

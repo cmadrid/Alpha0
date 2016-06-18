@@ -168,6 +168,9 @@ public class DBParticipante {
         return db.query(NOMBRE_TABLA, campos, ID+"=?", args, null, null, null);
     }
 
+    public int borrar(String ids){
+        return db.delete(NOMBRE_TABLA,ID+" not in ("+ids+")", null);
+    }
 
     public void vaciar(){
         db.delete(NOMBRE_TABLA,null,null);

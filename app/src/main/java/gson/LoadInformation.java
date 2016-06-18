@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import database.DBInformacion;
 import database.DBObra;
 import database.DBParticipante;
 import lazyLoad.FileCache;
@@ -59,18 +60,19 @@ public class LoadInformation extends AsyncTask<String, String, String> {
 
         String jsoni = RequestJsonHttp.executePost("informacion_informacion",new Param<String, String>("actualizacion", actualizacion_informacion));
         InformacionInformacion ii = gson.fromJson(jsoni, InformacionInformacion.class);
-        //System.out.println(jsoni);
-        //System.out.println("prueba: "+ii.getData().get(0).getC1i());
 
 
         String jsonp = RequestJsonHttp.executePost("informacion_participantes",new Param<String, String>("actualizacion", actualizacion_participantes));
         InformacionParticipantes ip = gson.fromJson(jsonp, InformacionParticipantes.class);
 
+        String jsona = RequestJsonHttp.executePost("informacion_activos");
+        InformacionActivos ia = gson.fromJson(jsona,InformacionActivos.class);
 
         String jsono = RequestJsonHttp.executePost("informacion_obras",new Param<String, String>("actualizacion", actualizacion_obras));
         InformacionObras io = gson.fromJson(jsono, InformacionObras.class);
 
 
+        System.out.println("actualizacion informaciones("+actualizacion_informacion+"): "+ii.getActualizacion());
         System.out.println("actualizacion participantes("+actualizacion_participantes+"): "+ip.getActualizacion());
         System.out.println("actualizacion obras("+actualizacion_obras+"): "+io.getActualizacion());
 
@@ -78,18 +80,64 @@ public class LoadInformation extends AsyncTask<String, String, String> {
 
         System.out.println("fin");
 
+        ArrayList<Informacion> informaciones = ii.getData();
         ArrayList<Participante> participantes = ip.getData();
         ArrayList<Obra> obras = io.getData();
-
+        ArrayList<InformacionActivos.Activo> activos = ia.getData();
 
         if(actualizacion_participantes==null || actualizacion_obras==null)
             fileCache.clear();
         //getImagesParticipantes(participantes);
         //getImagesObras(obras);
 
+
+        //System.out.println(jsoni);
         //System.out.println(jsonp);
         System.out.println("--------------------------------------*-*-*-*-*-*--------------------------------------------");
         //System.out.println(jsono);
+        System.out.println(jsona);
+
+        String idsP="-1";
+        String idsO="-1";
+        String idsI="-1";
+
+        for(InformacionActivos.Activo activo:activos){
+            switch (activo.getTipo()){
+                case "P":idsP=activo.getIds();
+                    break;
+
+                case "O":idsO=activo.getIds();
+                    break;
+
+                case "I":idsI=activo.getIds();
+                    break;
+            }
+        }
+
+
+
+
+
+        DBInformacion db_informacion = null;
+        try {
+
+            db_informacion=new DBInformacion(c);
+
+            db_informacion.insertaroActualizar(informaciones);
+
+            System.out.println("correcto I");
+
+            editor.putString(SalonMachala.Pref.Actualizacion_Informacion, ii.getActualizacion()).apply();
+
+            db_informacion.borrar(idsI);
+            System.out.println("correcto borrado");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            db_informacion.close();
+        }
+
 
         DBParticipante db_participante = null;
         try {
@@ -119,12 +167,31 @@ public class LoadInformation extends AsyncTask<String, String, String> {
             System.out.println("correcto O");
 
             editor.putString(SalonMachala.Pref.Actualizacion_Obras, io.getActualizacion()).apply();
+
+            db_obra.borrar(idsO);
+            System.out.println("correcto borrado O");
+
         }catch (Exception e){
             e.printStackTrace();
         }
         finally {
             db_participante.close();
         }
+
+        db_participante = null;
+        try {
+
+            db_participante=new DBParticipante(c);
+            db_participante.borrar(idsP);
+            System.out.println("correcto borrado P");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            db_participante.close();
+        }
+
 
         editor.putBoolean(SalonMachala.Pref.Ejecutado,true).apply();
 

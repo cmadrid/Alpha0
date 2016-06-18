@@ -125,6 +125,8 @@ public class CreditosFragment extends Fragment {
         wv_creditos.setTextColor(Color.BLACK);
         wv_creditos.setTextSize(17);
 
+        Global.llenaInformacion("cdg_creditos",wv_creditos);
+/*
         wv_creditos.setText("<strong>Director</strong>\n" +
                 "\n" +
                 "Enrique Madrid (Machala - Ecuador, 1964)\n" +
@@ -149,6 +151,6 @@ public class CreditosFragment extends Fragment {
 
 
         MainActivity.mainActivity.header.setImageResource(R.drawable.enrique_stefany);
-        Global.openImageView(MainActivity.mainActivity.header,null,R.drawable.enrique_stefany);
+        Global.openImageView(MainActivity.mainActivity.header,null,R.drawable.enrique_stefany);*/
     }
 }

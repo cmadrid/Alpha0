@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_inicio"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/inicio_nav" />
         <item
             android:id="@+id/nav_antecedentes"
@@ -27,12 +27,16 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
+                    android:id="@+id/nav_artistas_invitados"
+                    android:icon="@drawable/ic_perm_identity_black_24dp"
+                    android:title="@string/artistas_invitados_nav" />
+                <item
                     android:id="@+id/nav_artista"
                     android:icon="@drawable/ic_person_24dp"
                     android:title="@string/artistas_nav" />
                 <item
                     android:id="@+id/nav_obras"
-                    android:icon="@drawable/ic_menu_gallery"
+                    android:icon="@drawable/ic_image_black_24dp"
                     android:title="@string/obras_nav" />
                 <item
                     android:id="@+id/nav_premiados"

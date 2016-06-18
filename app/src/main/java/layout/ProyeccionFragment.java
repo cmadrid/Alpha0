@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import salonmachala.org.salonmachala.Global;
 import salonmachala.org.salonmachala.NestedWebView;
 import salonmachala.org.salonmachala.R;
 
@@ -121,7 +122,8 @@ public class ProyeccionFragment extends Fragment {
         wv_proyeccion.setTextColor(Color.BLACK);
         wv_proyeccion.setTextSize(17);
 
-        wv_proyeccion.setText("El Salón Machala cumple con los parámetros internacionales de calidad, protocolo e intercambio cultural. Esta propuesta cultural está diseñada para trascender a nivel internacional, más aun ahora, que la reformulación de todo el evento nos ha permitido integrar alrededor del concurso de artes visuales sobre soporte bidimensional, otras opciones de lenguajes artísticos que enriquecen el evento y las referencias de la cultura visual en nuestra comunidad.\n" +
+        Global.llenaInformacion("cdg_proyeccion",wv_proyeccion);
+       /* wv_proyeccion.setText("El Salón Machala cumple con los parámetros internacionales de calidad, protocolo e intercambio cultural. Esta propuesta cultural está diseñada para trascender a nivel internacional, más aun ahora, que la reformulación de todo el evento nos ha permitido integrar alrededor del concurso de artes visuales sobre soporte bidimensional, otras opciones de lenguajes artísticos que enriquecen el evento y las referencias de la cultura visual en nuestra comunidad.\n" +
                 "\n" +
                 "El Salón Machala ha sido concebido como una propuesta cultural que abarca una serie de actividades dentro de la cultura artística y apunta a persuadir al espectador a sumergirse en una experiencia cultural que va desde conferencias magistrales, laboratorios de creación comunitarios, pasando por un complejo programa de curaduría pedagógica que creará puentes entre el público, los artistas y la producción artística expuesta y fortalecerá los vínculos entre la comunidad y el salón.\n" +
                 "\n" +
@@ -134,6 +136,6 @@ public class ProyeccionFragment extends Fragment {
                 "Mantenemos para esta nueva edición la categoría del Personaje Invitado Especial. En esta ocasión, hemos invitado al artista pintor y escritor norteamericano Virgil Elliott, un maestro de los procesos técnicos en la pintura, siguiendo el espíritu pedagógico de esta edición y lo reforzamos con el taller de dibujo de figura humana dictada por Eduardo Villacís, excelente artista figurativo ecuatoriano, profesor de la Escuela de Artes Visuales de la Universidad San Francisco de Quito.\n" +
                 "\n" +
                 "Para nutrir aún más este proceso de inmersión cultural, Marcio Tavares, curador brasileño y en esta edición Miembro del Jurado de los Premios Musa, nos ofrecerá una conferencia magistral sobre curadurías y exhibiciones como plataformas para producir conocimiento. Además, James Clover, artista norteamericano, Miembro del Jurado de los Premios Musa Paradisiaca, ofrecerá una conferencia, conversatorio y slide show para los artistas locales.\n" +
-                "\n");
+                "\n");*/
     }
 }

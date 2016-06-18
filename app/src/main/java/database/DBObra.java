@@ -194,6 +194,9 @@ public class DBObra {
         return db.query(TABLE_NAME, campos, ID+"=?", args, null, null, null);
     }
 
+    public int borrar(String ids){
+        return db.delete(TABLE_NAME,ID+" not in ("+ids+")", null);
+    }
 
     public void vaciar(){
         db.delete(TABLE_NAME,null,null);
