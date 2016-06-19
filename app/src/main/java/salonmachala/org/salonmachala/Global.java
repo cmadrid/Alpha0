@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -114,11 +115,13 @@ public class Global {
 
             if(c.moveToFirst()) {
 
-                wv.setText(c.getString(5));
+                wv.setText(new String(new char[400]).replace("\0", c.getString(5)));
                 if(c.getString(3)!=null && !c.getString(3).equalsIgnoreCase("")) {
+                    MainActivity.mainActivity.appBarLayout.setExpanded(true);
                     new ImageLoader(MainActivity.mainActivity, true).DisplayImage(c.getString(3), MainActivity.mainActivity.header);
                     //Global.openImageView(MainActivity.mainActivity.header,null,null);
-                }
+                }else
+                    MainActivity.mainActivity.appBarLayout.setExpanded(false);
             }
 
         }catch (Exception e){
@@ -128,6 +131,17 @@ public class Global {
             db_informacion.close();
         }
 
+    }
+
+    public static int getSizeWv(){
+        int[] attrs = new int[] { android.R.attr.textSize };
+        TypedArray ta = activity.obtainStyledAttributes(R.style.size_wv_bio_des, attrs);
+        //int size = (int) ta.getDimension(0,(float)17.0);
+        //System.out.println(ta.getString(0));
+        int size_ = new Integer(ta.getString(0).split("\\.")[0]);
+        ta.recycle();
+        //System.out.println("tamaño de wv letra = "+size_);
+        return size_;
     }
 
 

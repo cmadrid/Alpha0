@@ -115,12 +115,8 @@ public class ArtistaActivity extends AppCompatActivity {
                 wv_bibliografia.setText(c.getString(5));
                 wv_bibliografia.setTextColor(Color.BLACK);
 
-                int[] attrs = new int[] { android.R.attr.textSize };
-                TypedArray ta = obtainStyledAttributes(R.style.size_wv_bio_des, attrs);
-                int size = ta.getDimensionPixelSize(0,17);
-                ta.recycle();
 
-                wv_bibliografia.setTextSize(size);
+                wv_bibliografia.setTextSize(Global.getSizeWv());
             }
 
         }catch (Exception e){

@@ -123,13 +123,9 @@ public class ProyeccionFragment extends Fragment {
         wv_proyeccion = (NestedWebView) view.findViewById(R.id.wv_proyeccion);
         wv_proyeccion.setTextColor(Color.BLACK);
 
-        int[] attrs = new int[] { android.R.attr.textSize };
-        TypedArray ta = MainActivity.mainActivity.obtainStyledAttributes(R.style.size_wv_bio_des, attrs);
-        int size = ta.getDimensionPixelSize(0,17);
-        ta.recycle();
-
-        wv_proyeccion.setTextSize(size);
+        wv_proyeccion.setTextSize(Global.getSizeWv());
 
         Global.llenaInformacion("cdg_proyeccion",wv_proyeccion);
+        MainActivity.mainActivity.appBarLayout.setExpanded(false);
     }
 }

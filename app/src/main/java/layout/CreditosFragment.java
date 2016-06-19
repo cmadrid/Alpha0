@@ -12,6 +12,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import lazyLoad.ImageLoader;
 import salonmachala.org.salonmachala.AbrirImagen;
@@ -39,6 +42,8 @@ public class CreditosFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     NestedWebView wv_creditos;
+    ProgressBar progressCreditos;
+    String tipo_info;
 
     private OnFragmentInteractionListener mListener;
 
@@ -61,6 +66,7 @@ public class CreditosFragment extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+        fragment.tipo_info = param1;
         return fragment;
     }
 
@@ -123,16 +129,14 @@ public class CreditosFragment extends Fragment {
 
     private void init(View view){
         wv_creditos = (NestedWebView) view.findViewById(R.id.wv_creditos);
+        progressCreditos = (ProgressBar) view.findViewById(R.id.progressCreditos);
+
         wv_creditos.setTextColor(Color.BLACK);
+        wv_creditos.setTextSize(Global.getSizeWv());
 
-        int[] attrs = new int[] { android.R.attr.textSize };
-        TypedArray ta = MainActivity.mainActivity.obtainStyledAttributes(R.style.size_wv_bio_des, attrs);
-        int size = ta.getDimensionPixelSize(0,17);
-        ta.recycle();
+        Global.llenaInformacion(tipo_info,wv_creditos);
 
-        wv_creditos.setTextSize(size);
-
-        Global.llenaInformacion("cdg_creditos",wv_creditos);
+        wv_creditos.setWebViewProgress(progressCreditos);
 
         //ImageLoader imageLoader = new ImageLoader(MainActivity.mainActivity,true);
         //imageLoader.DisplayImage("http://puntoec.org/json/recursos/creditos/enrique_stefany.jpg",MainActivity.mainActivity.header);

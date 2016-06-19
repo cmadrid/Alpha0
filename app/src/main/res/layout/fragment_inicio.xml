@@ -6,19 +6,15 @@
     tools:context="layout.InicioFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="InicioFragment" />
+
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/logo_musa2_web"
+        android:background="#ffffff"
+        android:scaleType="fitStart"
         android:id="@+id/imageView2"/>
 
-    <WebView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/wv_inicio" />
 
 </LinearLayout>

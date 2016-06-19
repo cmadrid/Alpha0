@@ -34,11 +34,11 @@ public class AntecedentesFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    NestedWebView wv_antecedentes;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    NestedWebView wv_antecedentes;
 
     private OnFragmentInteractionListener mListener;
 
@@ -125,16 +125,12 @@ public class AntecedentesFragment extends Fragment {
 
     private void initComponents(View view){
         wv_antecedentes = (NestedWebView) view.findViewById(R.id.wv_antecedentes);
+
         wv_antecedentes.setTextColor(Color.BLACK);
-
-        int[] attrs = new int[] { android.R.attr.textSize };
-        TypedArray ta = MainActivity.mainActivity.obtainStyledAttributes(R.style.size_wv_bio_des, attrs);
-        int size = ta.getDimensionPixelSize(0,17);
-        ta.recycle();
-
-        wv_antecedentes.setTextSize(size);
+        wv_antecedentes.setTextSize(Global.getSizeWv());
 
         Global.llenaInformacion("cdg_antecedentes",wv_antecedentes);
+        MainActivity.mainActivity.appBarLayout.setExpanded(false);
     }
 
 

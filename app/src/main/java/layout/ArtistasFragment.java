@@ -40,6 +40,7 @@ public class ArtistasFragment extends Fragment {
     private int nColumnas = 2;
     RecyclerView recyclerView;
     boolean seguir = true;
+    String tipo = "PA";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -66,6 +67,7 @@ public class ArtistasFragment extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+        fragment.tipo = param1;
         return fragment;
     }
 
@@ -156,7 +158,7 @@ public class ArtistasFragment extends Fragment {
             try {
 
                 db_participantes = new DBParticipante(getActivity());
-                Cursor c = db_participantes.consultarArtistas(null);
+                Cursor c = db_participantes.consultarArtistas(null,tipo);
                 if(c.moveToFirst()) {
                     do {
                         myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), c.getString(4), DataPassObject.PARTICIPANTE));
@@ -192,6 +194,7 @@ public class ArtistasFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             MainActivity.progressWheel.setVisibility(View.GONE);
+            MainActivity.mainActivity.appBarLayout.setExpanded(false);
             //recyclerView.setAdapter(adapter);
             super.onPostExecute(s);
         }

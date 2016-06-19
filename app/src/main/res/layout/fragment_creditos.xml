@@ -9,12 +9,27 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <salonmachala.org.salonmachala.NestedWebView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="2dp"
-        android:id="@+id/wv_creditos" />
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressCreditos"
+            android:layout_marginTop="145dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@+id/wv_creditos"/>
+
+        <salonmachala.org.salonmachala.NestedWebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/wv_creditos" />
+
+    </RelativeLayout>
 </FrameLayout>

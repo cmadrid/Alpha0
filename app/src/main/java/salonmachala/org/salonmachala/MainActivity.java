@@ -203,19 +203,19 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_antecedentes) {
 
             Global.permiso_escritura();
-            fragment = AntecedentesFragment.newInstance(null,null);
+            fragment = CreditosFragment.newInstance("cdg_antecedentes",null);
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_proyeccion) {
 
             Global.permiso_escritura();
-            fragment = ProyeccionFragment.newInstance(null,null);
+            fragment = CreditosFragment.newInstance("cdg_proyeccion",null);
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_creditos) {
 
             Global.permiso_escritura();
-            fragment = CreditosFragment.newInstance(null,null);
+            fragment = CreditosFragment.newInstance("cdg_creditos",null);
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_premiados) {
@@ -223,21 +223,24 @@ public class MainActivity extends AppCompatActivity
             Global.permiso_escritura();
             fragment = PremiosFragment.newInstance(null,null);
             fragmentTransaction = true;
-            appBarLayout.setExpanded(false);
 
         } else if (id == R.id.nav_artista) {
 
             Global.permiso_escritura();
-            fragment = ArtistasFragment.newInstance(null,null);
+            fragment = ArtistasFragment.newInstance("PA",null);
             fragmentTransaction = true;
-            appBarLayout.setExpanded(false);
+
+        }else if (id == R.id.nav_artistas_invitados) {
+
+            Global.permiso_escritura();
+            fragment = ArtistasFragment.newInstance("IN",null);
+            fragmentTransaction = true;
 
         } else if (id == R.id.nav_obras) {
 
             Global.permiso_escritura();
             fragment = ObrasFragment.newInstance(null,null);
             fragmentTransaction = true;
-            appBarLayout.setExpanded(false);
 
         } else if (id == R.id.nav_qr) {
             abrir_qr();
@@ -398,7 +401,6 @@ public class MainActivity extends AppCompatActivity
         header.setBackgroundColor(android.R.color.transparent);
         header.setImageDrawable(null);
         header.setOnClickListener(null);
-        appBarLayout.setExpanded(true);
 
     }
 

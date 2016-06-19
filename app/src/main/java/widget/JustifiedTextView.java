@@ -9,6 +9,10 @@ import android.util.AttributeSet;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
+
+import salonmachala.org.salonmachala.MainActivity;
 
 /**
  * Created by ces_m on 5/18/2016.
@@ -19,11 +23,23 @@ public class JustifiedTextView extends WebView {
     private String text      = "";
     private int textSize     = 12;
     private int backgroundColor= Color.TRANSPARENT;
+    int a = 0;
 
     public JustifiedTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setWebChromeClient(new WebChromeClient(){});
     }
+
+    public void setWebViewProgress(final ProgressBar progressBar){
+        this.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageCommitVisible(WebView view, String url) {
+                super.onPageCommitVisible(view, url);
+                progressBar.setVisibility(GONE);
+            }
+        });
+    }
+
     public JustifiedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }

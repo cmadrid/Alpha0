@@ -19,9 +19,18 @@ public class Participante{
     Date acp;
     Date afp;
     Bitmap bitmap;
+    String tip;
 
     public Participante() {
 
+    }
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
     }
 
     public Bitmap getBitmap() {

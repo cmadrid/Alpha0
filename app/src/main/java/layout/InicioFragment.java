@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
 import widget.JustifiedTextView;
 
@@ -113,6 +114,9 @@ public class InicioFragment extends Fragment {
     }
 
     private View init(View view){
+
+        MainActivity.mainActivity.header.setImageResource(R.drawable.logo);
+        MainActivity.mainActivity.appBarLayout.setExpanded(true);
         return view;
     }
 

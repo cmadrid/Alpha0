@@ -5,6 +5,7 @@ package salonmachala.org.salonmachala;
  */
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.NestedScrollingChild;
 import android.support.v4.view.NestedScrollingChildHelper;
@@ -12,6 +13,7 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import widget.JustifiedTextView;
 

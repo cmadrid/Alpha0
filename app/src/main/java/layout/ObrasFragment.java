@@ -195,6 +195,7 @@ public class ObrasFragment extends Fragment {
         protected void onPostExecute(String s) {
             //recyclerView.setAdapter(adapter);
             MainActivity.progressWheel.setVisibility(View.GONE);
+            MainActivity.mainActivity.appBarLayout.setExpanded(false);
             super.onPostExecute(s);
         }
     }

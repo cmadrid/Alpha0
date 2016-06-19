@@ -30,6 +30,7 @@ public class DBParticipante {
     public static final String FOTO = "foto"+"_"+"participante";
     public static final String ACTUALIZACION = "actualizacion"+"_"+ NOMBRE_TABLA;
     public static final String ACTUALIZACION_FOTO = "actualizacion_foto"+"_"+ NOMBRE_TABLA;
+    public static final String TIPO = "tipo"+"_"+ NOMBRE_TABLA;
     public Context ctx;
 
 
@@ -45,6 +46,7 @@ public class DBParticipante {
             + BIBLIO + " text,"
             + FOTO_URL + " text,"
             + FOTO + " blob,"
+            + TIPO + " text,"
             + ACTUALIZACION + " TIMESTAMP,"
             + ACTUALIZACION_FOTO + " TIMESTAMP"
             +");";
@@ -55,7 +57,7 @@ public class DBParticipante {
         db = helper.getWritableDatabase();
     }
 
-    public ContentValues generarContentValues(Integer id,String nombre,String pseudonimo,Date nacimiento,String nacionalidad,String biblio,String foto_url,byte[] foto,Date actualizacion,Date actualizacion_foto){
+    public ContentValues generarContentValues(Integer id,String nombre,String pseudonimo,Date nacimiento,String nacionalidad,String biblio,String foto_url,byte[] foto,Date actualizacion,Date actualizacion_foto,String tipo){
         ContentValues valores = new ContentValues();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -76,6 +78,8 @@ public class DBParticipante {
             valores.put(FOTO_URL, foto_url);
         if(foto!=null)
             valores.put(FOTO, foto);
+        if(tipo!=null)
+            valores.put(TIPO, tipo);
         if(actualizacion!=null)
             valores.put(ACTUALIZACION,dateFormat.format(actualizacion));
         if(actualizacion_foto!=null)
@@ -103,7 +107,7 @@ public class DBParticipante {
     }
 */
 
-    public boolean insertaroActualizar(Integer id,String nombre,String pseudonimo,Date nacimiento,String nacionalidad,String biblio,String foto,Date actualizacion,Date actualizacion_foto)
+    public boolean insertaroActualizar(Integer id,String nombre,String pseudonimo,Date nacimiento,String nacionalidad,String biblio,String foto,Date actualizacion,Date actualizacion_foto,String tipo)
     {
 
 
@@ -122,12 +126,12 @@ public class DBParticipante {
             }
 
             String[] args = new String[] {id+""};
-            db.update(NOMBRE_TABLA, generarContentValues(id, nombre, pseudonimo, nacimiento,nacionalidad,biblio,foto,image,actualizacion,actualizacion_foto), ID + "=?", args);
+            db.update(NOMBRE_TABLA, generarContentValues(id, nombre, pseudonimo, nacimiento,nacionalidad,biblio,foto,image,actualizacion,actualizacion_foto,tipo), ID + "=?", args);
             return true;
         }else {
             //image = LoadInformation.getImage(foto);
 
-            db.insert(NOMBRE_TABLA, null, generarContentValues(id, nombre, pseudonimo, nacimiento, nacionalidad, biblio,foto, image, actualizacion, actualizacion_foto));
+            db.insert(NOMBRE_TABLA, null, generarContentValues(id, nombre, pseudonimo, nacimiento, nacionalidad, biblio,foto, image, actualizacion, actualizacion_foto,tipo));
         }
         return false;
     }
@@ -140,7 +144,7 @@ public class DBParticipante {
     public void insertaroActualizar(ArrayList<Participante> participantes)
     {
         for(Participante participante:participantes)
-            insertaroActualizar(participante.getIdp(), participante.getNop(), participante.getPsp(), participante.getFnp(), participante.getNap(), participante.getBcp(), participante.getFop(), participante.getAcp(), participante.getAfp());
+            insertaroActualizar(participante.getIdp(), participante.getNop(), participante.getPsp(), participante.getFnp(), participante.getNap(), participante.getBcp(), participante.getFop(), participante.getAcp(), participante.getAfp(),participante.getTip());
     }
 
 
@@ -157,15 +161,15 @@ public class DBParticipante {
     }
 
 
-    public Cursor consultarArtistas(Integer id){
+    public Cursor consultarArtistas(Integer id,String tipo){
 
         String[] campos = new String[] {ID,NOMBRE,PSEUDONIMO,FOTO,FOTO_URL};
         //Cursor c = db.query(NOMBRE_TABLA, campos, "usuario=?(where)", args(para el where), group by, having, order by, num);
 
-        String[] args = new String[] {id+""};
+        String[] args = new String[] {id+"",tipo};
 
-        if(id==null)return db.query(NOMBRE_TABLA, campos, null, null, null, null,null);
-        return db.query(NOMBRE_TABLA, campos, ID+"=?", args, null, null, null);
+        if(id==null)return db.query(NOMBRE_TABLA, campos, TIPO+"=?", new String[] {tipo}, null, null,null);
+        return db.query(NOMBRE_TABLA, campos, ID+"=? and "+TIPO+"=?", args, null, null, null);
     }
 
     public int borrar(String ids){

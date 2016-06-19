@@ -116,12 +116,8 @@ public class ObraActivity extends AppCompatActivity {
                 wv_descripcion.setText(c.getString(2));
                 wv_descripcion.setTextColor(Color.BLACK);
 
-                int[] attrs = new int[] { android.R.attr.textSize };
-                TypedArray ta = obtainStyledAttributes(R.style.size_wv_bio_des, attrs);
-                int size = ta.getDimensionPixelSize(0,17);
-                ta.recycle();
 
-                wv_descripcion.setTextSize(size);
+                wv_descripcion.setTextSize(Global.getSizeWv());
             }
 
         }catch (Exception e){
