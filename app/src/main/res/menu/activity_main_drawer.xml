@@ -16,7 +16,7 @@
             android:title="@string/proyeccion_nav" />
         <item
             android:id="@+id/nav_creditos"
-            android:icon="@drawable/ic_grade_24dp"
+            android:icon="@drawable/ic_check_black_24dp"
             android:title="@string/creditos" />
     </group>
 
@@ -36,7 +36,7 @@
                     android:title="@string/artistas_nav" />
                 <item
                     android:id="@+id/nav_obras"
-                    android:icon="@drawable/ic_image_black_24dp"
+                    android:icon="@drawable/ic_crop_original_black_24dp"
                     android:title="@string/obras_nav" />
                 <item
                     android:id="@+id/nav_premiados"

@@ -1,6 +1,7 @@
 package salonmachala.org.salonmachala;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -109,17 +110,18 @@ public class ObraActivity extends AppCompatActivity {
 
                 tv_tecnica.setText(c.getString(4));
                 tv_dimensiones.setText(c.getString(8));
-/*
-                byte[] byteArray = c.getBlob(5);
-                Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
-                iv_foto.setImageBitmap(bm);
-                */
                 imageLoader.DisplayImage(c.getString(12),iv_foto);
 
                 wv_descripcion.setText(c.getString(2));
                 wv_descripcion.setTextColor(Color.BLACK);
-                wv_descripcion.setTextSize(17);
+
+                int[] attrs = new int[] { android.R.attr.textSize };
+                TypedArray ta = obtainStyledAttributes(R.style.size_wv_bio_des, attrs);
+                int size = ta.getDimensionPixelSize(0,17);
+                ta.recycle();
+
+                wv_descripcion.setTextSize(size);
             }
 
         }catch (Exception e){

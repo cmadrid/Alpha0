@@ -159,12 +159,6 @@ public class ArtistasFragment extends Fragment {
                 Cursor c = db_participantes.consultarArtistas(null);
                 if(c.moveToFirst()) {
                     do {
-                        /*
-                        byte[] byteArray = c.getBlob(3);
-                        Bitmap bm = null;
-                        if(byteArray!=null)
-                            bm=BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
-                        */
                         myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), c.getString(4), DataPassObject.PARTICIPANTE));
 
                         publishProgress();

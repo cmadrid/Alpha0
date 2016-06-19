@@ -1,0 +1,21 @@
+<resources>
+
+    <style name="scroll_layout_gravity">
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="size_tv_artistas">
+        <item name="android:textSize">30dp</item>
+    </style>
+    <style name="size_tv_obras">
+        <item name="android:textSize">18dp</item>
+    </style>
+    <style name="size_tv_bio_des">
+        <item name="android:textSize">38dp</item>
+    </style>
+
+
+    <style name="size_wv_bio_des">
+        <item name="android:textSize">24dp</item>
+    </style>
+
+</resources>

@@ -1,6 +1,7 @@
 package salonmachala.org.salonmachala;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -113,7 +114,13 @@ public class ArtistaActivity extends AppCompatActivity {
 
                 wv_bibliografia.setText(c.getString(5));
                 wv_bibliografia.setTextColor(Color.BLACK);
-                wv_bibliografia.setTextSize(17);
+
+                int[] attrs = new int[] { android.R.attr.textSize };
+                TypedArray ta = obtainStyledAttributes(R.style.size_wv_bio_des, attrs);
+                int size = ta.getDimensionPixelSize(0,17);
+                ta.recycle();
+
+                wv_bibliografia.setTextSize(size);
             }
 
         }catch (Exception e){
@@ -122,6 +129,7 @@ public class ArtistaActivity extends AppCompatActivity {
         finally {
             db_participante.close();
         }
+
 
     }
 

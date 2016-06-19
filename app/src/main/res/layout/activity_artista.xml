@@ -37,7 +37,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                style="@style/scroll_layout_gravity"
                 android:paddingTop="10dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp">
@@ -47,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/nombre_str_"
+                    style="@style/size_tv_artistas"
                     android:id="@+id/textView2"
                     android:textStyle="bold" />
 
@@ -55,6 +56,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Nombre del titulo"
+                    style="@style/size_tv_artistas"
                     android:id="@+id/tv_nombre"
                     android:layout_marginLeft="20dp" />
 
@@ -63,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/nacionalidad_str_"
+                    style="@style/size_tv_artistas"
                     android:id="@+id/textView4"
                     android:textStyle="bold" />
 
@@ -72,6 +75,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Nombre del autor"
                     android:id="@+id/tv_nacionalidad"
+                    style="@style/size_tv_artistas"
                     android:layout_marginLeft="20dp" />
 
                 <TextView
@@ -79,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/edad_str_"
+                    style="@style/size_tv_artistas"
                     android:id="@+id/textView6"
                     android:textStyle="bold" />
 
@@ -87,6 +92,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Fecha"
+                    style="@style/size_tv_artistas"
                     android:id="@+id/tv_edad"
                     android:layout_marginLeft="20dp" />
 
@@ -106,6 +112,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/biografia_str"
+            style="@style/size_tv_bio_des"
             android:id="@+id/textView8"
             android:textStyle="bold" />
 

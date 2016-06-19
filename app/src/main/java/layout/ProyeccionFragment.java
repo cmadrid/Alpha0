@@ -1,6 +1,7 @@
 package layout;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 import salonmachala.org.salonmachala.Global;
+import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.NestedWebView;
 import salonmachala.org.salonmachala.R;
 
@@ -120,22 +122,14 @@ public class ProyeccionFragment extends Fragment {
     private void init(View view) {
         wv_proyeccion = (NestedWebView) view.findViewById(R.id.wv_proyeccion);
         wv_proyeccion.setTextColor(Color.BLACK);
-        wv_proyeccion.setTextSize(17);
+
+        int[] attrs = new int[] { android.R.attr.textSize };
+        TypedArray ta = MainActivity.mainActivity.obtainStyledAttributes(R.style.size_wv_bio_des, attrs);
+        int size = ta.getDimensionPixelSize(0,17);
+        ta.recycle();
+
+        wv_proyeccion.setTextSize(size);
 
         Global.llenaInformacion("cdg_proyeccion",wv_proyeccion);
-       /* wv_proyeccion.setText("El Salón Machala cumple con los parámetros internacionales de calidad, protocolo e intercambio cultural. Esta propuesta cultural está diseñada para trascender a nivel internacional, más aun ahora, que la reformulación de todo el evento nos ha permitido integrar alrededor del concurso de artes visuales sobre soporte bidimensional, otras opciones de lenguajes artísticos que enriquecen el evento y las referencias de la cultura visual en nuestra comunidad.\n" +
-                "\n" +
-                "El Salón Machala ha sido concebido como una propuesta cultural que abarca una serie de actividades dentro de la cultura artística y apunta a persuadir al espectador a sumergirse en una experiencia cultural que va desde conferencias magistrales, laboratorios de creación comunitarios, pasando por un complejo programa de curaduría pedagógica que creará puentes entre el público, los artistas y la producción artística expuesta y fortalecerá los vínculos entre la comunidad y el salón.\n" +
-                "\n" +
-                "El firme apoyo que nuestro evento recibe desde la Alcaldía de Machala, nos permite mantener y nutrir la programación anterior e insertar un novedoso programa de curaduría pedagógica y mediación artística, que es una adenda complementaria necesaria, por no decir urgente, en nuestro contexto cultural. Esta sección responde a una necesidad de estrategias educativas alrededor del salón que indudablemente tendrá un gran impacto en la comunidad en la manera de ver y abordar las relaciones entre las instituciones culturales y el consumidor cultural. La acción de la curaduría pedagógica expande el salón hacia la comunidad y le confiere más sentido a este importante hecho cultural, pues uno de los objetivos es proveer a la comunidad un abanico de posibilidades interactivas y de educación, que propicien acercamientos que fortalezcan un sentido de pertenencia y pertinencia con relación a este gran evento en la ciudad de Machala.\n" +
-                "\n" +
-                "La propuesta pondría al SALÓN MACHALA, a la altura de las corrientes más contemporáneas del pensamiento relacionadas con el rol del museo y las instituciones culturales dentro de la comunidad. Es compleja, ambiciosa y apunta a crear para el salón un brazo que extienda su actividad más allá de su espacio arquitectónico, para ampliar su radio de acción a los sectores más populares, los barrios y espacios urbanos cargados de significación histórica o de uso cotidiano en la ciudad de Machala.\n" +
-                "\n" +
-                "El programa de curaduría pedagógica fue diseñado y estará coordinado por Sara Madrid Arcos, B.A. and Teather Arts, Teaching Artist Program University of California, Los Ángeles (UCLA), quien ha conformado un equipo de trabajo caracterizado por la excelencia académica y vasta experiencia en el área, integrado por la artista y educadora Marcela Ormaza, MAT (Master in Art Education) del Massachusetts College of Art, Boston, MA.; Paola Viteri, Maestría en Estudios Culturales por la Universidad Andina Simón Bolívar, además de convenios de asesoramiento y colaboración con organizaciones especializadas en educación artística, con la coordinación local a cargo de Lilia García Carrión, artista emergente machaleña, egresada de la Escuela de Artes Visuales de la Universidad Técnica de Machala, UTMACH, involucrada en procesos de desarrollo de arte comunitario en nuestra ciudad.\n" +
-                "\n" +
-                "Mantenemos para esta nueva edición la categoría del Personaje Invitado Especial. En esta ocasión, hemos invitado al artista pintor y escritor norteamericano Virgil Elliott, un maestro de los procesos técnicos en la pintura, siguiendo el espíritu pedagógico de esta edición y lo reforzamos con el taller de dibujo de figura humana dictada por Eduardo Villacís, excelente artista figurativo ecuatoriano, profesor de la Escuela de Artes Visuales de la Universidad San Francisco de Quito.\n" +
-                "\n" +
-                "Para nutrir aún más este proceso de inmersión cultural, Marcio Tavares, curador brasileño y en esta edición Miembro del Jurado de los Premios Musa, nos ofrecerá una conferencia magistral sobre curadurías y exhibiciones como plataformas para producir conocimiento. Además, James Clover, artista norteamericano, Miembro del Jurado de los Premios Musa Paradisiaca, ofrecerá una conferencia, conversatorio y slide show para los artistas locales.\n" +
-                "\n");*/
     }
 }

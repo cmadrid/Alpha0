@@ -37,16 +37,14 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingTop="5dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                style="@style/scroll_layout_gravity"
+                android:padding="5dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"
+                    style="@style/size_tv_obras"
                     android:text="@string/titulo_str_"
                     android:id="@+id/textView2"
                     android:textStyle="bold" />
@@ -55,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"
+                    style="@style/size_tv_obras"
                     android:text="Nombre del titulo"
                     android:id="@+id/titulo"
                     android:layout_marginLeft="20dp" />
@@ -64,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"
+                    style="@style/size_tv_obras"
                     android:text="@string/autor_str_"
                     android:id="@+id/textView4"
                     android:textStyle="bold" />
@@ -73,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"
+                    style="@style/size_tv_obras"
                     android:text="Nombre del autor"
                     android:id="@+id/autor"
                     android:layout_marginLeft="20dp" />
@@ -82,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"
+                    style="@style/size_tv_obras"
                     android:text="@string/tecnica_str_"
                     android:id="@+id/textView6"
                     android:textStyle="bold" />
@@ -91,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"
+                    style="@style/size_tv_obras"
                     android:text="tecnica"
                     android:id="@+id/tecnica"
                     android:layout_marginLeft="20dp" />
@@ -100,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"
+                    style="@style/size_tv_obras"
                     android:text="@string/dimensiones_str_"
                     android:id="@+id/textView3"
                     android:textStyle="bold" />
@@ -109,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"
+                    style="@style/size_tv_obras"
                     android:text="dimensiones"
                     android:id="@+id/dimensiones"
                     android:layout_marginLeft="20dp" />
@@ -118,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"
+                    style="@style/size_tv_obras"
                     android:text="@string/anio_str_"
                     android:id="@+id/textView10"
                     android:textStyle="bold" />
@@ -127,7 +125,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12dp"
+                    style="@style/size_tv_obras"
                     android:text="Fecha"
                     android:id="@+id/fecha"
                     android:layout_marginLeft="20dp" />
@@ -147,6 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            style="@style/size_tv_bio_des"
             android:text="@string/descripcion_str"
             android:id="@+id/textView8"
             android:textStyle="bold" />
