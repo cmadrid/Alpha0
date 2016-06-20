@@ -10,14 +10,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center"
     tools:context="salonmachala.org.salonmachala.Splash"
-    android:background="@color/colorAccent">
+    android:background="@drawable/invitacion_salon">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView3"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        android:visibility="invisible"
+        />
 
     <ProgressBar
         style="?android:attr/progressBarStyle"

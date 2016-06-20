@@ -26,6 +26,7 @@ public class Splash extends Activity {
 
     TextView tv_cargando;
     int count = 0;
+    String qr_code = null;
     static SharedPreferences sharedpreferences;
     boolean ejecutado;
     @Override
@@ -36,6 +37,14 @@ public class Splash extends Activity {
         tv_cargando = (TextView) findViewById(R.id.tv_cargando);
 
         Global.activity=this;
+
+/*
+        Bundle b = getIntent().getExtras();
+        if(b != null) {
+            if(b.containsKey("qr_code"))
+                qr_code = b.getString("qr_code");
+        }
+*/
 
 
         sharedpreferences = getSharedPreferences(SalonMachala.Pref.MyPREFERENCES, Context.MODE_PRIVATE);
@@ -130,8 +139,9 @@ public class Splash extends Activity {
                     }
                 },null);
 
-            else
+            else {
                 toMain();
+            }
         }
         else
             new gson.LoadInformation(this).execute();

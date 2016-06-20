@@ -34,20 +34,16 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import layout.AntecedentesFragment;
 import layout.ArtistasFragment;
 import layout.CreditosFragment;
 import layout.InicioFragment;
 import layout.ObrasFragment;
 import layout.PremiosFragment;
-import layout.ProyeccionFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         InicioFragment.OnFragmentInteractionListener,
-        AntecedentesFragment.OnFragmentInteractionListener,
         ObrasFragment.OnFragmentInteractionListener,
-        ProyeccionFragment.OnFragmentInteractionListener,
         ArtistasFragment.OnFragmentInteractionListener,
         PremiosFragment.OnFragmentInteractionListener,
         CreditosFragment.OnFragmentInteractionListener,View.OnClickListener{
@@ -70,8 +66,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(toolbar);
-
-
 
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -112,6 +106,9 @@ public class MainActivity extends AppCompatActivity
 
         //new gson.LoadInformation(this).execute();
 
+        if(Global.qr_code!=null){
+            startActivity(new Intent(mainActivity,SimpleScannerActivity.class));
+        }
 
     }
 
@@ -158,10 +155,6 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
-
-
-
 
 
     @Override
@@ -227,13 +220,13 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_artista) {
 
             Global.permiso_escritura();
-            fragment = ArtistasFragment.newInstance("PA",null);
+            fragment = ArtistasFragment.newInstance("'PA'",null);
             fragmentTransaction = true;
 
         }else if (id == R.id.nav_artistas_invitados) {
 
             Global.permiso_escritura();
-            fragment = ArtistasFragment.newInstance("IN",null);
+            fragment = ArtistasFragment.newInstance("'IN','ES'",null);
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_obras) {
@@ -404,6 +397,9 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mainActivity=null;
+    }
 }

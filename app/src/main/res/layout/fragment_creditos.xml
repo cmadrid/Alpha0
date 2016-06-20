@@ -20,7 +20,8 @@
             android:id="@+id/progressCreditos"
             android:layout_marginTop="145dp"
             android:layout_centerHorizontal="true"
-            android:layout_alignTop="@+id/wv_creditos"/>
+            android:layout_alignTop="@+id/wv_creditos"
+            android:visibility="gone"/>
 
         <salonmachala.org.salonmachala.NestedWebView
             android:layout_width="match_parent"

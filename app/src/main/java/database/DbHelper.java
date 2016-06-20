@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "data";
-    private static final int DB_SCHEME_VERSION = 1;
+    private static final int DB_SCHEME_VERSION = 2;
 
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_SCHEME_VERSION);
@@ -31,5 +31,8 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+        if (oldVersion==1 && newVersion>1) {
+            db.execSQL("ALTER TABLE "+DBParticipante.NOMBRE_TABLA+" ADD COLUMN "+DBParticipante.TIPO+" text default 'PA'");
+        }
     }
 }

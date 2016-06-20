@@ -172,14 +172,15 @@ public class DBObra {
 
     public Cursor consultarQr(String qr){
 
+        if(qr==null)return null;
+
         String QB= TABLE_NAME +
                 " JOIN " + DBParticipante.NOMBRE_TABLA + " ON " +
                 PARTICIPANTE + " = " + DBParticipante.ID;
 
-        String[] campos = new String[] {ID,TITULO,FOTO,PARTICIPANTE,DBParticipante.NOMBRE,DBParticipante.FOTO};
+        String[] campos = new String[] {ID,TITULO,FOTO_URL,PARTICIPANTE,DBParticipante.NOMBRE,DBParticipante.FOTO_URL};
         String[] args = new String[] {qr+""};
 
-        if(qr==null)return db.query(QB, campos, null, null, null, null,null);
         return db.query(QB, campos, QR+"=?", args, null, null, null);
     }
 

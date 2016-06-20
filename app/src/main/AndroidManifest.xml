@@ -23,32 +23,38 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode= "singleInstance"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".SimpleScannerActivity"
+            android:launchMode= "singleInstance"
             android:screenOrientation="portrait" >
 
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http" android:host="www.domain1.com" />
-                <data android:scheme="https" android:host="www.domain1.com" />
+                <data android:scheme="http" android:host="www.puntoec.org" android:path="/salonmachala/qrtostore.php"/>
+                <data android:scheme="https" android:host="www.puntoec.org" android:path="/salonmachala/qrtostore.php"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".ObraActivity"
             android:label="@string/obra_info"
+            android:launchMode= "singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ArtistaActivity"
             android:label="@string/artista_info"
+            android:launchMode= "singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AbrirImagen"
+            android:launchMode= "singleInstance"
             android:screenOrientation="portrait" />
         <activity android:name=".Splash"
+            android:launchMode= "singleInstance"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

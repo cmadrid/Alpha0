@@ -4,9 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import database.DBObra;
+import lazyLoad.ImageLoader;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /**
@@ -34,15 +34,52 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
 
     int id_obra;
     String nombre_obra;
-    Bitmap foto_obra;
+    String foto_obra;
 
     int id_artista;
     String nombre_artista;
-    Bitmap foto_artista;
+    String foto_artista;
 
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
+
+
+        final Intent intent = getIntent();
+        final String action = intent.getAction();
+
+        if(Global.qr_code!=null){
+            String tmp = Global.qr_code;
+            Global.qr_code=null;
+            if(!getData(tmp)) {
+                finish();
+                return;
+            }
+            openDialog();
+            finish();
+            return;
+        }
+
+        if (Intent.ACTION_VIEW.equals(action)) {
+            String qr_code = intent.getData().getQueryParameter("qr_code");
+            if(qr_code==null)qr_code="no";
+            qr_code = qr_code.toLowerCase();
+            if(MainActivity.mainActivity==null) {
+                Global.qr_code = qr_code;
+                startActivity(new Intent(this, Splash.class));
+            }
+            else {
+                startActivity(new Intent(this,MainActivity.class));
+                if(!getData(qr_code)) {
+                    finish();
+                    return;
+                }
+                openDialog();
+            }
+            finish();
+            return;
+        }
+
         mScannerView = new ZXingScannerView(this);   // Programmatically initialize the scanner view
         setContentView(mScannerView);                // Set the scanner view as the content view
 
@@ -76,33 +113,48 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         //mScannerView.resumeCameraPreview(this);
         //System.out.println("raw: "+rawResult.getText());
         //System.out.println("bc: "+rawResult.getBarcodeFormat().toString());
-
-        DBObra db_obra = new DBObra(getApplicationContext());
-        Cursor c = db_obra.consultarQr(rawResult.getText().toLowerCase());
-
-        if(c.moveToFirst()){
-            id_obra = c.getInt(0);
-            nombre_obra = c.getString(1);
-            id_artista = c.getInt(3);
-            nombre_artista = c.getString(4);
-
-            byte[] byteArray = c.getBlob(2);
-            foto_obra = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-
-            byteArray = c.getBlob(5);
-            foto_artista = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-
-
-        }else{
-            Toast.makeText(MainActivity.mainActivity,R.string.no_qr,Toast.LENGTH_SHORT).show();
+        Uri u = Uri.parse(rawResult.getText());
+        String qr_code = u.getQueryParameter("qr_code");
+        if(qr_code==null)qr_code="no";
+        if(!getData(qr_code.toLowerCase())) {
             finish();
             return;
         }
-
-
         openDialog();
         finish();
 
+    }
+
+    private boolean getData(String qr){
+
+        DBObra db_obra = null;
+
+        try {
+            db_obra = new DBObra(getApplicationContext());
+            Cursor c = db_obra.consultarQr(qr);
+
+            if(c!=null && c.moveToFirst()){
+                id_obra = c.getInt(0);
+                nombre_obra = c.getString(1);
+                id_artista = c.getInt(3);
+                nombre_artista = c.getString(4);
+
+                foto_obra = c.getString(2);
+                foto_artista = c.getString(5);
+
+            }else{
+                Toast.makeText(MainActivity.mainActivity,R.string.no_qr,Toast.LENGTH_SHORT).show();
+                finish();
+                return false;
+            }
+
+        }catch (Exception e){
+
+        }finally {
+            db_obra.close();
+        }
+
+        return true;
     }
 
     private void openDialog(){
@@ -121,8 +173,15 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         tv_titulo.setText(nombre_obra);
 
         tv_autor.setText(nombre_artista);
-        ib_autor.setImageBitmap(foto_artista);
-        ib_obra.setImageBitmap(foto_obra);
+
+        try {
+            if(foto_artista!=null && !foto_artista.equalsIgnoreCase(""))
+                new ImageLoader(this, true).DisplayImage(foto_artista,ib_autor);
+        }catch (Exception e){}
+        try {
+            if(foto_obra!=null && !foto_obra.equalsIgnoreCase(""))
+                new ImageLoader(this, true).DisplayImage(foto_obra,ib_obra);
+        }catch (Exception e){}
 
         ib_autor.setBackgroundColor(Color.YELLOW);
         ib_obra.setBackgroundColor(Color.YELLOW);

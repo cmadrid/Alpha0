@@ -28,6 +28,7 @@ import lazyLoad.ImageLoader;
 public class Global {
     public static Activity activity= null;
     public final static int MY_PERMISSIONS_REQUEST_WRITE=753;
+    public static String qr_code = null;
 
     public static void showMessageOKCancel(Integer title, int message, DialogInterface.OnClickListener okListener, DialogInterface.OnClickListener noListener) {
         new AlertDialog.Builder(Global.activity)
@@ -115,7 +116,8 @@ public class Global {
 
             if(c.moveToFirst()) {
 
-                wv.setText(new String(new char[400]).replace("\0", c.getString(5)));
+                //wv.setText(new String(new char[400]).replace("\0", c.getString(5)));
+                wv.setText(c.getString(5));
                 if(c.getString(3)!=null && !c.getString(3).equalsIgnoreCase("")) {
                     MainActivity.mainActivity.appBarLayout.setExpanded(true);
                     new ImageLoader(MainActivity.mainActivity, true).DisplayImage(c.getString(3), MainActivity.mainActivity.header);

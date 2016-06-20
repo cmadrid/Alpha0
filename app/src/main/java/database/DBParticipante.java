@@ -51,6 +51,9 @@ public class DBParticipante {
             + ACTUALIZACION_FOTO + " TIMESTAMP"
             +");";
 
+
+
+
     public DBParticipante(Context contexto) {
         this.ctx=contexto;
         helper = new DbHelper(contexto);
@@ -166,10 +169,10 @@ public class DBParticipante {
         String[] campos = new String[] {ID,NOMBRE,PSEUDONIMO,FOTO,FOTO_URL};
         //Cursor c = db.query(NOMBRE_TABLA, campos, "usuario=?(where)", args(para el where), group by, having, order by, num);
 
-        String[] args = new String[] {id+"",tipo};
+        String[] args = new String[] {id+""};
 
-        if(id==null)return db.query(NOMBRE_TABLA, campos, TIPO+"=?", new String[] {tipo}, null, null,null);
-        return db.query(NOMBRE_TABLA, campos, ID+"=? and "+TIPO+"=?", args, null, null, null);
+        if(id==null)return db.query(NOMBRE_TABLA, campos, TIPO+" in ("+tipo+")", null, null, null,null);
+        return db.query(NOMBRE_TABLA, campos, ID+"=? and "+TIPO+" in ("+tipo+")", args, null, null, null);
     }
 
     public int borrar(String ids){
