@@ -21,6 +21,8 @@ import android.widget.Toast;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import database.DBFake;
+
 
 public class Splash extends Activity {
 
@@ -34,9 +36,10 @@ public class Splash extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);
-        tv_cargando = (TextView) findViewById(R.id.tv_cargando);
-
         Global.activity=this;
+        new DBFake(this).close();
+
+        tv_cargando = (TextView) findViewById(R.id.tv_cargando);
 
 /*
         Bundle b = getIntent().getExtras();

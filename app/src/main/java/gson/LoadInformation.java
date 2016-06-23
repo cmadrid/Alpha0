@@ -135,7 +135,8 @@ public class LoadInformation extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
         finally {
-            db_informacion.close();
+            if(db_informacion!=null)
+                db_informacion.close();
         }
 
 
@@ -153,7 +154,8 @@ public class LoadInformation extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
         finally {
-            db_participante.close();
+            if(db_participante!=null)
+                db_participante.close();
         }
 
 
@@ -175,7 +177,8 @@ public class LoadInformation extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
         finally {
-            db_participante.close();
+            if(db_obra!=null)
+                db_obra.close();
         }
 
         db_participante = null;
@@ -189,7 +192,8 @@ public class LoadInformation extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
         finally {
-            db_participante.close();
+            if(db_participante!=null)
+                db_participante.close();
         }
 
 

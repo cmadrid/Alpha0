@@ -170,7 +170,8 @@ public class ObrasFragment extends Fragment {
             }catch (Exception e){
                 e.printStackTrace();
             }finally {
-                db_obras.close();
+                if(db_obras!=null)
+                    db_obras.close();
             }
 
             //recyclerView.setAdapter(new NumberedAdapter(30));

@@ -12,14 +12,17 @@ public class Obra{
     int ido;
     String tio;
     String deo;
+    String deo_en;
     String feo;
     String teo;
+    String teo_en;
     String foo;
     int idp;
     String qro;
     String dio;
     Date aco;
     Date afo;
+    String pro;
     Bitmap bitmap;
 
     public Obra() {
@@ -124,4 +127,27 @@ public class Obra{
         this.afo = afo;
     }
 
+    public String getDeo_en() {
+        return deo_en;
+    }
+
+    public void setDeo_en(String deo_en) {
+        this.deo_en = deo_en;
+    }
+
+    public String getTeo_en() {
+        return teo_en;
+    }
+
+    public void setTeo_en(String teo_en) {
+        this.teo_en = teo_en;
+    }
+
+    public String getPro() {
+        return pro;
+    }
+
+    public void setPro(String pro) {
+        this.pro = pro;
+    }
 }

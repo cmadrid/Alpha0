@@ -24,21 +24,27 @@ public class DBInformacion {
     public static final String ID = "_id"+"_"+TABLE_NAME;
     public static final String CODIGO = "codigo"+"_"+TABLE_NAME;
     public static final String TITULO = "titulo"+"_"+TABLE_NAME;
+    public static final String TITULO_EN = "titulo_en"+"_"+TABLE_NAME;
     public static final String FOTO_URL1 = "foto_url1"+"_"+TABLE_NAME;
     public static final String FOTO1 = "foto1"+"_"+TABLE_NAME;
     public static final String CONTENIDO1 = "contenido1"+"_"+TABLE_NAME;
+    public static final String CONTENIDO1_EN = "contenido1_en"+"_"+TABLE_NAME;
     public static final String FOTO_URL2 = "foto_url2"+"_"+TABLE_NAME;
     public static final String FOTO2 = "foto2"+"_"+TABLE_NAME;
     public static final String CONTENIDO2 = "contenido2"+"_"+TABLE_NAME;
+    public static final String CONTENIDO2_EN = "contenido2_en"+"_"+TABLE_NAME;
     public static final String FOTO_URL3 = "foto_url3"+"_"+TABLE_NAME;
     public static final String FOTO3 = "foto3"+"_"+TABLE_NAME;
     public static final String CONTENIDO3 = "contenido3"+"_"+TABLE_NAME;
+    public static final String CONTENIDO3_EN = "contenido3_en"+"_"+TABLE_NAME;
     public static final String FOTO_URL4 = "foto_url4"+"_"+TABLE_NAME;
     public static final String FOTO4 = "foto4"+"_"+TABLE_NAME;
     public static final String CONTENIDO4 = "contenido4"+"_"+TABLE_NAME;
+    public static final String CONTENIDO4_EN = "contenido4_en"+"_"+TABLE_NAME;
     public static final String FOTO_URL5 = "foto_url5"+"_"+TABLE_NAME;
     public static final String FOTO5 = "foto5"+"_"+TABLE_NAME;
     public static final String CONTENIDO5 = "contenido5"+"_"+TABLE_NAME;
+    public static final String CONTENIDO5_EN = "contenido5_en"+"_"+TABLE_NAME;
     public static final String ACTUALIZACION = "actualizacion"+"_"+TABLE_NAME;
     public static final String ACTUALIZACION_FOTO1 = "actualizacion_foto1"+"_"+TABLE_NAME;
     public static final String ACTUALIZACION_FOTO2 = "actualizacion_foto2"+"_"+TABLE_NAME;
@@ -55,21 +61,27 @@ public class DBInformacion {
             + ID + " integer primary key,"
             + CODIGO + " text not null,"
             + TITULO + " text not null,"
+            + TITULO_EN + " text not null,"
             + FOTO_URL1 + " text,"
             + FOTO1 + " blob,"
             + CONTENIDO1 + " text not null,"
+            + CONTENIDO1_EN + " text not null,"
             + FOTO_URL2 + " text,"
             + FOTO2 + " blob,"
             + CONTENIDO2 + " text,"
+            + CONTENIDO2_EN + " text,"
             + FOTO_URL3 + " text,"
             + FOTO3 + " blob,"
             + CONTENIDO3 + " text,"
+            + CONTENIDO3_EN + " text,"
             + FOTO_URL4 + " text,"
             + FOTO4 + " blob,"
             + CONTENIDO4 + " text,"
+            + CONTENIDO4_EN + " text,"
             + FOTO_URL5 + " text,"
             + FOTO5 + " blob,"
             + CONTENIDO5 + " text,"
+            + CONTENIDO5_EN + " text,"
             + ACTUALIZACION + " timestamp,"
             + ACTUALIZACION_FOTO1 + " timestamp,"
             + ACTUALIZACION_FOTO2 + " timestamp,"
@@ -84,12 +96,12 @@ public class DBInformacion {
         db = helper.getWritableDatabase();
     }
 
-    public ContentValues generarContentValues(Integer id,String codigo, String titulo,
-                                              String foto_url1,byte[] foto1,String contenido1,
-                                              String foto_url2,byte[] foto2,String contenido2,
-                                              String foto_url3,byte[] foto3,String contenido3,
-                                              String foto_url4,byte[] foto4,String contenido4,
-                                              String foto_url5,byte[] foto5,String contenido5,
+    public ContentValues generarContentValues(Integer id,String codigo, String titulo, String titulo_en,
+                                              String foto_url1,byte[] foto1,String contenido1,String contenido1_en,
+                                              String foto_url2,byte[] foto2,String contenido2,String contenido2_en,
+                                              String foto_url3,byte[] foto3,String contenido3,String contenido3_en,
+                                              String foto_url4,byte[] foto4,String contenido4,String contenido4_en,
+                                              String foto_url5,byte[] foto5,String contenido5,String contenido5_en,
                                               Date actualizacion,Date actualizacion_foto1,Date actualizacion_foto2,Date actualizacion_foto3,Date actualizacion_foto4,Date actualizacion_foto5){
         ContentValues valores = new ContentValues();
 
@@ -101,36 +113,48 @@ public class DBInformacion {
             valores.put(CODIGO,codigo);
         if(titulo!=null)
             valores.put(TITULO,titulo);
+        if(titulo_en!=null)
+            valores.put(TITULO_EN,titulo_en);
         if(foto_url1!=null)
             valores.put(FOTO_URL1,foto_url1);
         if(foto1!=null)
             valores.put(FOTO1, foto1);
         if(contenido1!=null)
             valores.put(CONTENIDO1,contenido1);
+        if(contenido1_en!=null)
+            valores.put(CONTENIDO1_EN,contenido1_en);
         if(foto_url2!=null)
             valores.put(FOTO_URL2,foto_url2);
         if(foto2!=null)
             valores.put(FOTO2, foto2);
         if(contenido2!=null)
             valores.put(CONTENIDO2,contenido2);
+        if(contenido2_en!=null)
+            valores.put(CONTENIDO2_EN,contenido2_en);
         if(foto_url3!=null)
             valores.put(FOTO_URL3,foto_url3);
         if(foto3!=null)
             valores.put(FOTO3, foto3);
         if(contenido3!=null)
             valores.put(CONTENIDO3,contenido3);
+        if(contenido3_en!=null)
+            valores.put(CONTENIDO3_EN,contenido3_en);
         if(foto_url4!=null)
             valores.put(FOTO_URL4,foto_url4);
         if(foto4!=null)
             valores.put(FOTO4, foto4);
         if(contenido4!=null)
             valores.put(CONTENIDO4,contenido4);
+        if(contenido4_en!=null)
+            valores.put(CONTENIDO4_EN,contenido4_en);
         if(foto_url5!=null)
             valores.put(FOTO_URL5,foto_url5);
         if(foto5!=null)
             valores.put(FOTO5, foto5);
         if(contenido5!=null)
             valores.put(CONTENIDO5,contenido5);
+        if(contenido5_en!=null)
+            valores.put(CONTENIDO5_EN,contenido5_en);
 
         if(actualizacion!=null)
             valores.put(ACTUALIZACION, dateFormat.format(actualizacion));
@@ -146,12 +170,12 @@ public class DBInformacion {
             valores.put(ACTUALIZACION_FOTO5, dateFormat.format(actualizacion_foto5));
         return valores;
     }
-    public boolean insertaroActualizar(Integer id, String codigo, String titulo,
-                                       String foto_url1,String contenido1,
-                                       String foto_url2,String contenido2,
-                                       String foto_url3,String contenido3,
-                                       String foto_url4,String contenido4,
-                                       String foto_url5,String contenido5,
+    public boolean insertaroActualizar(Integer id, String codigo, String titulo, String titulo_en,
+                                       String foto_url1,String contenido1,String contenido1_en,
+                                       String foto_url2,String contenido2,String contenido2_en,
+                                       String foto_url3,String contenido3,String contenido3_en,
+                                       String foto_url4,String contenido4,String contenido4_en,
+                                       String foto_url5,String contenido5,String contenido5_en,
                                        Date actualizacion,Date actualizacion_foto1,Date actualizacion_foto2,Date actualizacion_foto3,Date actualizacion_foto4,Date actualizacion_foto5)
     {
         Cursor c = consultar(id);
@@ -162,13 +186,13 @@ public class DBInformacion {
                 return false;
 
             String[] args = new String[] {id+""};
-            db.update(TABLE_NAME, generarContentValues(id, codigo, titulo, foto_url1, null, contenido1, foto_url2, null, contenido2, foto_url3, null, contenido3, foto_url4, null, contenido4, foto_url5, null, contenido5,
+            db.update(TABLE_NAME, generarContentValues(id, codigo, titulo, titulo_en, foto_url1, null, contenido1, contenido1_en, foto_url2, null, contenido2, contenido2_en, foto_url3, null, contenido3, contenido3_en, foto_url4, null, contenido4, contenido4_en, foto_url5, null, contenido5, contenido5_en,
                     actualizacion, actualizacion_foto1, actualizacion_foto2, actualizacion_foto3, actualizacion_foto4, actualizacion_foto5), ID + "=?", args);
             return true;
         }else {
             //image = LoadInformation.getImage(foto);
 
-            db.insert(TABLE_NAME, null, generarContentValues(id, codigo, titulo, foto_url1, null, contenido1, foto_url2, null, contenido2, foto_url3, null, contenido3, foto_url4, null, contenido4, foto_url5, null, contenido5,
+            db.insert(TABLE_NAME, null, generarContentValues(id, codigo, titulo, titulo_en, foto_url1, null, contenido1, contenido1_en, foto_url2, null, contenido2, contenido2_en, foto_url3, null, contenido3, contenido3_en, foto_url4, null, contenido4, contenido4_en, foto_url5, null, contenido5, contenido5_en,
                     actualizacion, actualizacion_foto1, actualizacion_foto2, actualizacion_foto3, actualizacion_foto4, actualizacion_foto5));
         }
         return false;
@@ -177,7 +201,7 @@ public class DBInformacion {
     public void insertaroActualizar(ArrayList<Informacion> informaciones)
     {
         for(Informacion inf:informaciones)
-            insertaroActualizar(inf.getIdi(), inf.getCoi(), inf.getTii(), inf.getF1i(), inf.getC1i(), inf.getF2i(), inf.getC2i(), inf.getF3i(), inf.getC3i(), inf.getF4i(), inf.getC4i(), inf.getF5i(), inf.getC5i(), inf.getAci(),
+            insertaroActualizar(inf.getIdi(), inf.getCoi(), inf.getTii(), inf.getTii_en(), inf.getF1i(), inf.getC1i(), inf.getC1i_en(), inf.getF2i(), inf.getC2i(), inf.getC2i_en(), inf.getF3i(), inf.getC3i(), inf.getC3i_en(), inf.getF4i(), inf.getC4i(), inf.getC4i_en(), inf.getF5i(), inf.getC5i(), inf.getC5i_en(), inf.getAci(),
                     inf.getAf1(), inf.getAf2(), inf.getAf3(), inf.getAf4(), inf.getAf5());
     }
 
@@ -194,11 +218,35 @@ public class DBInformacion {
         return db.query(TABLE_NAME, campos, ID+"=?", args, null, null, null);
     }
 
+    public Cursor consultar_en(Integer id){
+
+
+        String[] campos = new String[] {ID,CODIGO,TITULO_EN,FOTO_URL1,FOTO1,CONTENIDO1_EN,FOTO_URL2,FOTO2,CONTENIDO2_EN,FOTO_URL3,FOTO3,CONTENIDO3_EN,FOTO_URL4,FOTO4,CONTENIDO4_EN,FOTO_URL5,FOTO5,CONTENIDO5_EN,
+                ACTUALIZACION,ACTUALIZACION_FOTO1,ACTUALIZACION_FOTO2,ACTUALIZACION_FOTO3,ACTUALIZACION_FOTO4,ACTUALIZACION_FOTO5};
+
+        String[] args = new String[] {id+""};
+
+        if(id==null)return db.query(TABLE_NAME, campos, null, null, null, null,null);
+        return db.query(TABLE_NAME, campos, ID+"=?", args, null, null, null);
+    }
+
 
     public Cursor consultar(String cod){
 
 
         String[] campos = new String[] {ID,CODIGO,TITULO,FOTO_URL1,FOTO1,CONTENIDO1,FOTO_URL2,FOTO2,CONTENIDO2,FOTO_URL3,FOTO3,CONTENIDO3,FOTO_URL4,FOTO4,CONTENIDO4,FOTO_URL5,FOTO5,CONTENIDO5,
+                ACTUALIZACION,ACTUALIZACION_FOTO1,ACTUALIZACION_FOTO2,ACTUALIZACION_FOTO3,ACTUALIZACION_FOTO4,ACTUALIZACION_FOTO5};
+
+        String[] args = new String[] {cod+""};
+
+        if(cod==null)return db.query(TABLE_NAME, campos, null, null, null, null,null);
+        return db.query(TABLE_NAME, campos, CODIGO+"=?", args, null, null, null);
+    }
+
+    public Cursor consultar_en(String cod){
+
+
+        String[] campos = new String[] {ID,CODIGO,TITULO_EN,FOTO_URL1,FOTO1,CONTENIDO1_EN,FOTO_URL2,FOTO2,CONTENIDO2_EN,FOTO_URL3,FOTO3,CONTENIDO3_EN,FOTO_URL4,FOTO4,CONTENIDO4_EN,FOTO_URL5,FOTO5,CONTENIDO5_EN,
                 ACTUALIZACION,ACTUALIZACION_FOTO1,ACTUALIZACION_FOTO2,ACTUALIZACION_FOTO3,ACTUALIZACION_FOTO4,ACTUALIZACION_FOTO5};
 
         String[] args = new String[] {cod+""};

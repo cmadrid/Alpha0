@@ -14,7 +14,9 @@ public class Participante{
     String psp;
     Date fnp;
     String nap;
+    String nap_en;
     String bcp;
+    String bcp_en;
     String fop;
     Date acp;
     Date afp;
@@ -111,5 +113,21 @@ public class Participante{
 
     public void setAfp(Date afp) {
         this.afp = afp;
+    }
+
+    public String getNap_en() {
+        return nap_en;
+    }
+
+    public void setNap_en(String nap_en) {
+        this.nap_en = nap_en;
+    }
+
+    public String getBcp_en() {
+        return bcp_en;
+    }
+
+    public void setBcp_en(String bcp_en) {
+        this.bcp_en = bcp_en;
     }
 }

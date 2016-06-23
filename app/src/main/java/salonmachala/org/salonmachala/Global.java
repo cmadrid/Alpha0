@@ -130,7 +130,8 @@ public class Global {
             e.printStackTrace();
         }
         finally {
-            db_informacion.close();
+            if(db_informacion!=null)
+                db_informacion.close();
         }
 
     }

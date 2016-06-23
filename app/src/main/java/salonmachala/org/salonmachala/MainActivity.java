@@ -34,6 +34,8 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+import adapters.DataPassObject;
+import database.DBParticipante;
 import layout.ArtistasFragment;
 import layout.CreditosFragment;
 import layout.InicioFragment;
@@ -189,9 +191,13 @@ public class MainActivity extends AppCompatActivity
             ((ArtistasFragment)fragment).detener();
 
         if (id == R.id.nav_inicio) {
+            header.setScaleType(ImageView.ScaleType.FIT_CENTER);
             Global.permiso_escritura();
             fragment = InicioFragment.newInstance(null,null);
             fragmentTransaction = true;
+        }else
+        {
+            header.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
         if (id == R.id.nav_antecedentes) {
 
@@ -226,8 +232,17 @@ public class MainActivity extends AppCompatActivity
         }else if (id == R.id.nav_artistas_invitados) {
 
             Global.permiso_escritura();
-            fragment = ArtistasFragment.newInstance("'IN','ES'",null);
+            fragment = ArtistasFragment.newInstance("'IN'",null);
             fragmentTransaction = true;
+
+        }else if (id == R.id.nav_invitado_especial) {
+
+            Intent intent = new Intent(this,ArtistaActivity.class);
+            Bundle b = new Bundle();
+
+            b.putInt("id", DBParticipante.consultarEspecial(this));
+            intent.putExtras(b);
+            startActivity(intent);
 
         } else if (id == R.id.nav_obras) {
 

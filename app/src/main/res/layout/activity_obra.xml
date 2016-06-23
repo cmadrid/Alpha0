@@ -74,6 +74,7 @@
                     style="@style/size_tv_obras"
                     android:text="Nombre del autor"
                     android:id="@+id/autor"
+                    android:clickable="true"
                     android:layout_marginLeft="20dp" />
 
                 <TextView

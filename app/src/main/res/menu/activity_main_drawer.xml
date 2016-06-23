@@ -18,6 +18,14 @@
             android:id="@+id/nav_creditos"
             android:icon="@drawable/ic_check_black_24dp"
             android:title="@string/creditos" />
+        <item
+            android:id="@+id/nav_artistas_invitados"
+            android:icon="@drawable/ic_perm_identity_black_24dp"
+            android:title="@string/artistas_invitados_nav" />
+        <item
+            android:id="@+id/nav_invitado_especial"
+            android:icon="@drawable/ic_person_24dp"
+            android:title="@string/invitado_especial_nav" />
     </group>
 
 
@@ -26,10 +34,6 @@
     <item android:title="@string/premio_nav">
         <menu>
             <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_artistas_invitados"
-                    android:icon="@drawable/ic_perm_identity_black_24dp"
-                    android:title="@string/artistas_invitados_nav" />
                 <item
                     android:id="@+id/nav_artista"
                     android:icon="@drawable/ic_person_24dp"

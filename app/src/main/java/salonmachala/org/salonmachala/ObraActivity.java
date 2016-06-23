@@ -1,5 +1,6 @@
 package salonmachala.org.salonmachala;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -7,9 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.style.UnderlineSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +22,7 @@ import android.widget.TextView;
 
 
 import database.DBObra;
+import database.DBParticipante;
 import gson.LoadInformation;
 import lazyLoad.ImageLoader;
 import widget.JustifiedTextView;
@@ -36,12 +42,14 @@ public class ObraActivity extends AppCompatActivity {
 
     public ImageLoader imageLoader;
     Integer id;
+    Context ctx;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obra);
+        this.ctx = this;
 
         Bundle b = getIntent().getExtras();
 
@@ -86,6 +94,8 @@ public class ObraActivity extends AppCompatActivity {
         iv_foto = (ImageView) findViewById(R.id.foto);
 
 
+
+
         Global.openImageView(iv_foto,tv_titulo,null);
 
     }
@@ -105,7 +115,15 @@ public class ObraActivity extends AppCompatActivity {
 
             if(c.moveToFirst()) {
                 tv_titulo.setText(c.getString(1));
-                tv_autor.setText(c.getString(11));
+
+
+                SpannableString content = new SpannableString(c.getString(11));
+                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                tv_autor.setTextColor(Color.BLUE);
+
+                tv_autor.setText(content);
+                final int id = c.getInt(13);
+
                 tv_fecha.setText(c.getString(3));
 
                 tv_tecnica.setText(c.getString(4));
@@ -118,6 +136,19 @@ public class ObraActivity extends AppCompatActivity {
 
 
                 wv_descripcion.setTextSize(Global.getSizeWv());
+
+                tv_autor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("click");
+                        Intent intent = new Intent(ctx,ArtistaActivity.class);
+                        Bundle b = new Bundle();
+
+                        b.putInt("id", id);
+                        intent.putExtras(b);
+                        startActivity(intent);
+                    }
+                });
             }
 
         }catch (Exception e){

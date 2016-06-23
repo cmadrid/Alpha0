@@ -9,17 +9,23 @@ public class Informacion {
     private int idi;
     private String coi;
     private String tii;
+    private String tii_en;
 
     private String f1i;
     private String c1i;
+    private String c1i_en;
     private String f2i;
     private String c2i;
+    private String c2i_en;
     private String f3i;
     private String c3i;
+    private String c3i_en;
     private String f4i;
     private String c4i;
+    private String c4i_en;
     private String f5i;
     private String c5i;
+    private String c5i_en;
     private Date aci;
 
     private Date af1;
@@ -188,5 +194,53 @@ public class Informacion {
 
     public void setAti(boolean ati) {
         this.ati = ati;
+    }
+
+    public String getTii_en() {
+        return tii_en;
+    }
+
+    public void setTii_en(String tii_en) {
+        this.tii_en = tii_en;
+    }
+
+    public String getC1i_en() {
+        return c1i_en;
+    }
+
+    public void setC1i_en(String c1i_en) {
+        this.c1i_en = c1i_en;
+    }
+
+    public String getC2i_en() {
+        return c2i_en;
+    }
+
+    public void setC2i_en(String c2i_en) {
+        this.c2i_en = c2i_en;
+    }
+
+    public String getC3i_en() {
+        return c3i_en;
+    }
+
+    public void setC3i_en(String c3i_en) {
+        this.c3i_en = c3i_en;
+    }
+
+    public String getC4i_en() {
+        return c4i_en;
+    }
+
+    public void setC4i_en(String c4i_en) {
+        this.c4i_en = c4i_en;
+    }
+
+    public String getC5i_en() {
+        return c5i_en;
+    }
+
+    public void setC5i_en(String c5i_en) {
+        this.c5i_en = c5i_en;
     }
 }

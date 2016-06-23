@@ -170,7 +170,8 @@ public class ArtistasFragment extends Fragment {
             }catch (Exception e){
                 e.printStackTrace();
             }finally {
-                db_participantes.close();
+                if(db_participantes!=null)
+                    db_participantes.close();
             }
 
             //recyclerView.setAdapter(new NumberedAdapter(30));
