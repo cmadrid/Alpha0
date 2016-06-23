@@ -4,6 +4,9 @@
     <color name="colorPrimary1">#3F51B5</color>
     <color name="colorPrimary2">#FFFFFF</color>
 
+
+    <color name="cardColor">#fff3d0</color>
+
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#4CAF50</color>
 

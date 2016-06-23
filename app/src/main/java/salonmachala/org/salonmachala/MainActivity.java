@@ -189,6 +189,8 @@ public class MainActivity extends AppCompatActivity
             ((ObrasFragment)fragment).detener();
         if(fragment!=null && fragment instanceof ArtistasFragment)
             ((ArtistasFragment)fragment).detener();
+        if(fragment!=null && fragment instanceof PremiosFragment)
+            ((PremiosFragment)fragment).detener();
 
         if (id == R.id.nav_inicio) {
             header.setScaleType(ImageView.ScaleType.FIT_CENTER);

@@ -222,6 +222,17 @@ public class DBObra {
         return db.query(TABLE_NAME, campos, ID+"=?", args, null, null, null);
     }
 
+    public Cursor consultarObrasPremios(){
+
+        String QB= TABLE_NAME +
+                " JOIN " + DBParticipante.NOMBRE_TABLA + " ON " +
+                PARTICIPANTE + " = " + DBParticipante.ID;
+
+        String[] campos = new String[] {DBParticipante.ID, ID, DBParticipante.NOMBRE, TITULO, DBParticipante.FOTO_URL, FOTO_URL, PREMIO};
+
+        return db.query(QB, campos, PREMIO +" is not null ", null, null, null,PREMIO);
+    }
+
     public int borrar(String ids){
         return db.delete(TABLE_NAME,ID+" not in ("+ids+")", null);
     }

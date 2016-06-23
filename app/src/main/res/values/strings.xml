@@ -57,6 +57,19 @@
     <string name="argumento">Argumento</string>
     <string name="anios">años</string>
 
+
+
+    <string name="primer_puesto">Primer Puesto</string>
+    <string name="segundo_puesto">Segundo Puesto</string>
+    <string name="tercer_puesto">Tercer Puesto</string>
+    <string name="primera_mencion">Primera Mención</string>
+    <string name="segunda_mencion">Segunda Mención</string>
+    <string name="tercera_mencion">Tercera Mención</string>
+    <string name="cuarta_mencion">Cuarta Mención</string>
+    <string name="mencion">Mención</string>
+    <string name="artista_orense">Reconocimiento al Artista Orense</string>
+
+
     <string name="title_activity_splash">Splash</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
