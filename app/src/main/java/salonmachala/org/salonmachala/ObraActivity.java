@@ -106,9 +106,12 @@ public class ObraActivity extends AppCompatActivity {
         try {
             db_obra = new DBObra(getApplicationContext());
             Cursor c = null;
-            if(id!=null)
-                c = db_obra.consultar(id);
-
+            if(id!=null) {
+                if(Global.estaEspaniol())
+                    c = db_obra.consultar(id);
+                else
+                    c = db_obra.consultar_en(id);
+            }
 
             if(c==null)
                 return;

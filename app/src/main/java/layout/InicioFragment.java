@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
@@ -117,6 +118,8 @@ public class InicioFragment extends Fragment {
 
         MainActivity.mainActivity.header.setImageResource(R.drawable.logo);
         MainActivity.mainActivity.appBarLayout.setExpanded(true);
+        MainActivity.mainActivity.collapsingToolbar.setTitle(getResources().getString(R.string.app_name));
+        MainActivity.mainActivity.header.setScaleType(ImageView.ScaleType.FIT_CENTER);
         return view;
     }
 

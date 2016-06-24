@@ -2,9 +2,13 @@ package salonmachala.org.salonmachala;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -14,10 +18,13 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Locale;
 
 import database.DBInformacion;
 import lazyLoad.ImageLoader;
@@ -26,6 +33,7 @@ import lazyLoad.ImageLoader;
  * Created by ces_m on 6/14/2016.
  */
 public class Global {
+    public static boolean inicio = false;
     public static Activity activity= null;
     public final static int MY_PERMISSIONS_REQUEST_WRITE=753;
     public static String qr_code = null;
@@ -108,9 +116,12 @@ public class Global {
         try {
             db_informacion = new DBInformacion(MainActivity.mainActivity);
             Cursor c = null;
-            if(cod!=null)
-                c = db_informacion.consultar(cod);
-
+            if(cod!=null) {
+                if (estaEspaniol())
+                    c = db_informacion.consultar(cod);
+                else
+                    c = db_informacion.consultar_en(cod);
+            }
             if(c==null)
                 return;
 
@@ -145,6 +156,26 @@ public class Global {
         ta.recycle();
         //System.out.println("tamaño de wv letra = "+size_);
         return size_;
+    }
+
+
+    public static boolean estaEspaniol(){
+        Locale current = activity.getResources().getConfiguration().locale;
+        System.out.println(current.getLanguage());
+        if(current.getLanguage().equalsIgnoreCase("es"))
+            return true;
+        else
+            return false;
+    }
+
+
+    public static void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = activity.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
     }
 
 

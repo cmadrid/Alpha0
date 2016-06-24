@@ -100,7 +100,7 @@ public class DBObra {
             valores.put(QR,qr);
         if(dimensiones!=null)
             valores.put(DIMENSIONES,dimensiones);
-        if(premio!=null)
+        //if(premio!=null)
             valores.put(PREMIO,premio);
         if(actualizacion!=null)
             valores.put(ACTUALIZACION, dateFormat.format(actualizacion));

@@ -36,26 +36,19 @@ public class Splash extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);
+
+        Global.inicio = true;
         Global.activity=this;
         new DBFake(this).close();
 
         tv_cargando = (TextView) findViewById(R.id.tv_cargando);
 
-/*
-        Bundle b = getIntent().getExtras();
-        if(b != null) {
-            if(b.containsKey("qr_code"))
-                qr_code = b.getString("qr_code");
-        }
-*/
-
-
         sharedpreferences = getSharedPreferences(SalonMachala.Pref.MyPREFERENCES, Context.MODE_PRIVATE);
         ejecutado = sharedpreferences.getBoolean(SalonMachala.Pref.Ejecutado, false);
 
+        Global.setLocale(sharedpreferences.getString(SalonMachala.Pref.Idioma,"es"));
 
-
-
+/*
         Timer T=new Timer();
         T.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -72,7 +65,7 @@ public class Splash extends Activity {
             }
         }, 1000, 1000);
 
-
+*/
 
         if(Global.permiso_escritura()){
             descargar();
@@ -95,7 +88,7 @@ public class Splash extends Activity {
     }
 
     public void toMain(){
-        Toast.makeText(this,"Contador final: "+count+" segundos",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"Contador final: "+count+" segundos",Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

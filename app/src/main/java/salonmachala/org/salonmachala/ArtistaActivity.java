@@ -96,9 +96,12 @@ public class ArtistaActivity extends AppCompatActivity {
         try {
             db_participante = new DBParticipante(getApplicationContext());
             Cursor c = null;
-            if(id!=null)
-                c = db_participante.consultar(id);
-
+            if(id!=null) {
+                if(Global.estaEspaniol())
+                    c = db_participante.consultar(id);
+                else
+                    c = db_participante.consultar_en(id);
+            }
 
             if(c==null)
                 return;

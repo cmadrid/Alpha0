@@ -5,9 +5,13 @@
     <color name="colorPrimary2">#FFFFFF</color>
 
 
+    <color name="colormusa">#aa1f7b</color>
+
+
     <color name="cardColor">#fff3d0</color>
 
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#bcbf14</color>
+    <color name="colorPrimaryDark2">#303F9F</color>
     <color name="colorAccent">#4CAF50</color>
 
     <color name="black_overlay">#66000000</color>

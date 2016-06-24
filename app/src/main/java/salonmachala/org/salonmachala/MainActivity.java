@@ -1,14 +1,17 @@
 package salonmachala.org.salonmachala;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -31,6 +34,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -59,11 +63,15 @@ public class MainActivity extends AppCompatActivity
     public AppBarLayout appBarLayout;
     public ImageView header;
     public Toolbar toolbar;
+    public boolean doubleBackToExitPressedOnce = false;
+
 
     NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
@@ -75,7 +83,6 @@ public class MainActivity extends AppCompatActivity
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
 
-        collapsingToolbar.setTitle(getResources().getString(R.string.app_name));
 //        header.setOnClickListener();
 
 
@@ -114,10 +121,12 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-
-
-
+    @Override
+    protected void onResume() {
+        if(!Global.inicio)
+            startActivity(new Intent(this,Splash.class));
+        super.onResume();
+    }
 
     @Override
     public void onBackPressed() {
@@ -131,6 +140,8 @@ public class MainActivity extends AppCompatActivity
                 ((ObrasFragment)fragment).detener();
             if(fragment!=null && fragment instanceof ArtistasFragment)
                 ((ArtistasFragment)fragment).detener();
+            if(fragment!=null && fragment instanceof PremiosFragment)
+                ((PremiosFragment)fragment).detener();
 
             navigationView.getMenu().getItem(0).setChecked(true);
             getSupportFragmentManager().beginTransaction()
@@ -142,7 +153,23 @@ public class MainActivity extends AppCompatActivity
             //getSupportActionBar().setTitle(R.string.app_name);
         }
         else {
-            super.onBackPressed();
+
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                finish();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this,R.string.presiones_2_veces_salir, Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
         }
     }
 
@@ -193,7 +220,6 @@ public class MainActivity extends AppCompatActivity
             ((PremiosFragment)fragment).detener();
 
         if (id == R.id.nav_inicio) {
-            header.setScaleType(ImageView.ScaleType.FIT_CENTER);
             Global.permiso_escritura();
             fragment = InicioFragment.newInstance(null,null);
             fragmentTransaction = true;
@@ -255,10 +281,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_qr) {
             abrir_qr();
         } else if (id == R.id.nav_idioma) {
-            Locale current = getResources().getConfiguration().locale;
-            System.out.println(current.getLanguage()
-            );
-            if(current.getLanguage().equalsIgnoreCase("es"))
+            if(Global.estaEspaniol())
                 preguntarIdioma("en");
             else
                 preguntarIdioma("es");
@@ -269,7 +292,7 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.content,fragment)
                     .commit();
             item.setChecked(true);
-            if(item.getTitle().toString().equalsIgnoreCase("inicio"))
+            if(item.getTitle().toString().equalsIgnoreCase(getResources().getString(R.string.inicio_nav)))
                 collapsingToolbar.setTitle(getResources().getString(R.string.app_name));//getSupportActionBar().setTitle(R.string.app_name);
             else
                 collapsingToolbar.setTitle(item.getTitle());//getSupportActionBar().setTitle(item.getTitle());
@@ -300,42 +323,6 @@ public class MainActivity extends AppCompatActivity
 
         startActivity(new Intent(mainActivity,SimpleScannerActivity.class));
     }
-
-
-
-
-    public void setLocale(String lang) {
-        Locale myLocale = new Locale(lang);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, MainActivity.class);
-        startActivity(refresh);
-        finish();
-    }
-
-
-
-
-
-
-    private void preguntarIdioma(final String lang){
-        new AlertDialog.Builder(MainActivity.this)
-                .setMessage(R.string.cambiar_idioma)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        setLocale(lang);
-                    }
-                })
-                .setNegativeButton(android.R.string.no, null)
-                .create()
-                .show();
-    }
-
-
 
 
 
@@ -418,5 +405,45 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         mainActivity=null;
+        Global.inicio=false;
+
     }
+
+
+    public void preguntarIdioma(final String lang){
+        new AlertDialog.Builder(mainActivity)
+                .setMessage(R.string.cambiar_idioma)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        setLocaleChange(lang);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .create()
+                .show();
+    }
+
+
+    public void setLocaleChange(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = mainActivity.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+
+        SharedPreferences sharedpreferences = Global.activity.getSharedPreferences(SalonMachala.Pref.MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        if(lang.equalsIgnoreCase("en"))
+            editor.putString(SalonMachala.Pref.Idioma,"en").apply();
+        else
+            editor.putString(SalonMachala.Pref.Idioma,"es").apply();
+
+        Intent refresh = new Intent(mainActivity, Splash.class);
+        mainActivity.finish();
+        //mainActivity.startActivity(refresh);
+    }
+
+
 }

@@ -11,6 +11,7 @@ public class SalonMachala {
         public static String Actualizacion_Obras="actualizacion_obras";
         public static String Actualizacion_Informacion="actualizacion_informacion";
         public static String Ejecutado="ejecutado";
+        public static String Idioma="idioma";
         public static String MyPREFERENCES = "status" ;
     }
 

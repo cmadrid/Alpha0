@@ -136,7 +136,7 @@ public class PremioAdapter extends RecyclerView.Adapter<PremioAdapter.ViewHolder
 
 
 // Changes the height and width to the specified *pixels*
-        params.height = (width/(nColumnas+1))+(width/5)+54;
+        params.height = (width/(nColumnas+1))+(width/4);
         //params.width = (width/nColumnas);
 
         ViewGroup.LayoutParams layoutParams = holder.foto_autor.getLayoutParams();

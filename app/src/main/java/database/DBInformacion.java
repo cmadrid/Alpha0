@@ -179,21 +179,26 @@ public class DBInformacion {
                                        Date actualizacion,Date actualizacion_foto1,Date actualizacion_foto2,Date actualizacion_foto3,Date actualizacion_foto4,Date actualizacion_foto5)
     {
         Cursor c = consultar(id);
+        String[] args = new String[] {id+""};
         if(c.moveToFirst())
         {
 
             if(!actualizacion.after(Timestamp.valueOf(c.getString(18))))
                 return false;
 
-            String[] args = new String[] {id+""};
-            db.update(TABLE_NAME, generarContentValues(id, codigo, titulo, titulo_en, foto_url1, null, contenido1, contenido1_en, foto_url2, null, contenido2, contenido2_en, foto_url3, null, contenido3, contenido3_en, foto_url4, null, contenido4, contenido4_en, foto_url5, null, contenido5, contenido5_en,
+            db.update(TABLE_NAME, generarContentValues(id, codigo, titulo, "", foto_url1, null, contenido1, "", foto_url2, null, contenido2, null, foto_url3, null, contenido3, null, foto_url4, null, contenido4, null, foto_url5, null, contenido5, null,
                     actualizacion, actualizacion_foto1, actualizacion_foto2, actualizacion_foto3, actualizacion_foto4, actualizacion_foto5), ID + "=?", args);
+            db.update(TABLE_NAME, generarContentValues(null, null, null, titulo_en, null, null, null, contenido1_en, null, null, null, contenido2_en, null, null, null, contenido3_en, null, null, null, contenido4_en, null, null, null, contenido5_en,
+                    actualizacion, actualizacion_foto1, actualizacion_foto2, actualizacion_foto3, actualizacion_foto4, actualizacion_foto5), ID + "=?", args);
+
             return true;
         }else {
             //image = LoadInformation.getImage(foto);
 
-            db.insert(TABLE_NAME, null, generarContentValues(id, codigo, titulo, titulo_en, foto_url1, null, contenido1, contenido1_en, foto_url2, null, contenido2, contenido2_en, foto_url3, null, contenido3, contenido3_en, foto_url4, null, contenido4, contenido4_en, foto_url5, null, contenido5, contenido5_en,
+            db.insert(TABLE_NAME, null, generarContentValues(id, codigo, titulo, "", foto_url1, null, contenido1, "", foto_url2, null, contenido2, null, foto_url3, null, contenido3, null, foto_url4, null, contenido4, null, foto_url5, null, contenido5, null,
                     actualizacion, actualizacion_foto1, actualizacion_foto2, actualizacion_foto3, actualizacion_foto4, actualizacion_foto5));
+            db.update(TABLE_NAME, generarContentValues(null, null, null, titulo_en, null, null, null, contenido1_en, null, null, null, contenido2_en, null, null, null, contenido3_en, null, null, null, contenido4_en, null, null, null, contenido5_en,
+                    actualizacion, actualizacion_foto1, actualizacion_foto2, actualizacion_foto3, actualizacion_foto4, actualizacion_foto5), ID + "=?", args);
         }
         return false;
     }

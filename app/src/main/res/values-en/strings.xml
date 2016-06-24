@@ -1,0 +1,78 @@
+<resources>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="permiso_camara">You need to use the camera for this function and has been denied permission. Want to activate it manually?</string>
+    <string name="permiso_write">You need to use the storage device to store information and has refused permission. Want to activate it manually?</string>
+    <string name="ver_artista_obra_">See Information:</string>
+    <string name="autor_str">AUTHOR</string>
+    <string name="obra_str">ARTWORK</string>
+
+    <string name="no_qr">Artwork unregistered</string>
+    <string name="cargando_splash">Loading event information</string>
+
+    <string name="conexion">Internet connection required</string>
+    <string name="conexion_requiere">The connection data during the first run is necessary to obtain initial data of the event.</string>
+
+    <string name="obra_info">INFORMATION ARTWORK</string>
+    <string name="titulo_str_">TITLE:</string>
+    <string name="autor_str_">AUTHOR:</string>
+    <string name="fecha_str_">DATE:</string>
+    <string name="anio_str_">Year:</string>
+    <string name="dimensiones_str_">DIMENSIONS:</string>
+    <string name="descripcion_str">DESCRIPTION</string>
+
+    <string name="artista_info">ARTIST INFORMATION</string>
+    <string name="nombre_str_">Name:</string>
+    <string name="nacionalidad_str_">NATIONALITY:</string>
+    <string name="edad_str_">AGE:</string>
+    <string name="biografia_str">BIOGRAPHY</string>
+
+    <string name="title_activity_abrir_imagen">abrirImagen</string>
+
+    <string name="inicio_nav">Home</string>
+    <string name="proyeccion_nav">Proyection</string>
+
+    <string name="artistas_invitados_nav">Guest Artist</string>
+    <string name="invitado_especial_nav">Special Guest Character</string>
+    <string name="artistas_nav">Artists</string>
+    <string name="obras_nav">Artworks</string>
+    <string name="premios">Awarded</string>
+    <string name="creditos">Credits</string>
+    <string name="permiso_requerido">The permit is required for execution.</string>
+
+    <string name="opciones_nav">Additional Functions</string>
+    <string name="escanear_qr">QR SCANNER</string>
+    <string name="idioma_nav"><![CDATA[English <—> Español ]]></string>
+    <string name="cambiar_idioma">Sure you want to change the language to Spanish?\nThe application will close.</string>
+
+    <string name="argumento">Statement</string>
+    <string name="anios">years old</string>
+
+
+
+    <string name="primer_puesto">First Prize</string>
+    <string name="segundo_puesto">Second Priz</string>
+    <string name="tercer_puesto">Third Prize</string>
+    <string name="primera_mencion">Honorable Mention</string>
+    <string name="segunda_mencion">Honorable Mention</string>
+    <string name="tercera_mencion">Honorable Mention</string>
+    <string name="cuarta_mencion">Honorable Mention</string>
+    <string name="mencion">Mention</string>
+
+
+    <string name="title_activity_splash">Splash</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cambiar_idioma2">Sure you want to change the language to Spanish?\nThe application will restart.</string>
+    <string name="presiones_2_veces_salir">Please click BACK again to exit.</string>
+    <string name="artista_orense">Orense Artist Special Prize</string>
+    <string name="antecedentes_nav" >Background</string>
+    <string name="tecnica_str_">Technique</string>
+
+</resources>

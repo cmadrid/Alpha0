@@ -139,6 +139,7 @@ public class ArtistasFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), nColumnas));
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        MainActivity.mainActivity.appBarLayout.setExpanded(false);
 
         new GetDataParticipantes().execute();
 
@@ -195,7 +196,6 @@ public class ArtistasFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             MainActivity.progressWheel.setVisibility(View.GONE);
-            MainActivity.mainActivity.appBarLayout.setExpanded(false);
             //recyclerView.setAdapter(adapter);
             super.onPostExecute(s);
         }
