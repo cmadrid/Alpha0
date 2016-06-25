@@ -20,12 +20,12 @@
     <string name="titulo_str_">TITLE:</string>
     <string name="autor_str_">AUTHOR:</string>
     <string name="fecha_str_">DATE:</string>
-    <string name="anio_str_">Year:</string>
+    <string name="anio_str_">YEAR:</string>
     <string name="dimensiones_str_">DIMENSIONS:</string>
     <string name="descripcion_str">DESCRIPTION</string>
 
     <string name="artista_info">ARTIST INFORMATION</string>
-    <string name="nombre_str_">Name:</string>
+    <string name="nombre_str_">NAME:</string>
     <string name="nacionalidad_str_">NATIONALITY:</string>
     <string name="edad_str_">AGE:</string>
     <string name="biografia_str">BIOGRAPHY</string>
@@ -44,9 +44,9 @@
     <string name="permiso_requerido">The permit is required for execution.</string>
 
     <string name="opciones_nav">Additional Functions</string>
-    <string name="escanear_qr">QR SCANNER</string>
+    <string name="escanear_qr">QR Scanner</string>
     <string name="idioma_nav"><![CDATA[English <—> Español ]]></string>
-    <string name="cambiar_idioma">Sure you want to change the language to Spanish?\nThe application will close.</string>
+    <string name="cambiar_idioma">Sure you want to change the language to Spanish?\nThe application will restart.</string>
 
     <string name="argumento">Statement</string>
     <string name="anios">years old</string>
@@ -69,10 +69,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="cambiar_idioma2">Sure you want to change the language to Spanish?\nThe application will restart.</string>
+    <string name="cambiar_idioma2">Sure you want to change the language to Spanish?\nThe application will close.</string>
     <string name="presiones_2_veces_salir">Please click BACK again to exit.</string>
     <string name="artista_orense">Orense Artist Special Prize</string>
     <string name="antecedentes_nav" >Background</string>
-    <string name="tecnica_str_">Technique</string>
+    <string name="tecnica_str_">TECHNIQUE:</string>
 
 </resources>

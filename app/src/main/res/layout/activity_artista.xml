@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="6dp"
+    android:background="@drawable/textura_repeat"
     tools:context=".ObraActivity">
 
 
