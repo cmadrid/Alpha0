@@ -27,7 +27,7 @@ import gson.LoadInformation;
 import lazyLoad.ImageLoader;
 import widget.JustifiedTextView;
 
-public class ObraActivity extends AppCompatActivity {
+public class ObraActivity extends MyBaseActivity {
 
     ObraActivity obra = this;
 
@@ -48,6 +48,8 @@ public class ObraActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(super.retornar)return;
+
         setContentView(R.layout.activity_obra);
         this.ctx = this;
 
@@ -96,7 +98,6 @@ public class ObraActivity extends AppCompatActivity {
 
 
 
-        Global.openImageView(iv_foto,tv_titulo,null);
 
     }
 
@@ -133,6 +134,7 @@ public class ObraActivity extends AppCompatActivity {
                 tv_dimensiones.setText(c.getString(8));
 
                 imageLoader.DisplayImage(c.getString(12),iv_foto);
+                Global.openImageView(iv_foto,tv_titulo,c.getString(12),null);
 
                 wv_descripcion.setText(c.getString(2));
                 wv_descripcion.setTextColor(Color.BLACK);

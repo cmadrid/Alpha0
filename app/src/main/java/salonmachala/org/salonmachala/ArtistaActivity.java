@@ -23,7 +23,7 @@ import database.DBParticipante;
 import lazyLoad.ImageLoader;
 import widget.JustifiedTextView;
 
-public class ArtistaActivity extends AppCompatActivity {
+public class ArtistaActivity extends MyBaseActivity {
 
     ArtistaActivity artista = this;
 
@@ -42,6 +42,8 @@ public class ArtistaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(super.retornar)return;
+
         setContentView(R.layout.activity_artista);
 
         Bundle b = getIntent().getExtras();
@@ -86,7 +88,6 @@ public class ArtistaActivity extends AppCompatActivity {
         tv_nacionalidad = (TextView) findViewById(R.id.tv_nacionalidad);
         iv_foto = (ImageView) findViewById(R.id.iv_foto);
 
-        Global.openImageView(iv_foto,tv_nombre,null);
 
     }
 
@@ -114,6 +115,7 @@ public class ArtistaActivity extends AppCompatActivity {
 
                 tv_edad.setText(calculateAge(Timestamp.valueOf(c.getString(3)))+" "+getResources().getString(R.string.anios));
                 imageLoader.DisplayImage(c.getString(9),iv_foto);
+                Global.openImageView(iv_foto,tv_nombre,c.getString(9),null);
 
                 wv_bibliografia.setText(c.getString(5));
                 wv_bibliografia.setTextColor(Color.BLACK);

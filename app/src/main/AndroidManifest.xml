@@ -36,6 +36,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http" android:host="www.puntoec.org" android:path="/salonmachala/qrtostore.php"/>
                 <data android:scheme="https" android:host="www.puntoec.org" android:path="/salonmachala/qrtostore.php"/>
+                <data android:scheme="http" android:host="puntoec.org" android:path="/salonmachala/qrtostore.php"/>
+                <data android:scheme="https" android:host="puntoec.org" android:path="/salonmachala/qrtostore.php"/>
             </intent-filter>
         </activity>
         <activity

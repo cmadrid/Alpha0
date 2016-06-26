@@ -26,7 +26,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 /**
  * Created by ces_m on 5/15/2016.
  */
-public class SimpleScannerActivity extends Activity implements ZXingScannerView.ResultHandler {
+public class SimpleScannerActivity extends MyBaseActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
 
     final int MY_PERMISSIONS_REQUEST_CAMERA = 12345;
@@ -43,6 +43,7 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
+        if(super.retornar)return;
 
 
         final Intent intent = getIntent();

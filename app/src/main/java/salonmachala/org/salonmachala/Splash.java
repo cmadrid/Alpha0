@@ -38,7 +38,7 @@ public class Splash extends Activity {
         setContentView(R.layout.activity_splash);
 
         Global.inicio = true;
-        Global.activity=this;
+        Global.activity = this;
         new DBFake(this).close();
 
         tv_cargando = (TextView) findViewById(R.id.tv_cargando);

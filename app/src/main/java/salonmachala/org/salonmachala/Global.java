@@ -83,28 +83,24 @@ public class Global {
                 });
     }
 
-    public static void openImageView(final ImageView imageView, final TextView titulo, final Integer resource){
+    public static void openImageView(final ImageView imageView, final TextView titulo, final String path, final Integer resource){
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Bitmap bitmap=null;
-                if(resource==null) {
-                    imageView.buildDrawingCache();
-                    bitmap = imageView.getDrawingCache();
-                }
+                System.out.println("listo para abrir");
 
                 Intent intent = new Intent(MainActivity.mainActivity,AbrirImagen.class);
                 Bundle extras = new Bundle();
-                if(bitmap!=null)
-                    extras.putParcelable("imagebitmap", bitmap);
+
+                if(path!=null)
+                    extras.putString("path", path);
                 if(resource!=null)
                     extras.putInt("imageResource", resource);
                 if(titulo!=null)
-                    extras.putString("title", titulo.getText().toString());
+                   extras.putString("title", titulo.getText().toString());
                 intent.putExtras(extras);
                 Global.activity.startActivity(intent);
-
+                System.out.println("listo para abrir fin");
             }
         });
     }

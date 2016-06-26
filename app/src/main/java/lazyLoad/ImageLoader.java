@@ -24,6 +24,7 @@ import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
 import salonmachala.org.salonmachala.R;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ImageLoader {
 
@@ -38,18 +39,29 @@ public class ImageLoader {
     ExecutorService executorService;
 
     boolean full;
+    boolean zoom;
 
     //handler to display images in UI thread
     Handler handler = new Handler();
 
-    public ImageLoader(Context context,boolean full){
+
+    public ImageLoader(Context context,boolean full,boolean zoom){
+        imageLoader(context,full,zoom);
+    }
+    public void imageLoader(Context context,boolean full,boolean zoom){
 
         fileCache = new FileCache(context);
         // Creates a thread pool that reuses a fixed number of
         // threads operating off a shared unbounded queue.
         executorService=Executors.newFixedThreadPool(5);
         this.full = full;
+        this.zoom = zoom;
     }
+    public ImageLoader(Context context,boolean full){
+        imageLoader(context,full,false);
+    }
+
+
 
     // default image show in list (Before online image download)
     final int stub_id= R.drawable.image_;
@@ -66,6 +78,7 @@ public class ImageLoader {
             // if image is stored in MemoryCache Map then
             // Show image in listview row
             imageView.setImageBitmap(bitmap);
+            if(zoom)seZoomable(imageView);
         }
         else
         {
@@ -250,11 +263,18 @@ public class ImageLoader {
                 return;
 
             // Show bitmap on UI
-            if(bitmap!=null)
+            if(bitmap!=null) {
                 photoToLoad.imageView.setImageBitmap(bitmap);
-            else
+                if(zoom)seZoomable(photoToLoad.imageView);
+            }else
                 photoToLoad.imageView.setImageResource(stub_id);
         }
+    }
+
+    public void seZoomable(ImageView imageView){
+        PhotoViewAttacher mAttacher;
+        mAttacher = new PhotoViewAttacher(imageView);
+        mAttacher.update();
     }
 
     public void clearCache() {

@@ -7,18 +7,21 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import lazyLoad.ImageLoader;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
-public class AbrirImagen extends AppCompatActivity {
+public class AbrirImagen extends MyBaseActivity {
 
     PhotoViewAttacher mAttacher;
+    ImageLoader imageLoader = new ImageLoader(this,true,true);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_abrir_imagen);
+        if(super.retornar)return;
 
+        setContentView(R.layout.activity_abrir_imagen);
         Bundle extras = getIntent().getExtras();
-        Bitmap bmp = extras.getParcelable("imagebitmap");
+        String path = extras.getString("path",null);
         int resource = extras.getInt("imageResource",0);
         String title = extras.getString("title");
 
@@ -27,13 +30,13 @@ public class AbrirImagen extends AppCompatActivity {
         actionBar.setTitle(title);
 
         ImageView image = (ImageView) findViewById(R.id.foto_full);
-        if(bmp!=null)
-            image.setImageBitmap(bmp );
+        if(path!=null)
+            imageLoader.DisplayImage(path,image);
         else if(resource!=0)
             image.setImageResource(resource);
 
-        mAttacher = new PhotoViewAttacher(image);
-        mAttacher.update();
+        //mAttacher = new PhotoViewAttacher(image);
+        //mAttacher.update();
     }
 
     @Override
