@@ -1,7 +1,12 @@
 package gson;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -19,6 +24,8 @@ import database.DBInformacion;
 import database.DBObra;
 import database.DBParticipante;
 import lazyLoad.FileCache;
+import salonmachala.org.salonmachala.Global;
+import salonmachala.org.salonmachala.R;
 import salonmachala.org.salonmachala.SalonMachala;
 import salonmachala.org.salonmachala.Splash;
 
@@ -33,6 +40,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
     String actualizacion_participantes;
     String actualizacion_obras;
     String actualizacion_informacion;
+    boolean actualiza = false;
 
     FileCache fileCache;
 
@@ -45,6 +53,13 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         fileCache = new FileCache(c);
     }
 
+    public LoadInformation(Context c,boolean actualiza) {
+        this.c = c;
+        sharedpreferences = c.getSharedPreferences(SalonMachala.Pref.MyPREFERENCES, Context.MODE_PRIVATE);
+        fileCache = new FileCache(c);
+        this.actualiza=actualiza;
+    }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -53,6 +68,22 @@ public class LoadInformation extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         System.out.println("inicio");
+
+
+
+
+
+
+        if(!actualiza && verifica_version()){
+            System.out.println("cerrar");
+            return "";
+        }
+        actualiza=false;
+
+
+
+
+
 
         actualizacion_participantes = sharedpreferences.getString(SalonMachala.Pref.Actualizacion_Participantes, null);
         actualizacion_obras = sharedpreferences.getString(SalonMachala.Pref.Actualizacion_Obras, null);
@@ -246,7 +277,58 @@ public class LoadInformation extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if(c instanceof Splash)
+        if(actualiza){
+
+            new AlertDialog.Builder(c)
+                    .setTitle(R.string.actualizacion_disponible)
+                    .setMessage(R.string.actualizacion_descripcion)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            System.out.println("abrir tienda");
+                            actualiza = true;
+                            ((Activity) c).finish();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new LoadInformation(c,true).execute();
+                        }
+                    })
+                    .setCancelable(false)
+                    .create()
+                    .show();
+
+        }
+        else if(c instanceof Splash)
             ((Splash) c).toMain();
     }
+    @Override
+    protected void onCancelled() {
+        super.onCancelled();
+    }
+
+    protected boolean verifica_version(){
+        PackageInfo pInfo = null;
+        actualiza = false;
+        try {
+            pInfo = c.getPackageManager().getPackageInfo(c.getPackageName(), 0);
+            //String version = pInfo.versionName;
+            System.out.println("version code: "+pInfo.versionCode);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String actualizacion = RequestJsonHttp.executePost("informacion_actualizacion",new Param<String, String>("code", pInfo.versionCode+""));
+        System.out.println(actualizacion);
+        System.out.println(actualizacion.contains("1"));
+        System.out.println("1");
+        if(actualizacion.contains("1")){
+            actualiza = true;
+        }
+        return actualiza;
+    }
+
+
 }

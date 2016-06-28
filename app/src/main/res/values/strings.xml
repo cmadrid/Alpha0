@@ -37,8 +37,6 @@
     <string name="title_activity_abrir_imagen">abrirImagen</string>
 
     <string name="inicio_nav">Inicio</string>
-    <string name="antecedentes_nav">Antecedentes</string>
-    <string name="proyeccion_nav">Proyección</string>
 
     <string name="premio_nav" translatable="false">Premio Musa Paradisiaca</string>
     <string name="artistas_invitados_nav">Artistas Invitados</string>
@@ -78,5 +76,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="presiones_2_veces_salir">Presiona de nuevo para salir.</string>
+    <string name="antecedentes_nav">Antecedentes</string>
+    <string name="actualizacion_disponible">Actualización Disponible</string>
+    <string name="proyeccion_nav">Proyección</string>
+    <string name="actualizacion_descripcion">Actualice la aplicacion para acceder a nueva información</string>
+    <string name="jurados_nav">Jurados</string>
+    <string name="curaduria_nav">Curaduría Pedagógica</string>
 
 </resources>

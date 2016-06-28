@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -47,25 +48,6 @@ public class Splash extends Activity {
         ejecutado = sharedpreferences.getBoolean(SalonMachala.Pref.Ejecutado, false);
 
         Global.setLocale(sharedpreferences.getString(SalonMachala.Pref.Idioma,"es"));
-
-/*
-        Timer T=new Timer();
-        T.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        setTv_cargando_text(count+"");
-                        count++;
-                    }
-                });
-            }
-        }, 1000, 1000);
-
-*/
 
         if(Global.permiso_escritura()){
             descargar();

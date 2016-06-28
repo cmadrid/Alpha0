@@ -245,6 +245,12 @@ public class MainActivity extends AppCompatActivity
             fragment = CreditosFragment.newInstance("cdg_creditos",null);
             fragmentTransaction = true;
 
+        }else if (id == R.id.nav_curaduria) {
+
+            Global.permiso_escritura();
+            fragment = CreditosFragment.newInstance("cdg_curaduria",null);
+            fragmentTransaction = true;
+
         } else if (id == R.id.nav_premiados) {
 
             Global.permiso_escritura();
@@ -261,6 +267,12 @@ public class MainActivity extends AppCompatActivity
 
             Global.permiso_escritura();
             fragment = ArtistasFragment.newInstance("'IN'",null);
+            fragmentTransaction = true;
+
+        }else if (id == R.id.nav_jurado) {
+
+            Global.permiso_escritura();
+            fragment = ArtistasFragment.newInstance("'JU'",null);
             fragmentTransaction = true;
 
         }else if (id == R.id.nav_invitado_especial) {
@@ -412,7 +424,7 @@ public class MainActivity extends AppCompatActivity
 
     public void preguntarIdioma(final String lang){
         new AlertDialog.Builder(mainActivity)
-                .setMessage(R.string.cambiar_idioma)
+                .setMessage(R.string.cambiar_idioma2)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

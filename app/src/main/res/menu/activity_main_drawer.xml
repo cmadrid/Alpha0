@@ -19,6 +19,10 @@
             android:icon="@drawable/ic_check_black_24dp"
             android:title="@string/creditos" />
         <item
+            android:id="@+id/nav_curaduria"
+            android:icon="@drawable/ic_color_lens_black_24dp"
+            android:title="@string/curaduria_nav" />
+        <item
             android:id="@+id/nav_artistas_invitados"
             android:icon="@drawable/ic_perm_identity_black_24dp"
             android:title="@string/artistas_invitados_nav" />
@@ -42,6 +46,10 @@
                     android:id="@+id/nav_obras"
                     android:icon="@drawable/ic_crop_original_black_24dp"
                     android:title="@string/obras_nav" />
+                <item
+                    android:id="@+id/nav_jurado"
+                    android:icon="@drawable/ic_person_24dp"
+                    android:title="@string/jurados_nav" />
                 <item
                     android:id="@+id/nav_premiados"
                     android:icon="@drawable/ic_grade_24dp"

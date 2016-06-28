@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center"
     tools:context="salonmachala.org.salonmachala.Splash"
-    android:background="@drawable/invitacion_salon">
+    android:background="@drawable/inv3">
 
     <ImageView
         android:layout_width="wrap_content"
