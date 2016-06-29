@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:nestedScrollingEnabled="true"
     android:isScrollContainer="true"
-    tools:context="layout.CreditosFragment">
+    tools:context="layout.InformationFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -20,9 +20,7 @@
             android:id="@+id/progressCreditos"
             android:layout_marginTop="145dp"
             android:layout_centerHorizontal="true"
-            android:layout_alignTop="@+id/wv_creditos"
             android:visibility="gone"/>
-
         <salonmachala.org.salonmachala.NestedWebView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,7 +28,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="2dp"
-            android:id="@+id/wv_creditos" />
+            android:id="@+id/wv_information1" />
 
     </RelativeLayout>
 </FrameLayout>

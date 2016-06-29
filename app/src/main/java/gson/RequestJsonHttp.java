@@ -18,7 +18,8 @@ public class RequestJsonHttp {
 
     //public static String host = "192.168.1.18";
     //public static String port = ":8888";
-    public static String host = "puntoec.org";
+    //public static String host = "puntoec.org";
+    public static String host = "ns4021.hostgator.com/~cmadrid";
     public static String port = "";
     private static String charset = "UTF-8";
     //private static String url = "http://192.168.1.6:8888/json/index.php";//"http://localhost:8888/json/index.php";

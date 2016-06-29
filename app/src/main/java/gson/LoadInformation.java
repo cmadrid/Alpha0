@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -102,10 +104,11 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         String jsono = RequestJsonHttp.executePost("informacion_obras",new Param<String, String>("actualizacion", actualizacion_obras));
         InformacionObras io = gson.fromJson(jsono, InformacionObras.class);
 
+        System.out.println("jsoni: "+jsoni);
 
-        System.out.println("actualizacion informaciones("+actualizacion_informacion+"): "+ii.getActualizacion());
-        System.out.println("actualizacion participantes("+actualizacion_participantes+"): "+ip.getActualizacion());
-        System.out.println("actualizacion obras("+actualizacion_obras+"): "+io.getActualizacion());
+        //System.out.println("actualizacion informaciones("+actualizacion_informacion+"): "+ii.getActualizacion());
+        //System.out.println("actualizacion participantes("+actualizacion_participantes+"): "+ip.getActualizacion());
+        //System.out.println("actualizacion obras("+actualizacion_obras+"): "+io.getActualizacion());
 
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
@@ -288,6 +291,12 @@ public class LoadInformation extends AsyncTask<String, String, String> {
                             System.out.println("abrir tienda");
                             actualiza = true;
                             ((Activity) c).finish();
+                            final String appPackageName = c.getPackageName(); // getPackageName() from Context or Activity object
+                            try {
+                                c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                            } catch (android.content.ActivityNotFoundException anfe) {
+                                c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                            }
                         }
                     })
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

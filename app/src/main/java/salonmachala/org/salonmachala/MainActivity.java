@@ -38,10 +38,9 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-import adapters.DataPassObject;
 import database.DBParticipante;
 import layout.ArtistasFragment;
-import layout.CreditosFragment;
+import layout.InformationFragment;
 import layout.InicioFragment;
 import layout.ObrasFragment;
 import layout.PremiosFragment;
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         ObrasFragment.OnFragmentInteractionListener,
         ArtistasFragment.OnFragmentInteractionListener,
         PremiosFragment.OnFragmentInteractionListener,
-        CreditosFragment.OnFragmentInteractionListener,View.OnClickListener{
+        InformationFragment.OnFragmentInteractionListener,View.OnClickListener{
 
     final int MY_PERMISSIONS_REQUEST_CAMERA = 159;
     public static MainActivity mainActivity;
@@ -230,25 +229,31 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_antecedentes) {
 
             Global.permiso_escritura();
-            fragment = CreditosFragment.newInstance("cdg_antecedentes",null);
+            fragment = InformationFragment.newInstance("cdg_antecedentes",null);
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_proyeccion) {
 
             Global.permiso_escritura();
-            fragment = CreditosFragment.newInstance("cdg_proyeccion",null);
+            fragment = InformationFragment.newInstance("cdg_proyeccion",null);
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_creditos) {
 
             Global.permiso_escritura();
-            fragment = CreditosFragment.newInstance("cdg_creditos",null);
+            fragment = InformationFragment.newInstance("cdg_creditos",null);
             fragmentTransaction = true;
 
         }else if (id == R.id.nav_curaduria) {
 
             Global.permiso_escritura();
-            fragment = CreditosFragment.newInstance("cdg_curaduria",null);
+            fragment = InformationFragment.newInstance("cdg_curaduria",null);
+            fragmentTransaction = true;
+
+        }else if (id == R.id.nav_introduccion) {
+
+            Global.permiso_escritura();
+            fragment = InformationFragment.newInstance("cdg_introduccion",null);
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_premiados) {
@@ -292,6 +297,14 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_qr) {
             abrir_qr();
+        } else if (id == R.id.nav_brochure) {
+            Global.showMessageOKCancel(R.string.brochure_nav, R.string.abrir_brochure, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.web_brochure)));
+                    startActivity(browserIntent);
+                }
+            },null);
         } else if (id == R.id.nav_idioma) {
             if(Global.estaEspaniol())
                 preguntarIdioma("en");

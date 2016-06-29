@@ -105,7 +105,7 @@ public class Global {
         });
     }
 
-
+/*
     public static void llenaInformacion(String cod, NestedWebView wv){
 
         DBInformacion db_informacion = null;
@@ -142,7 +142,7 @@ public class Global {
         }
 
     }
-
+*/
     public static int getSizeWv(){
         int[] attrs = new int[] { android.R.attr.textSize };
         TypedArray ta = activity.obtainStyledAttributes(R.style.size_wv_bio_des, attrs);

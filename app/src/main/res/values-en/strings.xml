@@ -78,5 +78,8 @@
     <string name="actualizacion_descripcion">Update the application to access new information</string>
     <string name="jurados_nav">Judges</string>
     <string name="curaduria_nav">Art Education Curatorial</string>
+    <string name="introduccion_nav">Introduction by: Mayor of Machala</string>
+    <string name="brochure_nav">Digital brochure</string>
+    <string name="abrir_brochure">We proceed to open the brochure outside the application. \n Do you wish to continue?</string>
 
 </resources>

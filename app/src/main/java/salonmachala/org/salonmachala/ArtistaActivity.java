@@ -119,6 +119,7 @@ public class ArtistaActivity extends MyBaseActivity {
 
                 wv_bibliografia.setText(c.getString(5));
                 wv_bibliografia.setTextColor(Color.BLACK);
+                wv_bibliografia.setPadding(10,0,10,0);
 
 
                 wv_bibliografia.setTextSize(Global.getSizeWv());

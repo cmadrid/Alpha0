@@ -82,5 +82,9 @@
     <string name="actualizacion_descripcion">Actualice la aplicacion para acceder a nueva información</string>
     <string name="jurados_nav">Jurados</string>
     <string name="curaduria_nav">Curaduría Pedagógica</string>
+    <string name="introduccion_nav">Introducción por: Alcalde de Machala</string>
+    <string name="brochure_nav">Folleto digital</string>
+    <string name="abrir_brochure">Se procederá a abrir el folleto fuera de la aplicación.\n Deséa continuar?</string>
+    <string name="web_brochure" translatable="false">https://issuu.com/salonmachala/docs/sm.brosch.digital</string>
 
 </resources>
