@@ -112,8 +112,8 @@ public class SimpleScannerActivity extends MyBaseActivity implements ZXingScanne
 
         // If you would like to resume scanning, call this method below:
         //mScannerView.resumeCameraPreview(this);
-        //System.out.println("raw: "+rawResult.getText());
-        //System.out.println("bc: "+rawResult.getBarcodeFormat().toString());
+        ////System.out.println("raw: "+rawResult.getText());
+        ////System.out.println("bc: "+rawResult.getBarcodeFormat().toString());
         Uri u = Uri.parse(rawResult.getText());
         String qr_code = u.getQueryParameter("qr_code");
         if(qr_code==null)qr_code="no";

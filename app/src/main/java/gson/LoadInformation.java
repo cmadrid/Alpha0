@@ -69,7 +69,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        System.out.println("inicio");
+        //System.out.println("inicio");
 
 
 
@@ -77,7 +77,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
 
 
         if(!actualiza && verifica_version()){
-            System.out.println("cerrar");
+            //System.out.println("cerrar");
             return "";
         }
         actualiza=false;
@@ -104,15 +104,15 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         String jsono = RequestJsonHttp.executePost("informacion_obras",new Param<String, String>("actualizacion", actualizacion_obras));
         InformacionObras io = gson.fromJson(jsono, InformacionObras.class);
 
-        System.out.println("jsoni: "+jsoni);
+        //System.out.println("jsoni: "+jsoni);
 
-        //System.out.println("actualizacion informaciones("+actualizacion_informacion+"): "+ii.getActualizacion());
-        //System.out.println("actualizacion participantes("+actualizacion_participantes+"): "+ip.getActualizacion());
-        //System.out.println("actualizacion obras("+actualizacion_obras+"): "+io.getActualizacion());
+        ////System.out.println("actualizacion informaciones("+actualizacion_informacion+"): "+ii.getActualizacion());
+        ////System.out.println("actualizacion participantes("+actualizacion_participantes+"): "+ip.getActualizacion());
+        ////System.out.println("actualizacion obras("+actualizacion_obras+"): "+io.getActualizacion());
 
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
-        System.out.println("fin");
+        //System.out.println("fin");
 
         ArrayList<Informacion> informaciones = ii.getData();
         ArrayList<Participante> participantes = ip.getData();
@@ -125,11 +125,11 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         //getImagesObras(obras);
 
 
-        //System.out.println(jsoni);
-        //System.out.println(jsonp);
-        System.out.println("--------------------------------------*-*-*-*-*-*--------------------------------------------");
-        //System.out.println(jsono);
-        System.out.println(jsona);
+        ////System.out.println(jsoni);
+        ////System.out.println(jsonp);
+        //System.out.println("--------------------------------------*-*-*-*-*-*--------------------------------------------");
+        ////System.out.println(jsono);
+        //System.out.println(jsona);
 
         String idsP="-1";
         String idsO="-1";
@@ -159,12 +159,12 @@ public class LoadInformation extends AsyncTask<String, String, String> {
 
             db_informacion.insertaroActualizar(informaciones);
 
-            System.out.println("correcto I");
+            //System.out.println("correcto I");
 
             editor.putString(SalonMachala.Pref.Actualizacion_Informacion, ii.getActualizacion()).apply();
 
             db_informacion.borrar(idsI);
-            System.out.println("correcto borrado");
+            //System.out.println("correcto borrado");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -181,7 +181,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
 
             db_participante.insertaroActualizar(participantes);
 
-            System.out.println("correcto P");
+            //System.out.println("correcto P");
 
             editor.putString(SalonMachala.Pref.Actualizacion_Participantes, ip.getActualizacion()).apply();
         }catch (Exception e){
@@ -200,12 +200,12 @@ public class LoadInformation extends AsyncTask<String, String, String> {
 
             db_obra.insertaroActualizar(obras);
 
-            System.out.println("correcto O");
+            //System.out.println("correcto O");
 
             editor.putString(SalonMachala.Pref.Actualizacion_Obras, io.getActualizacion()).apply();
 
             db_obra.borrar(idsO);
-            System.out.println("correcto borrado O");
+            //System.out.println("correcto borrado O");
 
         }catch (Exception e){
             e.printStackTrace();
@@ -220,7 +220,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
 
             db_participante=new DBParticipante(c);
             db_participante.borrar(idsP);
-            System.out.println("correcto borrado P");
+            //System.out.println("correcto borrado P");
 
         }catch (Exception e){
             e.printStackTrace();
@@ -288,7 +288,7 @@ public class LoadInformation extends AsyncTask<String, String, String> {
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            System.out.println("abrir tienda");
+                            //System.out.println("abrir tienda");
                             actualiza = true;
                             ((Activity) c).finish();
                             final String appPackageName = c.getPackageName(); // getPackageName() from Context or Activity object
@@ -324,15 +324,15 @@ public class LoadInformation extends AsyncTask<String, String, String> {
         try {
             pInfo = c.getPackageManager().getPackageInfo(c.getPackageName(), 0);
             //String version = pInfo.versionName;
-            System.out.println("version code: "+pInfo.versionCode);
+            //System.out.println("version code: "+pInfo.versionCode);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
         String actualizacion = RequestJsonHttp.executePost("informacion_actualizacion",new Param<String, String>("code", pInfo.versionCode+""));
-        System.out.println(actualizacion);
-        System.out.println(actualizacion.contains("1"));
-        System.out.println("1");
+        //System.out.println(actualizacion);
+        //System.out.println(actualizacion.contains("1"));
+        //System.out.println("1");
         if(actualizacion.contains("1")){
             actualiza = true;
         }

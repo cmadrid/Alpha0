@@ -20,7 +20,7 @@ public class MyBaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if(!Global.inicio) {
-            System.out.println("dentro : "+retornar);
+            //System.out.println("dentro : "+retornar);
             retornar = true;
             startActivity(new Intent(this, Splash.class));
             finish();

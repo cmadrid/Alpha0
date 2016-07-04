@@ -42,12 +42,18 @@ public class DbHelper extends SQLiteOpenHelper {
         editor.remove(SalonMachala.Pref.Actualizacion_Participantes).apply();
         editor.remove(SalonMachala.Pref.Actualizacion_Obras).apply();
 
+        if(newVersion<oldVersion){
+            db.execSQL("DROP TABLE IF EXISTS " + DBParticipante.NOMBRE_TABLA);
+            db.execSQL("DROP TABLE IF EXISTS " + DBInformacion.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DBObra.TABLE_NAME);
+            onCreate(db);
+        }
+
         if(oldVersion<=4){
             db.execSQL("DROP TABLE IF EXISTS " + DBParticipante.NOMBRE_TABLA);
             db.execSQL("DROP TABLE IF EXISTS " + DBInformacion.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + DBObra.TABLE_NAME);
             onCreate(db);
-
         }
     }
 }

@@ -33,7 +33,7 @@
     <string name="title_activity_abrir_imagen">abrirImagen</string>
 
     <string name="inicio_nav">Home</string>
-    <string name="proyeccion_nav">Proyection</string>
+    <string name="proyeccion_nav">Projection</string>
 
     <string name="artistas_invitados_nav">Guest Artist</string>
     <string name="invitado_especial_nav">Special Guest Character</string>
@@ -76,7 +76,7 @@
     <string name="tecnica_str_">TECHNIQUE:</string>
     <string name="actualizacion_disponible">Update available</string>
     <string name="actualizacion_descripcion">Update the application to access new information</string>
-    <string name="jurados_nav">Judges</string>
+    <string name="jurados_nav">Judge</string>
     <string name="curaduria_nav">Art Education Curatorial</string>
     <string name="introduccion_nav">Introduction by: Mayor of Machala</string>
     <string name="brochure_nav">Digital brochure</string>

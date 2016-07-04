@@ -87,7 +87,7 @@ public class Global {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("listo para abrir");
+                //System.out.println("listo para abrir");
 
                 Intent intent = new Intent(MainActivity.mainActivity,AbrirImagen.class);
                 Bundle extras = new Bundle();
@@ -100,7 +100,7 @@ public class Global {
                    extras.putString("title", titulo.getText().toString());
                 intent.putExtras(extras);
                 Global.activity.startActivity(intent);
-                System.out.println("listo para abrir fin");
+                //System.out.println("listo para abrir fin");
             }
         });
     }
@@ -147,17 +147,17 @@ public class Global {
         int[] attrs = new int[] { android.R.attr.textSize };
         TypedArray ta = activity.obtainStyledAttributes(R.style.size_wv_bio_des, attrs);
         //int size = (int) ta.getDimension(0,(float)17.0);
-        //System.out.println(ta.getString(0));
+        ////System.out.println(ta.getString(0));
         int size_ = new Integer(ta.getString(0).split("\\.")[0]);
         ta.recycle();
-        //System.out.println("tamaño de wv letra = "+size_);
+        ////System.out.println("tamaño de wv letra = "+size_);
         return size_;
     }
 
 
     public static boolean estaEspaniol(){
         Locale current = activity.getResources().getConfiguration().locale;
-        System.out.println(current.getLanguage());
+        //System.out.println(current.getLanguage());
         if(current.getLanguage().equalsIgnoreCase("es"))
             return true;
         else

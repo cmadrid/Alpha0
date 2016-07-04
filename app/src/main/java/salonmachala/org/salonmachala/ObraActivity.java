@@ -145,7 +145,7 @@ public class ObraActivity extends MyBaseActivity {
                 tv_autor.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        System.out.println("click");
+                        //System.out.println("click");
                         Intent intent = new Intent(ctx,ArtistaActivity.class);
                         Bundle b = new Bundle();
 
@@ -168,6 +168,6 @@ public class ObraActivity extends MyBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        System.out.println("destroy");
+        //System.out.println("destroy");
     }
 }

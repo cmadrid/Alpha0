@@ -118,8 +118,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         int width = size.x;
         //int height = size.y;
 
-        //System.out.println(width);
-        //System.out.println(height);
+        ////System.out.println(width);
+        ////System.out.println(height);
         ViewGroup.LayoutParams params = holder.linear.getLayoutParams();
 
 
@@ -127,7 +127,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         params.height = (width/(nColumnas+1))+(width/5);
         params.width = (width/nColumnas);
         //holder.linear.setLayoutParams(params);
-        //System.out.println("cambia de esto "+width +" a esto "+135 );
+        ////System.out.println("cambia de esto "+width +" a esto "+135 );
 
 
         android.view.ViewGroup.LayoutParams layoutParams = holder.foto.getLayoutParams();

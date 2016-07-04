@@ -130,8 +130,8 @@ public class PremioAdapter extends RecyclerView.Adapter<PremioAdapter.ViewHolder
         int width = size.x;
         //int height = size.y;
 
-        //System.out.println(width);
-        //System.out.println(height);
+        ////System.out.println(width);
+        ////System.out.println(height);
         ViewGroup.LayoutParams params = holder.linear.getLayoutParams();
 
 
