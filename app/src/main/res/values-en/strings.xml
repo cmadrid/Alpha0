@@ -81,5 +81,6 @@
     <string name="introduccion_nav">Introduction by: Mayor of Machala</string>
     <string name="brochure_nav">Digital brochure</string>
     <string name="abrir_brochure">We proceed to open the brochure outside the application. \n Do you wish to continue?</string>
+    <string name="informacion">Information</string>
 
 </resources>

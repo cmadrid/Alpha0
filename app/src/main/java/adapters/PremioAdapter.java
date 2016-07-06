@@ -12,15 +12,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import lazyLoad.ImageLoader;
-import salonmachala.org.salonmachala.ArtistaActivity;
+import salonmachala.org.salonmachala.ArtistaActivityTabs;
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.ObraActivity;
+import salonmachala.org.salonmachala.ObrasActivityTabs;
 import salonmachala.org.salonmachala.R;
 
 /**
@@ -103,7 +103,7 @@ public class PremioAdapter extends RecyclerView.Adapter<PremioAdapter.ViewHolder
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.mainActivity,ArtistaActivity.class);
+                Intent intent = new Intent(MainActivity.mainActivity,ArtistaActivityTabs.class);
                 Bundle b = new Bundle();
 
                 b.putInt("id",id_autor);
@@ -115,7 +115,7 @@ public class PremioAdapter extends RecyclerView.Adapter<PremioAdapter.ViewHolder
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.mainActivity,ObraActivity.class);
+                Intent intent = new Intent(MainActivity.mainActivity,ObrasActivityTabs.class);
                 Bundle b = new Bundle();
 
                 b.putInt("id",id_obra);

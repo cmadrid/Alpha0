@@ -277,12 +277,13 @@ public class MainActivity extends AppCompatActivity
         }else if (id == R.id.nav_jurado) {
 
             Global.permiso_escritura();
+            //fragment = TabFragment.newInstance(null,null);
             fragment = ArtistasFragment.newInstance("'JU'",null);
             fragmentTransaction = true;
 
         }else if (id == R.id.nav_invitado_especial) {
 
-            Intent intent = new Intent(this,ArtistaActivity.class);
+            Intent intent = new Intent(this,ArtistaActivityTabs.class);
             Bundle b = new Bundle();
 
             b.putInt("id", DBParticipante.consultarEspecial(this));

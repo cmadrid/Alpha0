@@ -17,9 +17,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import lazyLoad.ImageLoader;
-import salonmachala.org.salonmachala.ArtistaActivity;
+import salonmachala.org.salonmachala.ArtistaActivityTabs;
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.ObraActivity;
+import salonmachala.org.salonmachala.ObrasActivityTabs;
 import salonmachala.org.salonmachala.R;
 
 /**
@@ -102,8 +103,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.mainActivity,
-                        (tipo==DataPassObject.PARTICIPANTE)? ArtistaActivity.class:
-                        (tipo==DataPassObject.OBRA)?ObraActivity.class:null);
+                        (tipo==DataPassObject.PARTICIPANTE)? ArtistaActivityTabs.class:
+                        (tipo==DataPassObject.OBRA)?ObrasActivityTabs.class:null);
                 Bundle b = new Bundle();
 
                 b.putInt("id",id);
