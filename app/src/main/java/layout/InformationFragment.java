@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,7 +128,9 @@ public class InformationFragment extends Fragment {
 
     private void init(View view){
         wv_information1 = (NestedWebView) view.findViewById(R.id.wv_information1);
+        ViewCompat.setNestedScrollingEnabled(wv_information1, false);
         //progressCreditos = (ProgressBar) view.findViewById(R.id.progressCreditos);
+
 
         wv_information1.setTextColor(Color.BLACK);
         wv_information1.setTextSize(Global.getSizeWv());

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,10 +16,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import adapters.DataPassObject;
-import adapters.DataPassPremio;
-import adapters.MyAdapter;
-import adapters.PremioAdapter;
+import adapters.DataPassDoble;
+import adapters.DobleAdapter;
 import database.DBObra;
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
@@ -26,12 +25,12 @@ import salonmachala.org.salonmachala.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PremiosFragment.OnFragmentInteractionListener} interface
+ * {@link DobleFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PremiosFragment#newInstance} factory method to
+ * Use the {@link DobleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PremiosFragment extends Fragment {
+public class DobleFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -46,7 +45,7 @@ public class PremiosFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PremiosFragment() {
+    public DobleFragment() {
         // Required empty public constructor
     }
 
@@ -59,8 +58,8 @@ public class PremiosFragment extends Fragment {
      * @return A new instance of fragment PremiosFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PremiosFragment newInstance(String param1, String param2) {
-        PremiosFragment fragment = new PremiosFragment();
+    public static DobleFragment newInstance(String param1, String param2) {
+        DobleFragment fragment = new DobleFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -81,7 +80,7 @@ public class PremiosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_premios, container, false);
+        View view = inflater.inflate(R.layout.fragment_doble, container, false);
         view = init(view);
         return view;
     }
@@ -127,14 +126,15 @@ public class PremiosFragment extends Fragment {
 
     private View init(View view){
         MainActivity.mainActivity.appBarLayout.setExpanded(false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_premios);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_doble);
+        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
         //recyclerView.addItemDecoration(new MarginDecoration(this));
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        new GetDataPremios().execute();
+        new GetDataDoble().execute();
         return view;
     }
     public void detener(){
@@ -142,13 +142,13 @@ public class PremiosFragment extends Fragment {
     }
 
 
-    private class GetDataPremios extends AsyncTask<String,String,String> {
+    private class GetDataDoble extends AsyncTask<String,String,String> {
 
-        HashMap<String,DataPassPremio> dpp = new HashMap<>();
-        ArrayList<DataPassPremio> myDataset = new ArrayList<>();
-        PremioAdapter adapter = new PremioAdapter(myDataset,nColumnas);
+        HashMap<String, DataPassDoble> dpp = new HashMap<>();
+        ArrayList<DataPassDoble> myDataset = new ArrayList<>();
+        DobleAdapter adapter = new DobleAdapter(myDataset,nColumnas);
 
-        public GetDataPremios(){
+        public GetDataDoble(){
             seguir=true;
         }
 
@@ -159,10 +159,21 @@ public class PremiosFragment extends Fragment {
             try {
 
                 db_obras = new DBObra(getActivity());
-                Cursor c = db_obras.consultarObrasPremios();
+                Cursor c = null;
+
+                switch (mParam1)
+                {
+                    case "PR":
+                        c = db_obras.consultarObrasPremios();
+                        break;
+                    case "EM":
+                        c = db_obras.consultarExposicionMulti();
+                        break;
+                }
+
                 if(c.moveToFirst()) {
                     do {
-                        myDataset.add(new DataPassPremio(c.getInt(0),c.getInt(1), c.getString(2),c.getString(3),c.getString(4),c.getString(5),c.getString(6)));
+                        myDataset.add(new DataPassDoble(c.getInt(0),c.getInt(1), c.getString(2),c.getString(3),c.getString(4),c.getString(5),c.getString(6)));
                         publishProgress();
                     } while (c.moveToNext() && seguir);
                 }

@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,8 +78,8 @@ public class TabFragment extends Fragment {
         public Fragment getItem(int position)
         {
             switch (position){
-                case 0 : return ArtistasFragment.newInstance("'JU'",null);
-                case 1 : return DescripcionFragment.newInstance(null);
+                case 0 : return InformationFragment.newInstance("cdg_exposicion_m",null);
+                case 1 : return DobleFragment.newInstance("EM",null);
             }
             return null;
         }
@@ -99,9 +100,9 @@ public class TabFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "Información";
+                    return getString(R.string.exposicion_multi);
                 case 1 :
-                    return "Biografía";
+                    return getString(R.string.invitados_obras);
             }
             return null;
         }

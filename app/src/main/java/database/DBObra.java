@@ -233,6 +233,18 @@ public class DBObra {
         return db.query(QB, campos, PREMIO +" is not null ", null, null, null,PREMIO);
     }
 
+
+    public Cursor consultarExposicionMulti(){
+
+        String QB= TABLE_NAME +
+                " JOIN " + DBParticipante.NOMBRE_TABLA + " ON " +
+                PARTICIPANTE + " = " + DBParticipante.ID;
+
+        String[] campos = new String[] {DBParticipante.ID, ID, DBParticipante.NOMBRE, TITULO, DBParticipante.FOTO_URL, FOTO_URL, "0"};
+
+        return db.query(QB, campos, DBParticipante.TIPO +" ='IN' ", null, null, null,PREMIO);
+    }
+
     public int borrar(String ids){
         return db.delete(TABLE_NAME,ID+" not in ("+ids+")", null);
     }

@@ -43,14 +43,15 @@ import layout.ArtistasFragment;
 import layout.InformationFragment;
 import layout.InicioFragment;
 import layout.ObrasFragment;
-import layout.PremiosFragment;
+import layout.DobleFragment;
+import layout.TabFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         InicioFragment.OnFragmentInteractionListener,
         ObrasFragment.OnFragmentInteractionListener,
         ArtistasFragment.OnFragmentInteractionListener,
-        PremiosFragment.OnFragmentInteractionListener,
+        DobleFragment.OnFragmentInteractionListener,
         InformationFragment.OnFragmentInteractionListener,View.OnClickListener{
 
     final int MY_PERMISSIONS_REQUEST_CAMERA = 159;
@@ -139,8 +140,8 @@ public class MainActivity extends AppCompatActivity
                 ((ObrasFragment)fragment).detener();
             if(fragment!=null && fragment instanceof ArtistasFragment)
                 ((ArtistasFragment)fragment).detener();
-            if(fragment!=null && fragment instanceof PremiosFragment)
-                ((PremiosFragment)fragment).detener();
+            if(fragment!=null && fragment instanceof DobleFragment)
+                ((DobleFragment)fragment).detener();
 
             navigationView.getMenu().getItem(0).setChecked(true);
             getSupportFragmentManager().beginTransaction()
@@ -215,8 +216,8 @@ public class MainActivity extends AppCompatActivity
             ((ObrasFragment)fragment).detener();
         if(fragment!=null && fragment instanceof ArtistasFragment)
             ((ArtistasFragment)fragment).detener();
-        if(fragment!=null && fragment instanceof PremiosFragment)
-            ((PremiosFragment)fragment).detener();
+        if(fragment!=null && fragment instanceof DobleFragment)
+            ((DobleFragment)fragment).detener();
 
         if (id == R.id.nav_inicio) {
             Global.permiso_escritura();
@@ -259,7 +260,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_premiados) {
 
             Global.permiso_escritura();
-            fragment = PremiosFragment.newInstance(null,null);
+            fragment = DobleFragment.newInstance("PR",null);
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_artista) {
@@ -268,10 +269,16 @@ public class MainActivity extends AppCompatActivity
             fragment = ArtistasFragment.newInstance("'PA'",null);
             fragmentTransaction = true;
 
-        }else if (id == R.id.nav_artistas_invitados) {
-
+        }else if (id == R.id.nav_exposicion_multi) {
+/*
             Global.permiso_escritura();
             fragment = ArtistasFragment.newInstance("'IN'",null);
+            fragmentTransaction = true;
+*/
+
+            Global.permiso_escritura();
+            //fragment = InformationFragment.newInstance("cdg_exposicion_m",null);
+            fragment = TabFragment.newInstance(null,null);
             fragmentTransaction = true;
 
         }else if (id == R.id.nav_jurado) {

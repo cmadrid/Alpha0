@@ -6,7 +6,7 @@ import android.media.ThumbnailUtils;
 /**
  * Created by ces_m on 6/6/2016.
  */
-public class DataPassPremio {
+public class DataPassDoble {
     String nombre_autor;
     String nombre_obra;
     String foto_autor;
@@ -15,7 +15,7 @@ public class DataPassPremio {
     int id_obra;
     String tipo_premio;
 
-    public DataPassPremio(int id_autor, int id_obra, String nombre_autor, String nombre_obra, String foto_autor, String foto_obra, String premio) {
+    public DataPassDoble(int id_autor, int id_obra, String nombre_autor, String nombre_obra, String foto_autor, String foto_obra, String premio) {
         this.nombre_autor = nombre_autor;
         this.nombre_obra = nombre_obra;
         this.foto_autor = foto_autor;

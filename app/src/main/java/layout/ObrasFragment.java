@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -130,6 +131,7 @@ public class ObrasFragment extends Fragment {
 
     private void init(View view){
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_obras);
+        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
         //recyclerView.addItemDecoration(new MarginDecoration(this));
         recyclerView.setHasFixedSize(true);
 

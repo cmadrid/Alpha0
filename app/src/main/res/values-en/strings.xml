@@ -82,5 +82,7 @@
     <string name="brochure_nav">Digital brochure</string>
     <string name="abrir_brochure">We proceed to open the brochure outside the application. \n Do you wish to continue?</string>
     <string name="informacion">Information</string>
+    <string name="exposicion_multi">Multi-disciplinary exhibition</string>
+    <string name="invitados_obras">Guests and artworks</string>
 
 </resources>

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -142,6 +143,8 @@ public class ArtistasFragment extends Fragment {
         MainActivity.mainActivity.appBarLayout.setExpanded(false);
 
         new GetDataParticipantes().execute();
+
+        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
 
     }
 

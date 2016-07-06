@@ -26,10 +26,15 @@
             android:id="@+id/nav_curaduria"
             android:icon="@drawable/ic_color_lens_black_24dp"
             android:title="@string/curaduria_nav" />
-        <item
+        <!--item
             android:id="@+id/nav_artistas_invitados"
             android:icon="@drawable/ic_perm_identity_black_24dp"
-            android:title="@string/artistas_invitados_nav" />
+            android:title="@string/artistas_invitados_nav" /-->
+
+        <item
+            android:id="@+id/nav_exposicion_multi"
+            android:icon="@drawable/ic_airplay_black_24dp"
+            android:title="@string/exposicion_multi" />
     </group>
         <item
             android:id="@+id/nav_invitado_especial"

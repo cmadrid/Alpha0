@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import lazyLoad.ImageLoader;
 import salonmachala.org.salonmachala.ArtistaActivityTabs;
 import salonmachala.org.salonmachala.MainActivity;
-import salonmachala.org.salonmachala.ObraActivity;
 import salonmachala.org.salonmachala.ObrasActivityTabs;
 import salonmachala.org.salonmachala.R;
 
@@ -27,8 +26,8 @@ import salonmachala.org.salonmachala.R;
  * Created by ces_m on 5/27/2016.
  */
 
-public class PremioAdapter extends RecyclerView.Adapter<PremioAdapter.ViewHolder> {
-    private ArrayList<DataPassPremio> mDataset;
+public class DobleAdapter extends RecyclerView.Adapter<DobleAdapter.ViewHolder> {
+    private ArrayList<DataPassDoble> mDataset;
     private int nColumnas;
 
     public ImageLoader imageLoader;
@@ -62,7 +61,7 @@ public class PremioAdapter extends RecyclerView.Adapter<PremioAdapter.ViewHolder
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public PremioAdapter(ArrayList<DataPassPremio> myDataset, int nColumnas) {
+    public DobleAdapter(ArrayList<DataPassDoble> myDataset, int nColumnas) {
         mDataset = myDataset;
         this.nColumnas = nColumnas;
         imageLoader = new ImageLoader(MainActivity.mainActivity.getApplicationContext(),false);
@@ -70,10 +69,10 @@ public class PremioAdapter extends RecyclerView.Adapter<PremioAdapter.ViewHolder
 
     // Create new views (invoked by the layout manager)
     @Override
-    public PremioAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                       int viewType) {
+    public DobleAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                      int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_card_premio, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_card_doble, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -86,9 +85,9 @@ public class PremioAdapter extends RecyclerView.Adapter<PremioAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final DataPassPremio data = mDataset.get(position);
+        final DataPassDoble data = mDataset.get(position);
 
-        holder.tipo_premio.setText(tipo_premio(data.getTipo_premio()));
+        holder.tipo_premio.setText(tipo_premio(data.getTipo_premio(),holder.tipo_premio));
 
         holder.nombre_autor.setText(data.getNombre_autor());
         holder.nombre_obra.setText(data.getNombre_obra());
@@ -174,7 +173,7 @@ public class PremioAdapter extends RecyclerView.Adapter<PremioAdapter.ViewHolder
         }
     }
 
-    public String tipo_premio(String tipo_premio){
+    public String tipo_premio(String tipo_premio,TextView premio){
         String result = null;
         switch(tipo_premio){
             case "1_1P": result = MainActivity.mainActivity.getResources().getString(R.string.primer_puesto);
@@ -193,6 +192,8 @@ public class PremioAdapter extends RecyclerView.Adapter<PremioAdapter.ViewHolder
                 break;
             case "8_4M": result = MainActivity.mainActivity.getResources().getString(R.string.cuarta_mencion);
                 break;
+            default:
+                premio.setVisibility(View.GONE);
         }
         return result;
     }
