@@ -176,7 +176,8 @@ public class InformationFragment extends Fragment {
 
                     //Global.openImageView(MainActivity.mainActivity.header,null,null);
                 }else
-                    MainActivity.mainActivity.appBarLayout.setExpanded(false);
+                    if(this.getParentFragment()==null)
+                        MainActivity.mainActivity.appBarLayout.setExpanded(false);
                 if(c.getString(6)!=null && !c.getString(6).equalsIgnoreCase("")){
                     text = text+insertImage(c.getString(6),c.getString(2));
                 }
@@ -204,6 +205,9 @@ public class InformationFragment extends Fragment {
                 }
                 wv_information1.setText(text+"\n\n\n\n\n\n\n\n\n");
             }
+            else
+                MainActivity.mainActivity.appBarLayout.setExpanded(false);
+
 
         }catch (Exception e){
             e.printStackTrace();

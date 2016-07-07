@@ -44,6 +44,14 @@
         <item name="android:textSize">20dp</item>
     </style>
 
+    <style name="size_tv_title_expand">
+        <item name="android:textSize">30dp</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Transparent" parent="@style/AppTheme.NoActionBar">
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+    </style>
+
 
     <style name="ToolBarStyle" parent="@style/ThemeOverlay.AppCompat.Light">
         <item name="android:textColorPrimary">@android:color/black</item>

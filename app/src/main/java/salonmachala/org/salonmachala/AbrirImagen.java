@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import lazyLoad.ImageLoader;
@@ -25,9 +27,10 @@ public class AbrirImagen extends MyBaseActivity {
         int resource = extras.getInt("imageResource",0);
         String title = extras.getString("title");
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(title);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(title);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ImageView image = (ImageView) findViewById(R.id.foto_full);
         if(path!=null)

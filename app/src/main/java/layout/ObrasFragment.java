@@ -24,6 +24,7 @@ import adapters.MyAdapter;
 import database.DBObra;
 import database.DBParticipante;
 import lazyLoad.ImageLoader;
+import salonmachala.org.salonmachala.Global;
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
 
@@ -139,6 +140,8 @@ public class ObrasFragment extends Fragment {
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         new GetDataObras().execute();
+
+        Global.asignarFotoTitle("cdg_obras");
     }
 
     public void detener(){
@@ -198,7 +201,6 @@ public class ObrasFragment extends Fragment {
         protected void onPostExecute(String s) {
             //recyclerView.setAdapter(adapter);
             MainActivity.progressWheel.setVisibility(View.GONE);
-            MainActivity.mainActivity.appBarLayout.setExpanded(false);
             super.onPostExecute(s);
         }
     }

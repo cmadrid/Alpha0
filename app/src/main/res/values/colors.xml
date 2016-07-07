@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#cccccc</color>
-    <color name="colorPrimary1">#3F51B5</color>
-    <color name="colorPrimary2">#FFFFFF</color>
+    <color name="colorPrimary1">#cccccc</color>
 
 
     <color name="colormusa">#aa1f7b</color>
+    <color name="colormusa2">#59255c</color>
 
 
     <color name="cardColor">#fff3d0</color>
 
-    <color name="colorPrimaryDark">#bcbf14</color>
-    <color name="colorPrimaryDark2">#303F9F</color>
+    <color name="colorPrimaryDark">#59255c</color>
+    <color name="colorPrimaryDark2">#bcbf14</color>
+
     <color name="colorAccent">#4CAF50</color>
 
     <color name="black_overlay">#66000000</color>

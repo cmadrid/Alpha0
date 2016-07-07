@@ -21,7 +21,10 @@ import java.util.ArrayList;
 
 import adapters.DataPassObject;
 import adapters.MyAdapter;
+import database.DBInformacion;
 import database.DBParticipante;
+import lazyLoad.ImageLoader;
+import salonmachala.org.salonmachala.Global;
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
 
@@ -145,6 +148,8 @@ public class ArtistasFragment extends Fragment {
         new GetDataParticipantes().execute();
 
         ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+
+        Global.asignarFotoTitle("cdg_art_"+tipo.replace("'","").toLowerCase());
 
     }
 

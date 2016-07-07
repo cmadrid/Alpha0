@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import salonmachala.org.salonmachala.Global;
 import salonmachala.org.salonmachala.R;
 
 public class TabFragment extends Fragment {
@@ -49,6 +50,8 @@ public class TabFragment extends Fragment {
             }
         });
 
+        //Global.asignarFotoTitle("cdg_creditos");
+        Global.asignarFotoTitle("cdg_exposicion_multi");
         return x;
 
     }
@@ -78,7 +81,7 @@ public class TabFragment extends Fragment {
         public Fragment getItem(int position)
         {
             switch (position){
-                case 0 : return InformationFragment.newInstance("cdg_exposicion_m",null);
+                case 0 : return InformationFragment.newInstance("cdg_exposicion_multi",null);
                 case 1 : return DobleFragment.newInstance("EM",null);
             }
             return null;

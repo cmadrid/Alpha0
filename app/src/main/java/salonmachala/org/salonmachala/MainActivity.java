@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity
         header = (ImageView) findViewById(R.id.header);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
+        collapsingToolbar.setContentScrim(getResources().getDrawable( R.drawable.textura_morada ));
 
 //        header.setOnClickListener();
 

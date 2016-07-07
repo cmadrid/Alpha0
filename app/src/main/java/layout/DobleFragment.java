@@ -19,6 +19,7 @@ import java.util.HashMap;
 import adapters.DataPassDoble;
 import adapters.DobleAdapter;
 import database.DBObra;
+import salonmachala.org.salonmachala.Global;
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
 
@@ -125,7 +126,6 @@ public class DobleFragment extends Fragment {
     }
 
     private View init(View view){
-        MainActivity.mainActivity.appBarLayout.setExpanded(false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_doble);
         ViewCompat.setNestedScrollingEnabled(recyclerView, false);
         //recyclerView.addItemDecoration(new MarginDecoration(this));
@@ -135,6 +135,10 @@ public class DobleFragment extends Fragment {
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         new GetDataDoble().execute();
+
+        if(this.getParentFragment()==null)
+            Global.asignarFotoTitle("cdg_doble_"+mParam1.toLowerCase());
+
         return view;
     }
     public void detener(){
@@ -207,7 +211,6 @@ public class DobleFragment extends Fragment {
         protected void onPostExecute(String s) {
             //recyclerView.setAdapter(adapter);
             MainActivity.progressWheel.setVisibility(View.GONE);
-            MainActivity.mainActivity.appBarLayout.setExpanded(false);
             super.onPostExecute(s);
         }
     }

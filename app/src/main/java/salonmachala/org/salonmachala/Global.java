@@ -174,5 +174,40 @@ public class Global {
         res.updateConfiguration(conf, dm);
     }
 
+    public static void asignarFotoTitle(String tipo_info){
+        System.out.println("cambia foto expande");
+        DBInformacion db_informacion = null;
+        try {
+            db_informacion = new DBInformacion(MainActivity.mainActivity);
+            Cursor c = null;
+            if(tipo_info!=null) {
+                if (Global.estaEspaniol())
+                    c = db_informacion.consultar(tipo_info);
+                else
+                    c = db_informacion.consultar_en(tipo_info);
+            }
+            if(c==null)
+                return;
+
+            if(c.moveToFirst()) {
+                if(c.getString(3)!=null && !c.getString(3).equalsIgnoreCase("")) {
+                    MainActivity.mainActivity.appBarLayout.setExpanded(true);
+                    new ImageLoader(MainActivity.mainActivity, true).DisplayImage(c.getString(3), MainActivity.mainActivity.header);
+                }
+                else
+                    MainActivity.mainActivity.appBarLayout.setExpanded(false);
+            }else
+                MainActivity.mainActivity.appBarLayout.setExpanded(false);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            if(db_informacion!=null)
+                db_informacion.close();
+        }
+
+
+    }
 
 }
