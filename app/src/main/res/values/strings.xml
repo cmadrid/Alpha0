@@ -88,5 +88,8 @@
     <string name="informacion">Información</string>
     <string name="exposicion_multi">Exposición multidisciplinaria</string>
     <string name="invitados_obras">Invitados y obras</string>
+    <string name="web_catalogo" translatable="false">https://issuu.com/salonmachala/docs/salon_machala_2016</string>
+    <string name="catalogo_nav">Catálogo digital</string>
+    <string name="abrir_catalogo">Se procederá a abrir el catálogo fuera de la aplicación.\n Deséa continuar?</string>
 
 </resources>

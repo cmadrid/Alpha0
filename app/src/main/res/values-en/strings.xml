@@ -84,5 +84,7 @@
     <string name="informacion">Information</string>
     <string name="exposicion_multi">Multi-disciplinary exhibition</string>
     <string name="invitados_obras">Guests and artworks</string>
+    <string name="catalogo_nav">Digital catalog</string>
+    <string name="abrir_catalogo">We proceed to open the catalog outside the application. \n Do you wish to continue?</string>
 
 </resources>

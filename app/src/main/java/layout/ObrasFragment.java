@@ -2,16 +2,12 @@ package layout;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +18,6 @@ import java.util.ArrayList;
 import adapters.DataPassObject;
 import adapters.MyAdapter;
 import database.DBObra;
-import database.DBParticipante;
-import lazyLoad.ImageLoader;
 import salonmachala.org.salonmachala.Global;
 import salonmachala.org.salonmachala.MainActivity;
 import salonmachala.org.salonmachala.R;
@@ -164,7 +158,7 @@ public class ObrasFragment extends Fragment {
             try {
 
                 db_obras = new DBObra(getActivity());
-                Cursor c = db_obras.consultarObras(null);
+                Cursor c = db_obras.consultarObrasParticipantes(null);
                 if(c.moveToFirst()) {
                     do {
                         myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), c.getString(3),DataPassObject.OBRA));

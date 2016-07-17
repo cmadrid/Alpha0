@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -307,11 +306,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_qr) {
             abrir_qr();
-        } else if (id == R.id.nav_brochure) {
-            Global.showMessageOKCancel(R.string.brochure_nav, R.string.abrir_brochure, new DialogInterface.OnClickListener() {
+        } else if (id == R.id.nav_catalogo) {
+            Global.showMessageOKCancel(R.string.catalogo_nav, R.string.abrir_catalogo, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.web_brochure)));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.web_catalogo)));
                     startActivity(browserIntent);
                 }
             },null);

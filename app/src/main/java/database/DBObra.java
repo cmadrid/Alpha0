@@ -211,10 +211,24 @@ public class DBObra {
         return db.query(QB, campos, QR+"=?", args, null, null, null);
     }
 
+    public Cursor consultarObrasParticipantes(Integer id){
+
+        String QB= TABLE_NAME +
+                " JOIN " + DBParticipante.NOMBRE_TABLA + " ON " +
+                PARTICIPANTE + " = " + DBParticipante.ID;
+
+        String[] campos = new String[] {ID,TITULO,FOTO,FOTO_URL};
+
+        String[] args = new String[] {id+""};
+
+        if(id==null)return db.query(QB, campos,  DBParticipante.TIPO +" = 'PA' ", null, null, null,null);
+        return db.query(QB, campos, ID+"=? and "+ DBParticipante.TIPO +" = 'PA' ", args, null, null, null);
+
+    }
+
     public Cursor consultarObras(Integer id){
 
         String[] campos = new String[] {ID,TITULO,FOTO,FOTO_URL};
-        //Cursor c = db.query(NOMBRE_TABLA, campos, "usuario=?(where)", args(para el where), group by, having, order by, num);
 
         String[] args = new String[] {id+""};
 
