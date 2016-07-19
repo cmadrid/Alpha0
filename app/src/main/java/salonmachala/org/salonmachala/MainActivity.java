@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity
 
         }else if (id == R.id.nav_invitado_especial) {
 
-            Intent intent = new Intent(this,ArtistaActivityTabs.class);
+            Intent intent = new Intent(this,ArtistaActivityObraTabs.class);
             Bundle b = new Bundle();
 
             b.putInt("id", DBParticipante.consultarEspecial(this));
@@ -301,7 +301,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_obras) {
 
             Global.permiso_escritura();
-            fragment = ObrasFragment.newInstance(null,null);
+            fragment = ObrasFragment.newInstance("'PA'");
             fragmentTransaction = true;
 
         } else if (id == R.id.nav_qr) {

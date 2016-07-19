@@ -211,7 +211,7 @@ public class DBObra {
         return db.query(QB, campos, QR+"=?", args, null, null, null);
     }
 
-    public Cursor consultarObrasParticipantes(Integer id){
+    public Cursor consultarObras(Integer id, String tipos){
 
         String QB= TABLE_NAME +
                 " JOIN " + DBParticipante.NOMBRE_TABLA + " ON " +
@@ -221,12 +221,12 @@ public class DBObra {
 
         String[] args = new String[] {id+""};
 
-        if(id==null)return db.query(QB, campos,  DBParticipante.TIPO +" = 'PA' ", null, null, null,null);
-        return db.query(QB, campos, ID+"=? and "+ DBParticipante.TIPO +" = 'PA' ", args, null, null, null);
+        if(id==null)return db.query(QB, campos,  DBParticipante.TIPO +" in ("+tipos+") ", null, null, null,null);
+        return db.query(QB, campos, ID+"=? and "+ DBParticipante.TIPO +" in ("+tipos+") ", args, null, null, null);
 
     }
 
-    public Cursor consultarObras(Integer id){
+    public Cursor consultarObrass(Integer id){
 
         String[] campos = new String[] {ID,TITULO,FOTO,FOTO_URL};
 

@@ -40,7 +40,7 @@ public class ObrasFragment extends Fragment {
     boolean seguir = true;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private String tipos;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
@@ -53,16 +53,14 @@ public class ObrasFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment ObrasFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ObrasFragment newInstance(String param1, String param2) {
+    public static ObrasFragment newInstance(String param1/*, String param2*/) {
         ObrasFragment fragment = new ObrasFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        //args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,8 +69,8 @@ public class ObrasFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            tipos = getArguments().getString(ARG_PARAM1);
+            //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -158,7 +156,7 @@ public class ObrasFragment extends Fragment {
             try {
 
                 db_obras = new DBObra(getActivity());
-                Cursor c = db_obras.consultarObrasParticipantes(null);
+                Cursor c = db_obras.consultarObras(null,tipos);
                 if(c.moveToFirst()) {
                     do {
                         myDataset.add(new DataPassObject(c.getInt(0),c.getString(1), c.getString(3),DataPassObject.OBRA));

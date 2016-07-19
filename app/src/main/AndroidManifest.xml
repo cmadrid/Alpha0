@@ -87,6 +87,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.Transparent"/>
         <activity
+            android:name=".ArtistaActivityObraTabs"
+            android:launchMode="singleInstance"
+            android:label="@string/artista_info"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.Transparent"/>
+        <activity
             android:name=".ObrasActivityTabs"
             android:launchMode="singleInstance"
             android:label="@string/obra_info"
